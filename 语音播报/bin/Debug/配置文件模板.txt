@@ -1,0 +1,23 @@
+请在本目录下新建一个  语音播报.exe.config   文件,并将下面的文字复制进去保存好
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <startup>
+    <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.6"/>
+  </startup>
+  <appSettings>
+    <!--动态加载的程序集,获取所有电影列表,参数(程序集名称,对象名称)-->
+   
+    <add key="MovieList" value="请填入" />
+    <!--api存放位置-->
+    <add key="apiPath" value="请填入"/>
+    
+    <add key="ClientSettingsProvider.ServiceUri" value="" />
+    
+	
+    <!--百度api相关-->
+    <add key="API_KEY" value="请填入" />
+    <add key="SECRET_KEY" value="请填入" />
+  </appSettings>
+</configuration>

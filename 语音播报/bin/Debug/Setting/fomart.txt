@@ -1,0 +1,1 @@
+尊敬的顾客您好,欢迎光临,$HallName,$BeginTime,$MovieName,$HallName,$BeginTime,$MovieName,现在可以检票进场了,请出示您手中的影票依次排队检票,祝您观影愉快,温馨提示,影城所有区域禁止吸烟,谢谢配合.
