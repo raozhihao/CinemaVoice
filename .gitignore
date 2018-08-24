@@ -21,9 +21,10 @@
 bld/
 #[Bb]in/
 [Oo]bj/
+
 #不上传的
-猫眼手机API.dll
-语音播报.exe.config
+bin/Debug/猫眼手机API.dll
+bin/Debug/语音播报.exe.config
 
 # Visual Studio 2015 cache/options directory
 .vs/
@@ -243,3 +244,6 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+
+/璇煶鎾姤/bin/Debug/璇煶鎾姤.exe.config
+/璇煶鎾姤/bin/Debug/鐚溂鎵嬫満API.dll
