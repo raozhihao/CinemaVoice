@@ -34,12 +34,14 @@
             this.rdAPI = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnEn = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnExcel
             // 
-            this.btnExcel.Location = new System.Drawing.Point(474, 32);
+            this.btnExcel.Location = new System.Drawing.Point(474, 30);
             this.btnExcel.Name = "btnExcel";
             this.btnExcel.Size = new System.Drawing.Size(75, 23);
             this.btnExcel.TabIndex = 0;
@@ -80,6 +82,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.btnEn);
             this.groupBox1.Controls.Add(this.rdAPI);
             this.groupBox1.Controls.Add(this.btnExcel);
@@ -87,7 +90,7 @@
             this.groupBox1.Controls.Add(this.txtExcel);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(605, 137);
+            this.groupBox1.Size = new System.Drawing.Size(575, 132);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "设置源";
@@ -102,11 +105,34 @@
             this.btnEn.UseVisualStyleBackColor = true;
             this.btnEn.Click += new System.EventHandler(this.btnEn_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.label1.Location = new System.Drawing.Point(144, 94);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(143, 12);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "dll文件建议放在主目录下";
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.richTextBox1.Enabled = false;
+            this.richTextBox1.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.richTextBox1.Location = new System.Drawing.Point(13, 151);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(574, 96);
+            this.richTextBox1.TabIndex = 5;
+            this.richTextBox1.Text = "默认使用Excel源,该源需要自己手动建档,请参考程序目录下的使用说明\n使用API源,则需要你有一定的编程能力,请参考程序目录下的接口文档,\n或请联系本软件作者," +
+    "给您定制(389598161@qq.com)";
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(656, 163);
+            this.ClientSize = new System.Drawing.Size(605, 254);
+            this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
@@ -128,5 +154,7 @@
         private System.Windows.Forms.RadioButton rdAPI;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btnEn;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DownLoad));
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
@@ -51,8 +52,9 @@
             this.ClientSize = new System.Drawing.Size(359, 444);
             this.Controls.Add(this.listBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "DownLoad";
-            this.Text = "DownLoad";
+            this.Text = "下载中,请稍候....";
             this.Load += new System.EventHandler(this.DownLoad_Load);
             this.ResumeLayout(false);
 
