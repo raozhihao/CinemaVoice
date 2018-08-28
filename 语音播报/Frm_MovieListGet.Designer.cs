@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_MovieListGet));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.拉取信息ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.导出ExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -184,11 +185,12 @@
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "Frm_MovieListGet";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "影院排片查询系统";
+            this.Text = "影院排片拉取";
             this.Load += new System.EventHandler(this.Main_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

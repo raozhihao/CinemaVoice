@@ -15,7 +15,7 @@ namespace 语音播报
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainFrm());
+            Application.Run(new Login());
         }
     }
 }
