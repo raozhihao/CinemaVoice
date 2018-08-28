@@ -34,13 +34,13 @@
             this.导出ExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.场务表ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.放映表ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tlsmFY = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.重新获取信息ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnCW = new System.Windows.Forms.Button();
+            this.btnFY = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lbInfo = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
@@ -74,7 +74,7 @@
             this.导出ExcelToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripSeparator2,
             this.场务表ToolStripMenuItem,
-            this.放映表ToolStripMenuItem,
+            this.tlsmFY,
             this.toolStripSeparator1});
             this.导出ExcelToolStripMenuItem.Name = "导出ExcelToolStripMenuItem";
             this.导出ExcelToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
@@ -94,13 +94,13 @@
             this.场务表ToolStripMenuItem.Text = "场务表(&C)";
             this.场务表ToolStripMenuItem.Click += new System.EventHandler(this.场务表ToolStripMenuItem_Click);
             // 
-            // 放映表ToolStripMenuItem
+            // tlsmFY
             // 
-            this.放映表ToolStripMenuItem.Name = "放映表ToolStripMenuItem";
-            this.放映表ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
-            this.放映表ToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
-            this.放映表ToolStripMenuItem.Text = "放映表(&F)";
-            this.放映表ToolStripMenuItem.Click += new System.EventHandler(this.放映表ToolStripMenuItem_Click);
+            this.tlsmFY.Name = "tlsmFY";
+            this.tlsmFY.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
+            this.tlsmFY.Size = new System.Drawing.Size(173, 22);
+            this.tlsmFY.Text = "放映表(&F)";
+            this.tlsmFY.Click += new System.EventHandler(this.放映表ToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -131,29 +131,29 @@
             this.dateTimePicker1.TabIndex = 2;
             this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
-            // button1
+            // btnCW
             // 
-            this.button1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.Location = new System.Drawing.Point(31, 42);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(248, 50);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "导出场务表(Ctrl+C)";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.场务表ToolStripMenuItem_Click);
+            this.btnCW.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnCW.FlatAppearance.BorderSize = 0;
+            this.btnCW.Location = new System.Drawing.Point(31, 42);
+            this.btnCW.Name = "btnCW";
+            this.btnCW.Size = new System.Drawing.Size(248, 50);
+            this.btnCW.TabIndex = 0;
+            this.btnCW.Text = "导出场务表(Ctrl+C)";
+            this.btnCW.UseVisualStyleBackColor = false;
+            this.btnCW.Click += new System.EventHandler(this.场务表ToolStripMenuItem_Click);
             // 
-            // button2
+            // btnFY
             // 
-            this.button2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.Location = new System.Drawing.Point(31, 98);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(248, 50);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "导出放映表(Ctrl+F)";
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.放映表ToolStripMenuItem_Click);
+            this.btnFY.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnFY.FlatAppearance.BorderSize = 0;
+            this.btnFY.Location = new System.Drawing.Point(31, 98);
+            this.btnFY.Name = "btnFY";
+            this.btnFY.Size = new System.Drawing.Size(248, 50);
+            this.btnFY.TabIndex = 1;
+            this.btnFY.Text = "导出放映表(Ctrl+F)";
+            this.btnFY.UseVisualStyleBackColor = false;
+            this.btnFY.Click += new System.EventHandler(this.放映表ToolStripMenuItem_Click);
             // 
             // panel1
             // 
@@ -180,8 +180,8 @@
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(527, 186);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnFY);
+            this.Controls.Add(this.btnCW);
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -208,11 +208,11 @@
         private System.Windows.Forms.ToolStripMenuItem 导出ExcelToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem 场务表ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 放映表ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tlsmFY;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.ToolStripMenuItem 重新获取信息ToolStripMenuItem;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnCW;
+        private System.Windows.Forms.Button btnFY;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.Panel panel1;

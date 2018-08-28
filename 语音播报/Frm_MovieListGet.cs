@@ -72,7 +72,8 @@ namespace 语音播报
                 menuStrip1.Items[0].Enabled = false;
                 menuStrip1.Items[3].Enabled = false;
                 dateTimePicker1.Enabled = false;
-
+                tlsmFY.Enabled = false;
+                btnFY.Enabled = false;
 
                 //选择Excel源
                 //从Excel中读取数据
