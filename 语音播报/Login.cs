@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using 语音播报.Model;
 
 namespace 语音播报
 {
@@ -30,10 +31,10 @@ namespace 语音播报
         {
             //读取配置文件
             //如果配置文件存在
-            if (File.Exists("Setting/lastSet.txt"))
+            if (File.Exists(SetPath.LastSet))
             {
                 //读取配置文件
-                string setStr = File.ReadAllText("Setting/lastSet.txt");
+                string setStr = File.ReadAllText(SetPath.LastSet);
                 if (!string.IsNullOrEmpty(setStr))
                 {
                     //如果有,则将设置放上去
@@ -116,7 +117,7 @@ namespace 语音播报
             }
 
             //写入
-            File.WriteAllText("Setting/lastSet.txt", string.Format("{0}|{1}", check, checkFileName));
+            File.WriteAllText(SetPath.LastSet, string.Format("{0}|{1}", check, checkFileName));
 
             //打开主窗体
             MainFrm mf = new MainFrm(rdExcel.Checked);

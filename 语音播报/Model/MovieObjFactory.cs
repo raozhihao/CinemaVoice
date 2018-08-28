@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IMovieShowList;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -16,8 +17,11 @@ namespace 语音播报.Model
         {
             return GetObj<IMovieShowList.IMovieShowList>("MovieList");
         }
-       
-        
+
+        public static IGetMovieName GetSearchObj()
+        {
+            return GetObj<IMovieShowList.IGetMovieName>("Search");
+        }
         /// <summary>
         /// 获得对应的对象
         /// </summary>

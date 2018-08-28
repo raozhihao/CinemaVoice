@@ -49,7 +49,9 @@
             this.tmSet = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tmExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.时间转换ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.player = new AxWMPLib.AxWindowsMediaPlayer();
+            this.更新说明ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -62,6 +64,8 @@
             this.重新获取当日排片ToolStripMenuItem,
             this.设置ToolStripMenuItem,
             this.设置全部手动播放ToolStripMenuItem,
+            this.时间转换ToolStripMenuItem,
+            this.更新说明ToolStripMenuItem,
             this.关于ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -208,6 +212,13 @@
             this.tmExit.Text = "退出";
             this.tmExit.Click += new System.EventHandler(this.tmExit_Click);
             // 
+            // 时间转换ToolStripMenuItem
+            // 
+            this.时间转换ToolStripMenuItem.Name = "时间转换ToolStripMenuItem";
+            this.时间转换ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
+            this.时间转换ToolStripMenuItem.Text = "时间转换";
+            this.时间转换ToolStripMenuItem.Click += new System.EventHandler(this.时间转换ToolStripMenuItem_Click);
+            // 
             // player
             // 
             this.player.Enabled = true;
@@ -217,6 +228,13 @@
             this.player.Size = new System.Drawing.Size(74, 17);
             this.player.TabIndex = 2;
             this.player.Visible = false;
+            // 
+            // 更新说明ToolStripMenuItem
+            // 
+            this.更新说明ToolStripMenuItem.Name = "更新说明ToolStripMenuItem";
+            this.更新说明ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
+            this.更新说明ToolStripMenuItem.Text = "更新说明";
+            this.更新说明ToolStripMenuItem.Click += new System.EventHandler(this.更新说明ToolStripMenuItem_Click);
             // 
             // MainFrm
             // 
@@ -266,5 +284,7 @@
         private System.Windows.Forms.ToolStripMenuItem tmExit;
         private System.Windows.Forms.ToolStripMenuItem 关于ToolStripMenuItem;
         private AxWMPLib.AxWindowsMediaPlayer player;
+        private System.Windows.Forms.ToolStripMenuItem 时间转换ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 更新说明ToolStripMenuItem;
     }
 }

@@ -35,7 +35,31 @@ namespace 语音播报.Model
         /// </summary>
         public const string vPath = @"Voice\";
 
+        /// <summary>
+        /// 时间文件子路径
+        /// </summary>
         private const string timePath = "time.json";
+
+        /// <summary>
+        /// 源设置子路径
+        /// </summary>
+        private const string lastSet = "lastSet.txt";
+
+        /// <summary>
+        /// 更新说明文件子路径
+        /// </summary>
+        private const string updateTxt = "update.txt";
+
+        /// <summary>
+        /// 更新说明文件路径
+        /// </summary>
+        internal static string Update { get { return updateTxt; } }
+
+        /// <summary>
+        /// 源设置路径
+        /// </summary>
+
+        internal static string LastSet { get { return basePath + lastSet; } }
         /// <summary>
         /// 格式化文本存放路径
         /// </summary>
@@ -51,8 +75,13 @@ namespace 语音播报.Model
         /// </summary>
         internal static string FilePath { get { return basePath + CinPath; } }
 
+        /// <summary>
+        /// 声音文件路径
+        /// </summary>
         internal static string voicePath { get { return vPath; } }
-
+        /// <summary>
+        /// 时间设置路径
+        /// </summary>
         internal static string TimeJosnPath { get { return basePath + timePath; } }
     }
 }

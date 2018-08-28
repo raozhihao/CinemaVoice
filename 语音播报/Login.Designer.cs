@@ -33,8 +33,8 @@
             this.rdExcel = new System.Windows.Forms.RadioButton();
             this.rdAPI = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnEn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnEn = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -95,16 +95,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "设置源";
             // 
-            // btnEn
-            // 
-            this.btnEn.Location = new System.Drawing.Point(405, 76);
-            this.btnEn.Name = "btnEn";
-            this.btnEn.Size = new System.Drawing.Size(144, 42);
-            this.btnEn.TabIndex = 4;
-            this.btnEn.Text = "确定";
-            this.btnEn.UseVisualStyleBackColor = true;
-            this.btnEn.Click += new System.EventHandler(this.btnEn_Click);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -114,6 +104,16 @@
             this.label1.Size = new System.Drawing.Size(143, 12);
             this.label1.TabIndex = 5;
             this.label1.Text = "dll文件建议放在主目录下";
+            // 
+            // btnEn
+            // 
+            this.btnEn.Location = new System.Drawing.Point(405, 76);
+            this.btnEn.Name = "btnEn";
+            this.btnEn.Size = new System.Drawing.Size(144, 42);
+            this.btnEn.TabIndex = 4;
+            this.btnEn.Text = "确定";
+            this.btnEn.UseVisualStyleBackColor = true;
+            this.btnEn.Click += new System.EventHandler(this.btnEn_Click);
             // 
             // richTextBox1
             // 
@@ -131,7 +131,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(605, 254);
+            this.ClientSize = new System.Drawing.Size(601, 261);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;

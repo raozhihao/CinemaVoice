@@ -586,5 +586,17 @@ namespace 语音播报
             About box = new 语音播报.About();
             box.ShowDialog();
         }
+
+        private void 时间转换ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Frm_MovieListGet mov = new 语音播报.Frm_MovieListGet(Chose);
+            mov.ShowDialog();
+        }
+
+        private void 更新说明ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UpdateTxt u = new 语音播报.UpdateTxt();
+            u.ShowDialog();
+        }
     }
 }
