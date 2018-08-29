@@ -87,8 +87,8 @@ namespace 语音播报
             List<IMovieShowList.MovieShow> list = new List<MovieShow>(blList);
             // 设置APPID/AK/SK
             // var APP_ID = "11339468"; //"你的 App ID";
-            var API_KEY = "8LQ02VHhESg7gUOi1W66707r"; //"你的 Api Key";
-            var SECRET_KEY = "MMd8oYPZTi5PbkopfkAoX0N0Bg2N6tk9"; //"你的 Secret Key";
+            var API_KEY = System.Configuration.ConfigurationManager.AppSettings["API_KEY"]; //"你的 Api Key";
+            var SECRET_KEY = System.Configuration.ConfigurationManager.AppSettings["SECRET_KEY"];  //"你的 Secret Key";
 
             var client = new Baidu.Aip.Speech.Tts(API_KEY, SECRET_KEY);
 
