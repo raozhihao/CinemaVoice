@@ -125,6 +125,10 @@ namespace 语音播报
             //判断登陆设置窗体传过来的是Excel源还是Api源
             if (Chose)
             {
+                if (Chose)
+                {
+                    tsmUpload.Enabled = false;
+                }
                 //是Excel源,读取Excel的信息
                 ExcelSource ex = new ExcelSource();
                 List<IMovieShowList.MovieShow> list = ex.GetList4Excel(File.ReadAllText("Setting/lastSet.txt").Split('|')[1]);
@@ -345,11 +349,10 @@ namespace 语音播报
                 }
             }
         }
-
+        private bool autoPlay = false;
         private void 设置全部手动播放ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
-            if (设置全部手动播放ToolStripMenuItem.Text == "设置全部手动播放")
+            if (!autoPlay)
             {
                 var re = MessageBox.Show("你确定不再自动播放吗?", "警告", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (re == DialogResult.Yes)
@@ -361,6 +364,7 @@ namespace 语音播报
                     timer1.Stop();
 
                     设置全部手动播放ToolStripMenuItem.Text = "重新自动播放";
+                    autoPlay = true;
                 }
             }
             else
@@ -374,10 +378,10 @@ namespace 语音播报
                     timer2.Enabled = true;
                     timer2.Start();
                     设置全部手动播放ToolStripMenuItem.Text = "设置全部手动播放";
+                    autoPlay = false;
                 }
 
             }
-
         }
 
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)

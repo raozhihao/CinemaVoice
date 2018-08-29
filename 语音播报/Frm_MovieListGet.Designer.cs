@@ -30,14 +30,14 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_MovieListGet));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.拉取信息ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmToday = new System.Windows.Forms.ToolStripMenuItem();
             this.导出ExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.场务表ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tlsmFY = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.重新获取信息ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmNex = new System.Windows.Forms.ToolStripMenuItem();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.btnCW = new System.Windows.Forms.Button();
             this.btnFY = new System.Windows.Forms.Button();
@@ -51,23 +51,23 @@
             // 
             this.menuStrip1.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.拉取信息ToolStripMenuItem,
+            this.tsmToday,
             this.导出ExcelToolStripMenuItem,
             this.toolStripMenuItem1,
-            this.重新获取信息ToolStripMenuItem});
+            this.tsmNex});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(527, 25);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // 拉取信息ToolStripMenuItem
+            // tsmToday
             // 
-            this.拉取信息ToolStripMenuItem.Name = "拉取信息ToolStripMenuItem";
-            this.拉取信息ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
-            this.拉取信息ToolStripMenuItem.Size = new System.Drawing.Size(82, 21);
-            this.拉取信息ToolStripMenuItem.Text = "拉取今天(&L)";
-            this.拉取信息ToolStripMenuItem.Click += new System.EventHandler(this.拉取信息ToolStripMenuItem_Click);
+            this.tsmToday.Name = "tsmToday";
+            this.tsmToday.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
+            this.tsmToday.Size = new System.Drawing.Size(82, 21);
+            this.tsmToday.Text = "拉取今天(&L)";
+            this.tsmToday.Click += new System.EventHandler(this.拉取信息ToolStripMenuItem_Click);
             // 
             // 导出ExcelToolStripMenuItem
             // 
@@ -115,13 +115,13 @@
             this.toolStripMenuItem1.Text = "时间设置(&S)";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
-            // 重新获取信息ToolStripMenuItem
+            // tsmNex
             // 
-            this.重新获取信息ToolStripMenuItem.Name = "重新获取信息ToolStripMenuItem";
-            this.重新获取信息ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
-            this.重新获取信息ToolStripMenuItem.Size = new System.Drawing.Size(109, 21);
-            this.重新获取信息ToolStripMenuItem.Text = "重新获取明天(&H)";
-            this.重新获取信息ToolStripMenuItem.Click += new System.EventHandler(this.重新获取信息ToolStripMenuItem_Click);
+            this.tsmNex.Name = "tsmNex";
+            this.tsmNex.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
+            this.tsmNex.Size = new System.Drawing.Size(109, 21);
+            this.tsmNex.Text = "重新获取明天(&H)";
+            this.tsmNex.Click += new System.EventHandler(this.重新获取信息ToolStripMenuItem_Click);
             // 
             // dateTimePicker1
             // 
@@ -204,13 +204,13 @@
         #endregion
 
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem 拉取信息ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsmToday;
         private System.Windows.Forms.ToolStripMenuItem 导出ExcelToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem 场务表ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tlsmFY;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.ToolStripMenuItem 重新获取信息ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsmNex;
         private System.Windows.Forms.Button btnCW;
         private System.Windows.Forms.Button btnFY;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;

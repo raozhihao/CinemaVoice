@@ -69,11 +69,11 @@ namespace 语音播报
             if (Chose)
             {
                 //隐藏一些按钮
-                menuStrip1.Items[0].Enabled = false;
-                menuStrip1.Items[3].Enabled = false;
+                tsmToday.Enabled = false;
+                tsmNex.Enabled = false;
                 dateTimePicker1.Enabled = false;
-                tlsmFY.Enabled = false;
-                btnFY.Enabled = false;
+                //tlsmFY.Enabled = false;
+                //btnFY.Enabled = false;
 
                 //选择Excel源
                 //从Excel中读取数据
@@ -164,34 +164,13 @@ namespace 语音播报
             //将信息按时间排序
             List<IMovieShowList.MovieShow> iList = list.OrderBy(i => i.BeginTime).ToList<IMovieShowList.MovieShow>();
             string headeValue = string.Empty;
-            if (!Chose)
-            {
-                //获取当前选定的日期
-                string showDate = this.dateTimePicker1.Value.ToString("yyyyMMdd");
-                //如果当前选定的日期与读取到的排片信息中的日期不同
-                if (iList[0].Data != showDate)
-                {
-                    //通知用户选择
-                    DialogResult re = MessageBox.Show("现在即将导出的是" + iList[0].Data + "请问需要继续导出吗", "提示", MessageBoxButtons.YesNo);
-                    if (re == DialogResult.No)
-                    {
-                        return;
-                    }
-                }
-                //获取当前排片信息中的日期
-                string date = iList[0].Data;
-                string headDate = date.Substring(4);
 
-                lbInfo.Text = MessageInfo(date);
-                //创建放在表头中的信息
-                headeValue = string.Format("{0}月{1}日排片表", headDate.Substring(0, 2), headDate.Substring(2, 2));
-            }
-            else
+            bool ok = IsExcelOrApi(out headeValue, iList);
+            if (!ok)
             {
-                headeValue = "今日排片";
+                return;
             }
             
-
             //创建一个工作薄对象
             hssfworkbook = new HSSFWorkbook();
 
@@ -434,23 +413,17 @@ namespace 语音播报
                 MessageBox.Show("未知错误,请稍候重试");
                 return;
             }
+            string headeValue = string.Empty;
 
-            //获取当前选定的日期
-            string showDate = this.dateTimePicker1.Value.ToString("yyyyMMdd");
-            string date = listMovie[0].Data;
-            string headDate = date.Substring(4);
-            //如果当前选定的日期不等于当前缓存中的日期
-            if (listMovie[0].Data != showDate)
+            //是否Excel源或Api源
+            bool ok = IsExcelOrApi(out headeValue, listMovie);
+
+            if (!ok)
             {
-                //提示用户
-                DialogResult re = MessageBox.Show("现在即将导出的是" + listMovie[0].Data + "请问需要继续导出吗", "提示", MessageBoxButtons.YesNo);
-                if (re == DialogResult.No)
-                {
-                    return;
-                }
+                return;
             }
 
-            lbInfo.Text = MessageInfo(date);
+
             //让排片信息以厅号来排序
             var iList = listMovie.OrderBy(i => i.Room[0]);
 
@@ -465,7 +438,7 @@ namespace 语音播报
 
             Sheet sheet = hssfworkbook.CreateSheet("放映表");
             sheet.PrintSetup.Landscape = true;//设置为横向
-            string headeValue = string.Format("{0}月{1}日排片表", headDate.Substring(0, 2), headDate.Substring(2, 2));
+
 
             //设定列宽
             for (int i = 0; i < 12; i++)
@@ -602,6 +575,43 @@ namespace 语音播报
                 return;
             }
 
+        }
+
+        /// <summary>
+        /// 判断当前的源是Excel还是Api
+        /// </summary>
+        /// <param name="headeValue">导出的表头的名字</param>
+        /// <param name="listMovie">电影列表</param>
+        /// <returns>false为用户不需要导出表</returns>
+        private bool IsExcelOrApi(out string headeValue, List<IMovieShowList.MovieShow> listMovie)
+        {
+            if (!Chose)
+            {
+                //获取当前选定的日期
+                string showDate = this.dateTimePicker1.Value.ToString("yyyyMMdd");
+                string date = listMovie[0].Data;
+                string headDate = date.Substring(4);
+                //如果当前选定的日期不等于当前缓存中的日期
+                if (listMovie[0].Data != showDate)
+                {
+                    //提示用户
+                    DialogResult re = MessageBox.Show("现在即将导出的是" + listMovie[0].Data + "请问需要继续导出吗", "提示", MessageBoxButtons.YesNo);
+                    if (re == DialogResult.No)
+                    {
+                        headeValue = string.Empty;
+                        return false;
+                    }
+
+                }
+                lbInfo.Text = MessageInfo(date);
+                headeValue = string.Format("{0}月{1}日排片表", headDate.Substring(0, 2), headDate.Substring(2, 2));
+                return true;
+            }
+            else
+            {
+                headeValue = "今日排片";
+                return false;
+            }
         }
 
         /// <summary>

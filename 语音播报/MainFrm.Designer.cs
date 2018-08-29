@@ -31,9 +31,11 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainFrm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.重新获取当日排片ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmUpload = new System.Windows.Forms.ToolStripMenuItem();
             this.设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.设置全部手动播放ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.时间转换ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.更新说明ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.MovieName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -49,9 +51,7 @@
             this.tmSet = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tmExit = new System.Windows.Forms.ToolStripMenuItem();
-            this.时间转换ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.player = new AxWMPLib.AxWindowsMediaPlayer();
-            this.更新说明ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -61,7 +61,7 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.重新获取当日排片ToolStripMenuItem,
+            this.tsmUpload,
             this.设置ToolStripMenuItem,
             this.设置全部手动播放ToolStripMenuItem,
             this.时间转换ToolStripMenuItem,
@@ -74,12 +74,12 @@
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
             // 
-            // 重新获取当日排片ToolStripMenuItem
+            // tsmUpload
             // 
-            this.重新获取当日排片ToolStripMenuItem.Name = "重新获取当日排片ToolStripMenuItem";
-            this.重新获取当日排片ToolStripMenuItem.Size = new System.Drawing.Size(116, 21);
-            this.重新获取当日排片ToolStripMenuItem.Text = "重新获取当日排片";
-            this.重新获取当日排片ToolStripMenuItem.Click += new System.EventHandler(this.重新获取当日排片ToolStripMenuItem_Click);
+            this.tsmUpload.Name = "tsmUpload";
+            this.tsmUpload.Size = new System.Drawing.Size(116, 21);
+            this.tsmUpload.Text = "重新获取当日排片";
+            this.tsmUpload.Click += new System.EventHandler(this.重新获取当日排片ToolStripMenuItem_Click);
             // 
             // 设置ToolStripMenuItem
             // 
@@ -95,6 +95,20 @@
             this.设置全部手动播放ToolStripMenuItem.Size = new System.Drawing.Size(116, 21);
             this.设置全部手动播放ToolStripMenuItem.Text = "设置全部手动播放";
             this.设置全部手动播放ToolStripMenuItem.Click += new System.EventHandler(this.设置全部手动播放ToolStripMenuItem_Click);
+            // 
+            // 时间转换ToolStripMenuItem
+            // 
+            this.时间转换ToolStripMenuItem.Name = "时间转换ToolStripMenuItem";
+            this.时间转换ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
+            this.时间转换ToolStripMenuItem.Text = "排片查询";
+            this.时间转换ToolStripMenuItem.Click += new System.EventHandler(this.时间转换ToolStripMenuItem_Click);
+            // 
+            // 更新说明ToolStripMenuItem
+            // 
+            this.更新说明ToolStripMenuItem.Name = "更新说明ToolStripMenuItem";
+            this.更新说明ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
+            this.更新说明ToolStripMenuItem.Text = "更新说明";
+            this.更新说明ToolStripMenuItem.Click += new System.EventHandler(this.更新说明ToolStripMenuItem_Click);
             // 
             // 关于ToolStripMenuItem
             // 
@@ -212,13 +226,6 @@
             this.tmExit.Text = "退出";
             this.tmExit.Click += new System.EventHandler(this.tmExit_Click);
             // 
-            // 时间转换ToolStripMenuItem
-            // 
-            this.时间转换ToolStripMenuItem.Name = "时间转换ToolStripMenuItem";
-            this.时间转换ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
-            this.时间转换ToolStripMenuItem.Text = "时间转换";
-            this.时间转换ToolStripMenuItem.Click += new System.EventHandler(this.时间转换ToolStripMenuItem_Click);
-            // 
             // player
             // 
             this.player.Enabled = true;
@@ -228,13 +235,6 @@
             this.player.Size = new System.Drawing.Size(74, 17);
             this.player.TabIndex = 2;
             this.player.Visible = false;
-            // 
-            // 更新说明ToolStripMenuItem
-            // 
-            this.更新说明ToolStripMenuItem.Name = "更新说明ToolStripMenuItem";
-            this.更新说明ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
-            this.更新说明ToolStripMenuItem.Text = "更新说明";
-            this.更新说明ToolStripMenuItem.Click += new System.EventHandler(this.更新说明ToolStripMenuItem_Click);
             // 
             // MainFrm
             // 
@@ -265,7 +265,7 @@
         #endregion
 
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem 重新获取当日排片ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsmUpload;
         private System.Windows.Forms.ToolStripMenuItem 设置ToolStripMenuItem;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn MovieName;
