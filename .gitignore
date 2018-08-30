@@ -26,9 +26,6 @@ bld/
 bin/Debug/猫眼手机API.dll
 
 ##忽略这两种文 件更新 
-App.Config
-Web.config
-
 # Visual Studio 2015 cache/options directory
 .vs/
 # Uncomment if you have tasks that create the project's static files in wwwroot
