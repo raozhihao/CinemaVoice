@@ -245,3 +245,4 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 
+/语音播报/bin/Debug/语音播报.exe.config
