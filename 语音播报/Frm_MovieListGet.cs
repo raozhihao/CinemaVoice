@@ -610,7 +610,7 @@ namespace 语音播报
             else
             {
                 headeValue = "今日排片";
-                return false;
+                return true;
             }
         }
 

@@ -247,3 +247,7 @@ ModelManifest.xml
 .fake/
 
 /语音播报/bin/Debug/语音播报.exe.config
+/语音播报/bin/Debug/Voice/2240.mp3
+/语音播报/bin/Debug/Voice/2230.mp3
+/语音播报/bin/Debug/Voice/2130.mp3
+/语音播报/bin/Debug/Voice/2030.mp3
