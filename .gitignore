@@ -24,6 +24,7 @@ bld/
 
 #不上传的
 bin/Debug/猫眼手机API.dll
+bin/Debug/语音播报.exe.config
 
 # Visual Studio 2015 cache/options directory
 .vs/

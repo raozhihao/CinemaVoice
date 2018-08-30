@@ -96,6 +96,12 @@ namespace 语音播报
             string fomartStr = File.ReadAllText(SetPath.FomartPath);
             foreach (IMovieShowList.MovieShow movie in list)
             {
+               if(!Directory.Exists(SetPath.voicePath))
+                {
+                    Directory.CreateDirectory(SetPath.voicePath);
+                }
+
+                
                 string fileName = SetPath.voicePath + movie.BeginTime.Replace(":", "") + ".mp3";
                 //下载每一个文件对应的语音包
                 //得到配置文件下的格式信息
