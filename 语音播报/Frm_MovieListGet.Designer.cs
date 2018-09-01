@@ -58,7 +58,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(527, 25);
-            this.menuStrip1.TabIndex = 3;
+            this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // tsmToday
@@ -128,7 +128,7 @@
             this.dateTimePicker1.Location = new System.Drawing.Point(387, 3);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(114, 21);
-            this.dateTimePicker1.TabIndex = 2;
+            this.dateTimePicker1.TabIndex = 3;
             this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
             // btnCW

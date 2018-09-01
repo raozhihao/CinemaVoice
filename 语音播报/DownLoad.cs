@@ -192,5 +192,17 @@ namespace 语音播报
             }
             return text;
         }
+
+        private void DownLoad_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData== Keys.Escape)
+            {
+                return;
+            }
+            if (e.KeyData== Keys.Control&&e.KeyData== Keys.F4)
+            {
+                return;
+            }
+        }
     }
 }

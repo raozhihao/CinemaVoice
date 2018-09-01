@@ -56,6 +56,7 @@
             this.Name = "DownLoad";
             this.Text = "下载中,请稍候....";
             this.Load += new System.EventHandler(this.DownLoad_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DownLoad_KeyDown);
             this.ResumeLayout(false);
 
         }

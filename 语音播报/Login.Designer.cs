@@ -110,7 +110,7 @@
             this.btnEn.Location = new System.Drawing.Point(405, 76);
             this.btnEn.Name = "btnEn";
             this.btnEn.Size = new System.Drawing.Size(144, 42);
-            this.btnEn.TabIndex = 4;
+            this.btnEn.TabIndex = 1;
             this.btnEn.Text = "确定";
             this.btnEn.UseVisualStyleBackColor = true;
             this.btnEn.Click += new System.EventHandler(this.btnEn_Click);
@@ -129,6 +129,7 @@
             // 
             // Login
             // 
+            this.AcceptButton = this.btnEn;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(601, 261);

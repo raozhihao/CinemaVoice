@@ -82,7 +82,7 @@
             this.dataGridView1.RowTemplate.Height = 23;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(403, 694);
-            this.dataGridView1.TabIndex = 5;
+            this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             // 
             // MovieName
@@ -182,7 +182,7 @@
             this.dataGridView2.RowTemplate.Height = 30;
             this.dataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView2.Size = new System.Drawing.Size(602, 308);
-            this.dataGridView2.TabIndex = 6;
+            this.dataGridView2.TabIndex = 0;
             this.dataGridView2.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView2_CellMouseDoubleClick);
             // 
             // titlecn

@@ -140,7 +140,7 @@
             this.Format.Name = "Format";
             this.Format.SelectedIndex = 0;
             this.Format.Size = new System.Drawing.Size(436, 675);
-            this.Format.TabIndex = 1;
+            this.Format.TabIndex = 0;
             // 
             // tabPage1
             // 
@@ -195,7 +195,7 @@
             this.btnSave.Location = new System.Drawing.Point(19, 289);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(387, 55);
-            this.btnSave.TabIndex = 2;
+            this.btnSave.TabIndex = 6;
             this.btnSave.Text = "确定";
             this.btnSave.UseVisualStyleBackColor = false;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -211,7 +211,7 @@
             this.comboBox1.Location = new System.Drawing.Point(285, 246);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 20);
-            this.comboBox1.TabIndex = 8;
+            this.comboBox1.TabIndex = 5;
             // 
             // label1
             // 
@@ -233,7 +233,7 @@
             0});
             this.npVol.Name = "npVol";
             this.npVol.Size = new System.Drawing.Size(120, 21);
-            this.npVol.TabIndex = 5;
+            this.npVol.TabIndex = 3;
             this.npVol.Value = new decimal(new int[] {
             5,
             0,
@@ -260,7 +260,7 @@
             0});
             this.npPit.Name = "npPit";
             this.npPit.Size = new System.Drawing.Size(120, 21);
-            this.npPit.TabIndex = 6;
+            this.npPit.TabIndex = 4;
             this.npPit.Value = new decimal(new int[] {
             5,
             0,
@@ -287,7 +287,7 @@
             0});
             this.npSpd.Name = "npSpd";
             this.npSpd.Size = new System.Drawing.Size(120, 21);
-            this.npSpd.TabIndex = 7;
+            this.npSpd.TabIndex = 2;
             this.npSpd.Value = new decimal(new int[] {
             5,
             0,
@@ -304,7 +304,7 @@
             0});
             this.npTime.Name = "npTime";
             this.npTime.Size = new System.Drawing.Size(120, 21);
-            this.npTime.TabIndex = 1;
+            this.npTime.TabIndex = 0;
             this.npTime.Value = new decimal(new int[] {
             10,
             0,

@@ -77,8 +77,9 @@
             // tsmUpload
             // 
             this.tsmUpload.Name = "tsmUpload";
-            this.tsmUpload.Size = new System.Drawing.Size(116, 21);
-            this.tsmUpload.Text = "重新获取当日排片";
+            this.tsmUpload.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
+            this.tsmUpload.Size = new System.Drawing.Size(132, 21);
+            this.tsmUpload.Text = "重新获取当日排片(&A)";
             this.tsmUpload.Click += new System.EventHandler(this.重新获取当日排片ToolStripMenuItem_Click);
             // 
             // 设置ToolStripMenuItem
@@ -92,29 +93,33 @@
             // 设置全部手动播放ToolStripMenuItem
             // 
             this.设置全部手动播放ToolStripMenuItem.Name = "设置全部手动播放ToolStripMenuItem";
-            this.设置全部手动播放ToolStripMenuItem.Size = new System.Drawing.Size(116, 21);
-            this.设置全部手动播放ToolStripMenuItem.Text = "设置全部手动播放";
+            this.设置全部手动播放ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
+            this.设置全部手动播放ToolStripMenuItem.Size = new System.Drawing.Size(132, 21);
+            this.设置全部手动播放ToolStripMenuItem.Text = "设置全部手动播放(&B)";
             this.设置全部手动播放ToolStripMenuItem.Click += new System.EventHandler(this.设置全部手动播放ToolStripMenuItem_Click);
             // 
             // 时间转换ToolStripMenuItem
             // 
             this.时间转换ToolStripMenuItem.Name = "时间转换ToolStripMenuItem";
-            this.时间转换ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
-            this.时间转换ToolStripMenuItem.Text = "排片查询";
+            this.时间转换ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
+            this.时间转换ToolStripMenuItem.Size = new System.Drawing.Size(83, 21);
+            this.时间转换ToolStripMenuItem.Text = "排片查询(&P)";
             this.时间转换ToolStripMenuItem.Click += new System.EventHandler(this.时间转换ToolStripMenuItem_Click);
             // 
             // 更新说明ToolStripMenuItem
             // 
             this.更新说明ToolStripMenuItem.Name = "更新说明ToolStripMenuItem";
-            this.更新说明ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
-            this.更新说明ToolStripMenuItem.Text = "更新说明";
+            this.更新说明ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
+            this.更新说明ToolStripMenuItem.Size = new System.Drawing.Size(85, 21);
+            this.更新说明ToolStripMenuItem.Text = "更新说明(&G)";
             this.更新说明ToolStripMenuItem.Click += new System.EventHandler(this.更新说明ToolStripMenuItem_Click);
             // 
             // 关于ToolStripMenuItem
             // 
             this.关于ToolStripMenuItem.Name = "关于ToolStripMenuItem";
-            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
-            this.关于ToolStripMenuItem.Text = "关于";
+            this.关于ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(62, 21);
+            this.关于ToolStripMenuItem.Text = "关于(&O)";
             this.关于ToolStripMenuItem.Click += new System.EventHandler(this.关于ToolStripMenuItem_Click);
             // 
             // dataGridView1
