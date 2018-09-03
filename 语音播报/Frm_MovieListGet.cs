@@ -654,8 +654,18 @@ namespace 语音播报
         {
 
             #region 运用类库
+            List<IMovieShowList.MovieShow> list = new List<IMovieShowList.MovieShow>();
+            if (!Chose)
+            {
+                list = MovieObjFactory.GetMovieObj().GetMovieList(date); //getList.GetMovieList(date);
+            }
+            else
+            {
+                //读取排片表的数据
+                ExcelSource ex = new ExcelSource();
+                list = ex.GetList4Excel(File.ReadAllText(SetPath.LastSet).Split('|')[1]);
+            }
 
-            List<IMovieShowList.MovieShow> list = MovieObjFactory.GetMovieObj().GetMovieList(date); //getList.GetMovieList(date);
             MovieEndTime end = new MovieEndTime();
             list = end.GetMovieEndTimeList(list);
             movieList = list;
