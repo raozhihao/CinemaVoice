@@ -204,13 +204,15 @@ namespace 语音播报
             IMovieShowList.MovieShow movieInfo = row.DataBoundItem as IMovieShowList.MovieShow;
             //拿到当前点击的单元格
             var cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
+            //获取当前点击单元格的行的开场时间
+            string timeCell = dataGridView1.Rows[cell.RowIndex].Cells[1].Value.ToString();
             //获取当前单元格上的文本值
             string cellText = cell.FormattedValue.ToString();
             switch (cellText)
             {
                 case playName:
                     //双击了播放按钮
-                    StartPlay(movieInfo);
+                    StartPlay(movieInfo, timeCell);
                     break;
                 case stopName:
                     //双击了停止按钮
@@ -473,7 +475,7 @@ namespace 语音播报
         /// 开始播放
         /// </summary>
         /// <param name="movieInfo"></param>
-        private void StartPlay(MovieShow movieInfo)
+        private void StartPlay(MovieShow movieInfo, string cellTime)
         {
 
             //SetT set = GetSet();
@@ -490,7 +492,7 @@ namespace 语音播报
             //格式化
             text = ParseText(text);
 
-            Play(setJson, text);
+            Play(setJson, text, cellTime);
 
         }
 
@@ -554,30 +556,39 @@ namespace 语音播报
         }
 
 
-        private void Play(SetT set, string str)
+        private void Play(SetT set, string str, string cellTime)
         {
 
-            BaiduApiUser b = new BaiduApiUser();
+            //BaiduApiUser b = new BaiduApiUser();
 
-            var spd = set.Rate;//npSpd.Value;
-            var vol = set.Vol;//npVol.Value;
-            var per = set.Per; //npPer.Value;
-            var pit = set.Pit;//npPit.Value;
+            //var spd = set.Rate;//npSpd.Value;
+            //var vol = set.Vol;//npVol.Value;
+            //var per = set.Per; //npPer.Value;
+            //var pit = set.Pit;//npPit.Value;
 
-            var option = new Dictionary<string, object>()
+            //var option = new Dictionary<string, object>()
+            //{
+            //    {"spd",spd },// 语速
+            //    {"vol",vol },// 音量
+            //    {"per",per },// 发音人，4：情感度丫丫童声
+            //    {"pit",pit }
+            //};
+            //string path = "合成的语音文件本地存储地址.mp3";
+            //bool reslut = b.Send(str, option, path);
+            //if (reslut)
+            //{
+            //    player.URL = path;
+            //    player.Ctlcontrols.play();
+            //}
+            //直接读取本地文件
+
+            string fileName = cellTime.Replace(":", "") + ".mp3";
+            if (File.Exists(SetPath.voicePath + fileName))
             {
-                {"spd",spd },// 语速
-                {"vol",vol },// 音量
-                {"per",per },// 发音人，4：情感度丫丫童声
-                {"pit",pit }
-            };
-            string path = "合成的语音文件本地存储地址.mp3";
-            bool reslut = b.Send(str, option, path);
-            if (reslut)
-            {
-                player.URL = path;
+                player.URL = SetPath.voicePath + fileName;
                 player.Ctlcontrols.play();
             }
+
         }
 
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)

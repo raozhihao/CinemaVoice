@@ -41,9 +41,9 @@ namespace 语音播报.Model
 
                     list.Add(new IMovieShowList.MovieShow()
                     {
-                        Room = c1.StringCellValue,
-                        BeginTime = c2.StringCellValue,
-                        Name = c3.StringCellValue
+                        Room = c1.ToString(),
+                        BeginTime = c2.ToString(),
+                        Name = c3.ToString()
                     });
                     rowIndex++;
                 }
@@ -85,9 +85,9 @@ namespace 语音播报.Model
 
                     list.Add(new IMovieShowList.MovieShow()
                     {
-                        Room = c1.StringCellValue,
-                        BeginTime = c2.StringCellValue,
-                        Name = c3.StringCellValue
+                        Room = c1.ToString(),
+                        BeginTime = c2.ToString(),
+                        Name = c3.ToString()
                     });
                     rowIndex++;
                 }
