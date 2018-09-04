@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using 语音播报.Model;
 
@@ -20,24 +21,31 @@ namespace 语音播报
         /// </summary>
         public event Action ShowFrom;
 
+        bool downloadEnd = false;
+
+        bool Chose;
+
         /// <summary>
         /// 用于向表格绑定数据
         /// </summary>
         private BindingList<IMovieShowList.MovieShow> blList = new BindingList<MovieShow>();
-        public DownLoad(BindingList<IMovieShowList.MovieShow> list)
+        public DownLoad(BindingList<IMovieShowList.MovieShow> list,bool chose)
         {
             InitializeComponent();
             this.blList = list;
+            this.Chose = chose;
         }
+        CancellationTokenSource cts = new CancellationTokenSource();
 
-        private void DownLoad_Load(object sender, EventArgs e)
+        
+
+        private  void DownLoad_Load(object sender, EventArgs e)
         {
             //下载之前,清除已有
             ClearVoice();
-            //模拟下载
-            Thread t = new Thread(new ThreadStart(UpdateLoad));
-            t.IsBackground = true;
-            t.Start();
+            Task.Factory.StartNew(UpdateLoad,cts.Token);
+            MoveForm m = new Model.MoveForm(this.listBox1, this);
+
         }
 
         private void ClearVoice()
@@ -96,18 +104,23 @@ namespace 语音播报
             string fomartStr = File.ReadAllText(SetPath.FomartPath);
             foreach (IMovieShowList.MovieShow movie in list)
             {
-               if(!Directory.Exists(SetPath.voicePath))
+                if (!Directory.Exists(SetPath.voicePath))
                 {
                     Directory.CreateDirectory(SetPath.voicePath);
                 }
 
-                
+
                 string fileName = SetPath.voicePath + movie.BeginTime.Replace(":", "") + ".mp3";
                 //下载每一个文件对应的语音包
                 //得到配置文件下的格式信息
                 string text = ParseText(fomartStr, movie);
                 try
                 {
+                   if (cts.IsCancellationRequested)
+                    {
+
+                        return;
+                    }
                     var result = client.Synthesis(text, option);
                     if (result.ErrorCode == 0)  // 或 result.Success
                     {
@@ -124,21 +137,24 @@ namespace 语音播报
                 {
                     listBox1.Invoke(new Action(() =>
                     {
-                        listBox1.Items.Add($"网络故障,文件:{movie.BeginTime} {movie.Name} 未下载成功");
+                        listBox1.Items.Add($"文件:{movie.BeginTime} {movie.Name} 未下载成功");
 
                     }));
 
                 }
             }
 
+           
             //下载完了将本窗体关闭
             DialogResult re = MessageBox.Show("已经下载完成了,请确认", "提示", MessageBoxButtons.OK);
             if (re == DialogResult.OK)
             {
-                ShowFrom?.Invoke();
+                //ShowFrom?.Invoke();
                 this.Invoke(new Action(() =>
                 {
                     this.Close();
+                    MainFrm m = new 语音播报.MainFrm(Chose);
+                    m.Show();
                 }));
 
             }
@@ -195,13 +211,35 @@ namespace 语音播报
 
         private void DownLoad_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyData== Keys.Escape)
+            if (e.KeyData == Keys.Escape)
             {
                 return;
             }
-            if (e.KeyData== Keys.Control&&e.KeyData== Keys.F4)
+            if (e.KeyData == Keys.Control && e.KeyData == Keys.F4)
             {
                 return;
+            }
+        }
+
+        private void DownLoad_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            
+           
+
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("确定要终止吗?", "提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                cts.Cancel();
+                
+                this.ShowFrom?.Invoke();
+                this.Close();
+            }
+            else
+            {
+               // e.Cancel = !downloadEnd;
             }
         }
     }

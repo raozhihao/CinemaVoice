@@ -66,23 +66,38 @@ namespace 语音播报.Model
         /// <returns></returns>
         private string SetMovieTime(string getTime, string startTIme)
         {
+            string time = string.Empty;
             //分割开场时间
-            string[] t = startTIme.Split(':');    //12 15
-            int sHour = Convert.ToInt32(t[0]);
-            int sMnn = Convert.ToInt32(t[1]);
-            //分割放映时间
-            string[] g = getTime.Split(':');
-            int gHour = Convert.ToInt32(g[0]);
-            int gMin = Convert.ToInt32(g[1]);
+            try
+            {
+                string[] t = startTIme.Split(':');    //12 15
 
-            int hour = sHour + gHour;
+                // int sHour = Convert.ToInt32(t[0]);
+                int sHour = 0;
+                int.TryParse(t[0], out sHour);
+                int sMnn = 0; //Convert.ToInt32(t[1]);
+                int.TryParse(t[1], out sMnn);
+                //分割放映时间
+                string[] g = getTime.Split(':');
+                int gHour = 0; //Convert.ToInt32(g[0]);
+                int.TryParse(g[0], out gHour);
+                int gMin = 0; //Convert.ToInt32(g[1]);
+                int.TryParse(g[1], out gMin);
+                int hour = sHour + gHour;
 
-            int min = sMnn + gMin;
+                int min = sMnn + gMin;
 
-            hour = (hour + min / 60) % 24;
-            min = min % 60;
+                hour = (hour + min / 60) % 24;
+                min = min % 60;
 
-            string time = string.Format("{0:00}:{1:00}", hour, min);
+                 time = string.Format("{0:00}:{1:00}", hour, min);
+            }
+            catch
+            {
+
+                time = string.Empty;
+            }
+            
             return time;
         }
     }

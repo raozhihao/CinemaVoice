@@ -137,7 +137,7 @@ namespace 语音播报
             else
             {
                 //获取影片排片表
-               // My my = new My();
+                // My my = new My();
                 List<IMovieShowList.MovieShow> listMovies = MovieObjFactory.GetMovieObj().GetMovieList(DateTime.Now.ToString("yyyyMMdd"));
 
                 foreach (IMovieShowList.MovieShow movie in listMovies)
@@ -180,13 +180,13 @@ namespace 语音播报
             setJson = GetSet();
             //启动时获取模板信息
             fmTxt = FomartTxt();
-
+            timer3.Enabled = true;
 
             //下载声音文件
-            DownLoad load = new DownLoad(blList);
-            load.ShowFrom += Load_ShowFrom;
-            load.ShowDialog();
-            this.Hide();
+            //DownLoad load = new DownLoad(blList);
+            //load.ShowFrom += Load_ShowFrom;
+            //load.ShowDialog();
+            //this.Hide();
         }
 
 
@@ -271,7 +271,7 @@ namespace 语音播报
         }
 
 
-       
+
         /// <summary>
         /// 计时2启动,主要用于对计时器1的语音播报的次数的判断
         /// </summary>
@@ -279,7 +279,7 @@ namespace 语音播报
         /// <param name="e"></param>
         private void timer2_Tick(object sender, EventArgs e)
         {
-            if (player.playState== WMPLib.WMPPlayState.wmppsStopped&& count <= setJson.Count - 1)
+            if (player.playState == WMPLib.WMPPlayState.wmppsStopped && count <= setJson.Count - 1)
             {
 
                 player.URL = VoiceFileName; //VoiceFileName;
@@ -340,15 +340,25 @@ namespace 语音播报
             {
                 //得到当前的数据的时间
                 string[] times = blList[i].BeginTime.Split(':');
-                int h = Convert.ToInt32(times[0]);
-                int m = Convert.ToInt32(times[1]);
-                int num = h * 100 + m;
-                //如果超时10分钟及以上,则删除当条信息
-                if (nowNum - num > 10)
+                int h, m;
+                try
                 {
-                    blList.Remove(blList[i]);
+                    h = Convert.ToInt32(times[0]);
+                    m = Convert.ToInt32(times[1]);
+                    int num = h * 100 + m;
+                    //如果超时10分钟及以上,则删除当条信息
+                    if (nowNum - num > 10)
+                    {
+                        blList.Remove(blList[i]);
 
+                    }
                 }
+                catch
+                {
+
+                    blList.Remove(blList[i]);
+                }
+
             }
         }
         private bool autoPlay = false;

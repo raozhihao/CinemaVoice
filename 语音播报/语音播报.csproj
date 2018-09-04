@@ -97,6 +97,7 @@
     <Compile Include="Model\BaiduApiUser.cs" />
     <Compile Include="Model\ExcelSource.cs" />
     <Compile Include="Model\FormFactory.cs" />
+    <Compile Include="Model\MoveForm.cs" />
     <Compile Include="Model\MovieEndTime.cs" />
     <Compile Include="Model\MovieObjFactory.cs" />
     <Compile Include="Model\SetPath.cs" />
