@@ -72,8 +72,7 @@ namespace 语音播报
                 tsmToday.Enabled = false;
                 tsmNex.Enabled = false;
                 dateTimePicker1.Enabled = false;
-                //tlsmFY.Enabled = false;
-                //btnFY.Enabled = false;
+               
 
                 //选择Excel源
                 //从Excel中读取数据
@@ -143,12 +142,22 @@ namespace 语音播报
             List<IMovieShowList.MovieShow> list = new List<IMovieShowList.MovieShow>();
             try
             {
-                //排片信息读取
-                list = movieList;
+                if (newExcel)
+                {
+                    ExcelSource ex = new ExcelSource();
+                    list = ex.GetList4Excel(newFileName);
+
+                }
+                else
+                {
+                    //排片信息读取
+                    list = movieList;
+                }
+                
 
                 if (list.Count == 0)
                 {
-                    MessageBox.Show("没有排片信息,请选择其它日期");
+                    MessageBox.Show("没有排片信息");
                     return;
                 }
             }
@@ -694,6 +703,19 @@ namespace 语音播报
                 return;
             }
         }
-
+        bool newExcel;
+        string newFileName;
+        private void btnNew_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog of = new OpenFileDialog();
+            of.Filter = "Excel|*.xls";
+           var re= of.ShowDialog();
+            if (re== DialogResult.OK)
+            {
+                newExcel = true;
+                newFileName = of.FileName;
+            }
+            
+        }
     }
 }

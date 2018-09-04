@@ -109,20 +109,21 @@ namespace 语音播报
                     Directory.CreateDirectory(SetPath.voicePath);
                 }
 
+                if (cts.IsCancellationRequested)
+                {
 
+                    return;
+                }
                 string fileName = SetPath.voicePath + movie.BeginTime.Replace(":", "") + ".mp3";
                 //下载每一个文件对应的语音包
                 //得到配置文件下的格式信息
                 string text = ParseText(fomartStr, movie);
+
                 try
                 {
-                   if (cts.IsCancellationRequested)
-                    {
-
-                        return;
-                    }
+                  
                     var result = client.Synthesis(text, option);
-                    if (result.ErrorCode == 0)  // 或 result.Success
+                    if (result.Success)  // 或 result.Success
                     {
                         File.WriteAllBytes(fileName, result.Data);
                         listBox1.Invoke(new Action(() =>

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Windows.Forms;
 
 namespace 语音播报.Model
 {
@@ -35,11 +36,24 @@ namespace 语音播报.Model
             string lib = objSource.Split(',')[0];
             string obj = objSource.Split(',')[1];
             //利用反射得到对象
-            Assembly ass = Assembly.Load(lib);
-            //创建对象
-            T movieObj = (T)ass.CreateInstance(obj, true);
+            try
+            {
+                Assembly ass = Assembly.Load(lib);
+                //创建对象
+                T movieObj = (T)ass.CreateInstance(obj, true);
+                return movieObj;
+            }
+            catch (Exception)
+            {
 
-            return movieObj;
+                MessageBox.Show("请正确配置API源");
+                return default(T);
+                
+            }
+           
+           
+
+            
         }
     }
 }

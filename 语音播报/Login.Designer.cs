@@ -36,12 +36,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnEn = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.btnSearch = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnExcel
             // 
-            this.btnExcel.Location = new System.Drawing.Point(474, 30);
+            this.btnExcel.Location = new System.Drawing.Point(472, 30);
             this.btnExcel.Name = "btnExcel";
             this.btnExcel.Size = new System.Drawing.Size(75, 23);
             this.btnExcel.TabIndex = 0;
@@ -82,6 +83,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnSearch);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.btnEn);
             this.groupBox1.Controls.Add(this.rdAPI);
@@ -107,9 +109,9 @@
             // 
             // btnEn
             // 
-            this.btnEn.Location = new System.Drawing.Point(405, 76);
+            this.btnEn.Location = new System.Drawing.Point(341, 86);
             this.btnEn.Name = "btnEn";
-            this.btnEn.Size = new System.Drawing.Size(144, 42);
+            this.btnEn.Size = new System.Drawing.Size(114, 27);
             this.btnEn.TabIndex = 1;
             this.btnEn.Text = "确定";
             this.btnEn.UseVisualStyleBackColor = true;
@@ -126,6 +128,16 @@
             this.richTextBox1.TabIndex = 5;
             this.richTextBox1.Text = "默认使用Excel源,该源需要自己手动建档,请参考程序目录下的使用说明\n使用API源,则需要你有一定的编程能力,请参考程序目录下的接口文档,\n或请联系本软件作者," +
     "给您定制(389598161@qq.com)";
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(472, 86);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(77, 27);
+            this.btnSearch.TabIndex = 6;
+            this.btnSearch.Text = "排片查询";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // Login
             // 
@@ -157,5 +169,6 @@
         private System.Windows.Forms.Button btnEn;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.Button btnSearch;
     }
 }

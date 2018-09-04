@@ -43,6 +43,7 @@
             this.btnFY = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lbInfo = new System.Windows.Forms.Label();
+            this.btnNew = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -173,12 +174,23 @@
             this.lbInfo.Size = new System.Drawing.Size(0, 12);
             this.lbInfo.TabIndex = 0;
             // 
+            // btnNew
+            // 
+            this.btnNew.Location = new System.Drawing.Point(303, 42);
+            this.btnNew.Name = "btnNew";
+            this.btnNew.Size = new System.Drawing.Size(198, 50);
+            this.btnNew.TabIndex = 6;
+            this.btnNew.Text = "从新的Excel中导入";
+            this.btnNew.UseVisualStyleBackColor = true;
+            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
+            // 
             // Frm_MovieListGet
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(527, 186);
+            this.Controls.Add(this.btnNew);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnFY);
             this.Controls.Add(this.btnCW);
@@ -217,5 +229,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lbInfo;
+        private System.Windows.Forms.Button btnNew;
     }
 }
