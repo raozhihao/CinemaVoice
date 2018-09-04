@@ -220,8 +220,15 @@ namespace 影院语音播报
 
             #region 通过工厂获得
 
-
-            dataGridView2.DataSource = MovieObjFactory.GetSearchObj().GetMovieNameList(word);//g.GetSearchList(word);
+            try
+            {
+                dataGridView2.DataSource = MovieObjFactory.GetSearchObj().GetMovieNameList(word);//g.GetSearchList(word);
+            }
+            catch
+            {
+                
+            }
+           
 
 
             #endregion

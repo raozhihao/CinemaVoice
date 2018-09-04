@@ -119,8 +119,9 @@ namespace 语音播报
                 ExcelSource ex = new ExcelSource();
                 string msg = string.Empty;
                 List<IMovieShowList.MovieShow> list = new List<MovieShow>();
-               
-                 list = ex.GetList4Excel(File.ReadAllText("Setting/lastSet.txt").Split('|')[1]);
+
+                // list = ex.GetList4Excel(File.ReadAllText("Setting/lastSet.txt").Split('|')[1]);
+                list = ex.GetList4Excel(txtExcel.Text);
                 if (!ex.isOk)
                 {
                     MessageBox.Show(ex.Msg);

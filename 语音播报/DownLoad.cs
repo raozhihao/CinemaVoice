@@ -99,7 +99,7 @@ namespace 语音播报
             var SECRET_KEY = System.Configuration.ConfigurationManager.AppSettings["SECRET_KEY"];  //"你的 Secret Key";
 
             var client = new Baidu.Aip.Speech.Tts(API_KEY, SECRET_KEY);
-
+            client.Timeout = 3000;
 
             string fomartStr = File.ReadAllText(SetPath.FomartPath);
             foreach (IMovieShowList.MovieShow movie in list)
@@ -134,13 +134,19 @@ namespace 语音播报
                     }
 
                 }
-                catch
+                catch(Exception ex)
                 {
-                    listBox1.Invoke(new Action(() =>
+                    try
                     {
-                        listBox1.Items.Add($"文件:{movie.BeginTime} {movie.Name} 未下载成功");
+                        listBox1.Invoke(new Action(() =>
+                                    {
+                                        listBox1.Items.Add($"文件:{movie.BeginTime} {movie.Name} 未下载成功,原因:网络");
 
-                    }));
+                                    }));
+                    }
+                    catch 
+                    {
+                    }
 
                 }
             }
