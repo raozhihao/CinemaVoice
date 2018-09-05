@@ -146,6 +146,8 @@ namespace 语音播报
                 {
                     ExcelSource ex = new ExcelSource();
                     list = ex.GetList4Excel(newFileName);
+                    MovieEndTime end = new MovieEndTime();
+                    list = end.GetMovieEndTimeList(list);
 
                 }
                 else

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Web.Script.Serialization;
 using System.Windows.Forms;
@@ -41,18 +42,48 @@ namespace 影院语音播报
         /// <param name="e"></param>
         private void SetMovieEndTime_Load(object sender, EventArgs e)
         {
-            ///禁止dg自动创建列
-            dataGridView1.AutoGenerateColumns = false;
             dataGridView2.AutoGenerateColumns = false;
-            dataGridView2.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
-            dataGridView2.RowTemplate.Height = 30;
-            InitList();
+
+            DataGridViewTextBoxColumn colName = new DataGridViewTextBoxColumn();
+            colName.HeaderText = "电影名称";
+            colName.DataPropertyName = "MovieName";
+            
+
+            DataGridViewTextBoxColumn colTime = new DataGridViewTextBoxColumn();
+            colTime.HeaderText = "放映时长";
+            colTime.DataPropertyName = "MovieTime";
+            
+
+            DataGridViewTextBoxColumn txtUpdate = new DataGridViewTextBoxColumn();
+            txtUpdate.Name = "btnStart";
+            txtUpdate.HeaderText = "操作";
+            txtUpdate.DefaultCellStyle.NullValue = "更新";
+            txtUpdate.ReadOnly = true;
+            txtUpdate.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+          
+           
+
+            DataGridViewTextBoxColumn txtDel = new DataGridViewTextBoxColumn();
+            txtDel.Name = "btnStart";
+            txtDel.HeaderText = "操作";
+            txtDel.DefaultCellStyle.NullValue = "删除";
+            txtDel.ReadOnly = true;
+            txtDel.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            
+            dataGridView2.Columns.Add(colName);
+            dataGridView2.Columns.Add(colTime);
+            dataGridView2.Columns.Add(txtUpdate);
+            dataGridView2.Columns.Add(txtDel);
+
+            
+
+            initTable();
+            
+            tstxtName.Focus();
+            
         }
 
-        /// <summary>
-        /// 初始化表格
-        /// </summary>
-        private void InitList()
+        private void initTable()
         {
             List<SetTime> list = new List<SetTime>();
             if (!File.Exists(infoName))
@@ -69,48 +100,15 @@ namespace 影院语音播报
                 //存在,则读取
                 string info = File.ReadAllText(infoName);
                 list = jss.Deserialize<List<SetTime>>(info);
-                dataGridView1.DataSource = list ?? new List<SetTime>();
+                blist = new BindingList<SetTime>(list);
+                dataGridView2.DataSource = blist;
             }
         }
 
+        BindingList<SetTime> blist = new BindingList<SetTime>();
+       
 
-        /// <summary>
-        /// 添加数据
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            string name = txtName.Text.Trim();
-            string time = txtTime.Text.Trim();
-
-
-            time = time.Contains("：") ? time.Replace("：", ":") : time;
-
-            List<SetTime> list = dataGridView1.DataSource as List<SetTime>;
-
-            //判断当前加入的电影是否已在列表中
-            SetTime s = list?.Find(x => x.MovieName == name);
-            if (s != null)
-            {
-                //如果在,则提示用户是否覆盖
-                DialogResult re = MessageBox.Show("您即将添加的电话" + name + ",已在列表中,请问要覆盖吗?", "已存在", MessageBoxButtons.OKCancel);
-                if (re == DialogResult.OK)
-                {
-                    //用户要覆盖,则将其本身存在去除掉
-                    list.Remove(s);
-                }
-                else
-                {
-                    return;
-                }
-            }
-
-            list.Add(new SetTime() { MovieName = name, MovieTime = time });
-            SaveJson(list);
-            InitList();
-        }
-
+       
         /// <summary>
         /// 保存数据
         /// </summary>
@@ -122,88 +120,7 @@ namespace 影院语音播报
             File.WriteAllText(infoName, info);
         }
 
-        /// <summary>
-        /// 双击单元格任意部位时
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            //获取当前单击的单元格
-            if (e.RowIndex < 0)
-            {
-                return;
-            }
-            oldName = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
-            oldTime = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
-            txtName.Text = oldName;
-            txtTime.Text = oldTime;
-        }
-
-        /// <summary>
-        /// 修改
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnUpdate_Click(object sender, EventArgs e)
-        {
-            var row = dataGridView1.SelectedRows[0];
-            if (row == null)
-            {
-                MessageBox.Show("请选择要修改的数据", "未选定数据");
-                return;
-            }
-            string name = txtName.Text.Trim();
-            string time = txtTime.Text.Trim();
-
-
-
-            time = time.Contains("：") ? time.Replace("：", ":") : time;
-            List<SetTime> list = dataGridView1.DataSource as List<SetTime>;
-
-            DialogResult re = MessageBox.Show("你确定要修改吗?你正在修改的是\r\n" + list[row.Index].MovieName + "\r\n修改后的时间为\r\n:" + time, "请确认", MessageBoxButtons.OKCancel);
-            if (re == DialogResult.Cancel)
-            {
-                return;
-            }
-
-            //修改数据
-            list[row.Index] = new SetTime() { MovieName = name, MovieTime = time };
-            //保存
-            SaveJson(list);
-            InitList();
-        }
-
-        /// <summary>
-        /// 删除
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-            var row = dataGridView1.SelectedRows;
-            if (row.Count <= 0)
-            {
-                MessageBox.Show("请选择行");
-                return;
-            }
-            string name = row[0].Cells[0].Value.ToString();
-            string time = row[0].Cells[1].Value.ToString();
-
-            List<SetTime> list = dataGridView1.DataSource as List<SetTime>;
-
-            DialogResult re = MessageBox.Show($"你确认要删除: {name} 吗?", "请确认", MessageBoxButtons.OKCancel);
-            if (re == DialogResult.Cancel)
-            {
-                return;
-            }
-
-            list.RemoveAt(row[0].Index);
-            SaveJson(list);
-            InitList();
-            MessageBox.Show("删除成功");
-
-        }
+        
 
         public event Action Changed;
         private void SetMovieEndTime_FormClosed(object sender, FormClosedEventArgs e)
@@ -212,53 +129,246 @@ namespace 影院语音播报
             Changed?.Invoke();
         }
 
-        private void txtName_TextChanged(object sender, EventArgs e)
+      
+
+        /// <summary>
+        /// 重写键盘按下事件
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="keyData"></param>
+        /// <returns></returns>
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            //获取要搜索的字符串
-            string word = txtName.Text.Trim();
+            //如果按下的是tab键
+            if (keyData == Keys.Tab)
+            {
+                //如果当前下拉框没有显示
+                if (listBox1.Visible)
+                {
+                    listBox1.Visible = false;
+                    //listBox1.ClearSelected();
+                    tstxtName.Focus();
+                    return true;
+                }
+                else
+                {
+                    return base.ProcessCmdKey(ref msg, keyData);
+                }
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
 
+        private void listBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData== Keys.Enter)
+            {
+                HideListBox();
 
-            #region 通过工厂获得
+            }
+        }
+
+        private void listBox1_Click(object sender, EventArgs e)
+        {
+            HideListBox();
+        }
+
+        private void HideListBox()
+        {
+            
+            tstxtName.Text = listBox1.SelectedItem.ToString();
+            listBox1.Visible = false;
+            tstxtTime.Focus();
+        }
+
+      
+
+        private void listBox1_Leave(object sender, EventArgs e)
+        {
+            if (!tstxtName.Focused)
+            {
+                listBox1.Visible = false;
+            }
+        }
+
+        private void tstxtName_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Down)
+            {
+                listBox1.SelectedIndex = 0;
+                listBox1.Focus();
+            }
+            if (e.KeyCode == Keys.Escape || e.KeyCode == Keys.Enter)
+            {
+                listBox1.Visible = false;
+                //listBox1.ClearSelected();
+            }
+        }
+
+        private void tstxtName_TextChanged(object sender, EventArgs e)
+        {
+            ////获取要搜索的字符串
+            string word = tstxtName.Text.Trim();
+
 
             try
             {
-                dataGridView2.DataSource = MovieObjFactory.GetSearchObj().GetMovieNameList(word);//g.GetSearchList(word);
+                var list = MovieObjFactory.GetSearchObj().GetMovieNameList(word);
+
+                listBox1.Items.Clear();
+                listBox1.Visible = true;
+                list.ForEach(a =>
+                {
+                    listBox1.Items.Add(a.titlecn);
+                });
             }
             catch
             {
-                
+
             }
-           
-
-
-            #endregion
-
         }
 
-
-        private void dataGridView2_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        private void tstxtName_Leave(object sender, EventArgs e)
         {
-            //如果当前没有点击任何单元格
-            if (e.RowIndex < 0)
+            if (!listBox1.Focused)
             {
-                return;
+                listBox1.Visible = false;
             }
-
-
-            //获得现在点击的中文名称
-            string set = dataGridView2.Rows[e.RowIndex].Cells[0].Value.ToString();
-            //将中文名称填入
-            txtName.Text = set;
-            //让中文名称和英文名称这两列自适应宽度
-            dataGridView2.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridView2.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-
         }
 
-        private void SetMovieEndTime_Activated(object sender, EventArgs e)
+        private void tsbtnAdd_Click(object sender, EventArgs e)
         {
-            //使文本框获得焦点
-            txtName.Focus();
+
+            string name = tstxtName.Text.Trim();
+            string time = tstxtTime.Text.Trim();
+
+            time = time.Contains("：") ? time.Replace("：", ":") : time;
+            List<SetTime> list = new List<SetTime>((BindingList<SetTime>)this.dataGridView2.DataSource);
+            //判断当前加入的电影是否已在列表中
+            SetTime s = list?.Find(x => x.MovieName == name);
+            
+            if (s != null)
+            {
+                //如果在,则提示用户是否覆盖
+                DialogResult re = MessageBox.Show("您即将添加的电话" + name + ",已在列表中,请问要覆盖吗?", "已存在", MessageBoxButtons.OKCancel);
+                if (re == DialogResult.OK)
+                {
+                   
+                    //用户要覆盖,则将其本身存在去除掉
+                     int index= blist.IndexOf(s);
+                    s.MovieTime = time;
+                    blist.Remove(s);
+                    blist.Insert(index, s);
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else
+            {
+                //不存在,则添加
+                blist.Add(new SetTime() { MovieName=name, MovieTime=time });
+            }
+            
+        }
+
+        private void dataGridView2_CellMouseMove(object sender, DataGridViewCellMouseEventArgs e)
+        {
+
+
+            if (e.ColumnIndex == 2 || e.ColumnIndex == 3)
+            {
+                this.Cursor = Cursors.Hand;
+            }
+            else
+            {
+                this.Cursor = Cursors.Default;//离开时恢复默认
+            }
+        }
+
+        /// <summary>
+        /// 记录右键点击的行坐标
+        /// </summary>
+        int selectRowIndex;
+
+       
+
+        private void 编辑ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //dataGridView2.CurrentCell = dataGridView2.Rows[selectRowIndex].Cells[0];
+            //dataGridView2.BeginEdit(true);
+            EditCell(selectRowIndex,0);
+        }
+
+        private void dataGridView2_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                if (e.RowIndex >= 0)
+                {
+                    dataGridView2.ClearSelection();
+                    dataGridView2.Rows[e.RowIndex].Selected = true;
+                    dataGridView2.CurrentCell = dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                    contextMenuStrip1.Show(MousePosition.X, MousePosition.Y);
+                    selectRowIndex = e.RowIndex;
+                }
+            }
+        }
+
+        private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string cellTxt = dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].FormattedValue.ToString();
+            switch (cellTxt)
+            {
+                case "更新":
+                    EditCell(e.RowIndex, e.ColumnIndex);
+                    break;
+                case "删除":
+                    DelRow(e.RowIndex);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void DelRow(int rowIndex)
+        {
+            List<SetTime> list = new List<SetTime>((BindingList<SetTime>)this.dataGridView2.DataSource);
+            //找到当前的影片
+            SetTime movie = dataGridView2.Rows[rowIndex].DataBoundItem as SetTime;
+
+            if (movie != null)
+            {
+                //如果在,则提示用户是否覆盖
+                DialogResult re = MessageBox.Show($"你确定要删除{movie.MovieName}吗,数据删除后不可恢复","警告", MessageBoxButtons.OKCancel);
+                if (re == DialogResult.OK)
+                {
+
+                    blist.Remove(movie);
+                }
+                else
+                {
+                    return;
+                }
+            }
+        }
+
+        private void EditCell(int rowIndex,int colIndex)
+        {
+            dataGridView2.CurrentCell = dataGridView2.Rows[rowIndex].Cells[colIndex];
+            dataGridView2.BeginEdit(true);
+        }
+
+        private void 删除ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DelRow(selectRowIndex);
+        }
+
+        private void SetMovieEndTime_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //保存数据
+            List<SetTime> list = new List<SetTime>((BindingList<SetTime>)this.dataGridView2.DataSource);
+            SaveJson(list);
         }
     }
 }

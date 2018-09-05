@@ -199,6 +199,11 @@ namespace 语音播报
         /// <param name="e"></param>
         private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex<0||e.RowIndex>this.dataGridView1.Rows.Count)
+            {
+                //没有点击在表格内
+                return;
+            }
             //拿到当前点击的行,并转换成集合对象
             DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
             IMovieShowList.MovieShow movieInfo = row.DataBoundItem as IMovieShowList.MovieShow;
