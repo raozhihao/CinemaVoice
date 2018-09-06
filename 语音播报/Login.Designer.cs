@@ -28,15 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             this.btnExcel = new System.Windows.Forms.Button();
             this.txtExcel = new System.Windows.Forms.TextBox();
             this.rdExcel = new System.Windows.Forms.RadioButton();
             this.rdAPI = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnSearch = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.btnEn = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.btnSearch = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -97,6 +98,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "设置源";
             // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(472, 86);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(77, 27);
+            this.btnSearch.TabIndex = 6;
+            this.btnSearch.Text = "排片查询";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -129,16 +140,6 @@
             this.richTextBox1.Text = "默认使用Excel源,该源需要自己手动建档,请参考程序目录下的使用说明\n使用API源,则需要你有一定的编程能力,请参考程序目录下的接口文档,\n或请联系本软件作者," +
     "给您定制(389598161@qq.com)";
             // 
-            // btnSearch
-            // 
-            this.btnSearch.Location = new System.Drawing.Point(472, 86);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(77, 27);
-            this.btnSearch.TabIndex = 6;
-            this.btnSearch.Text = "排片查询";
-            this.btnSearch.UseVisualStyleBackColor = true;
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
-            // 
             // Login
             // 
             this.AcceptButton = this.btnEn;
@@ -148,6 +149,7 @@
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Login";
             this.Text = "登陆设置";

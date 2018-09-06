@@ -124,5 +124,60 @@ namespace 语音播报
                 comboBox1.SelectedIndex = sets.Per;
             }
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            string text = textBox1.Text;
+            //测试
+            //欢迎光临，$hallName,$movieName,$beginTime的电影已经开始了
+            if (text.Contains("$HallName"))
+            {
+                text = text.Replace("$HallName", "一号厅");
+            }
+            if (text.Contains("$MovieName"))
+            {
+                text = text.Replace("$MovieName", "测试影片");
+            }
+            if (text.Contains("$BeginTime"))
+            {
+                text = text.Replace("$BeginTime", "12:30");
+            }
+
+
+            BaiduApiUser b = new BaiduApiUser();
+            SetT set = new SetT();
+            try
+            {
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                //加载配置信息
+                string json = File.ReadAllText(SetPath.SetTPath);
+                set = js.Deserialize<SetT>(json);
+            }
+            catch
+            {
+
+                MessageBox.Show("请先设置相关信息,如无设置,则会选取默认信息");
+                set = new SetT() { Count = 3, Rate = 2, Time = 10, Vol = 100 };
+            }
+            var spd = set.Rate;//npSpd.Value;
+            var vol = set.Vol;//npVol.Value;
+            var per = set.Per; //npPer.Value;
+            var pit = set.Pit;//npPit.Value;
+
+            var option = new Dictionary<string, object>()
+            {
+                {"spd",spd },// 语速
+                {"vol",vol },// 音量
+                {"per",per },// 发音人，4：情感度丫丫童声
+                {"pit",pit }
+            };
+            string path = "测试.mp3";
+            bool reslut = b.Send(text, option, path);
+            if (reslut)
+            {
+                axWindowsMediaPlayer1.URL = path;
+                axWindowsMediaPlayer1.Ctlcontrols.play();
+            }
+        }
     }
 }

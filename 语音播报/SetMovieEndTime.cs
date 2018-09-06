@@ -47,6 +47,7 @@ namespace 影院语音播报
             DataGridViewTextBoxColumn colName = new DataGridViewTextBoxColumn();
             colName.HeaderText = "电影名称";
             colName.DataPropertyName = "MovieName";
+            colName.ReadOnly = true;
             
 
             DataGridViewTextBoxColumn colTime = new DataGridViewTextBoxColumn();
@@ -216,6 +217,7 @@ namespace 影院语音播报
 
                 listBox1.Items.Clear();
                 listBox1.Visible = true;
+                listBox1.Location = new System.Drawing.Point(toolStripLabel1.Width+toolStripSeparator1.Width,toolStrip1.Height);
                 list.ForEach(a =>
                 {
                     listBox1.Items.Add(a.titlecn);
@@ -321,7 +323,7 @@ namespace 影院语音播报
             switch (cellTxt)
             {
                 case "更新":
-                    EditCell(e.RowIndex, e.ColumnIndex);
+                    EditCell(e.RowIndex, 1);
                     break;
                 case "删除":
                     DelRow(e.RowIndex);
@@ -370,5 +372,7 @@ namespace 影院语音播报
             List<SetTime> list = new List<SetTime>((BindingList<SetTime>)this.dataGridView2.DataSource);
             SaveJson(list);
         }
+
+        
     }
 }
