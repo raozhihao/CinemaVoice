@@ -35,29 +35,25 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SetMovieEndTime));
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.tstxtName = new System.Windows.Forms.ToolStripTextBox();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.tstxtTime = new System.Windows.Forms.ToolStripTextBox();
-            this.tsbtnAdd = new System.Windows.Forms.ToolStripButton();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.编辑ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.删除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnAdd = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lableTime = new System.Windows.Forms.Label();
+            this.labelName = new System.Windows.Forms.Label();
+            this.txtName = new System.Windows.Forms.TextBox();
+            this.Addbtn = new System.Windows.Forms.Button();
+            this.txtTime = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
-            this.toolStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 12;
-            this.listBox1.Location = new System.Drawing.Point(66, 30);
+            this.listBox1.Location = new System.Drawing.Point(83, 43);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(398, 88);
             this.listBox1.TabIndex = 1;
@@ -101,74 +97,6 @@
             this.dataGridView2.CellMouseMove += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView2_CellMouseMove);
             this.dataGridView2.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView2_CellMouseUp);
             // 
-            // toolStrip1
-            // 
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripLabel1,
-            this.toolStripSeparator1,
-            this.tstxtName,
-            this.toolStripSeparator2,
-            this.toolStripLabel2,
-            this.toolStripSeparator3,
-            this.tstxtTime,
-            this.tsbtnAdd});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(509, 29);
-            this.toolStrip1.TabIndex = 2;
-            this.toolStrip1.Text = "toolStrip1";
-            // 
-            // toolStripLabel1
-            // 
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(56, 26);
-            this.toolStripLabel1.Text = "电影名称";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 29);
-            // 
-            // tstxtName
-            // 
-            this.tstxtName.Name = "tstxtName";
-            this.tstxtName.Size = new System.Drawing.Size(100, 29);
-            this.tstxtName.Leave += new System.EventHandler(this.tstxtName_Leave);
-            this.tstxtName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tstxtName_KeyDown);
-            this.tstxtName.TextChanged += new System.EventHandler(this.tstxtName_TextChanged);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 29);
-            // 
-            // toolStripLabel2
-            // 
-            this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(56, 26);
-            this.toolStripLabel2.Text = "放映时长";
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 29);
-            // 
-            // tstxtTime
-            // 
-            this.tstxtTime.Name = "tstxtTime";
-            this.tstxtTime.Size = new System.Drawing.Size(100, 29);
-            // 
-            // tsbtnAdd
-            // 
-            this.tsbtnAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tsbtnAdd.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Bold);
-            this.tsbtnAdd.Image = ((System.Drawing.Image)(resources.GetObject("tsbtnAdd.Image")));
-            this.tsbtnAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbtnAdd.Name = "tsbtnAdd";
-            this.tsbtnAdd.Size = new System.Drawing.Size(46, 26);
-            this.tsbtnAdd.Text = "添加";
-            this.tsbtnAdd.Click += new System.EventHandler(this.tsbtnAdd_Click);
-            // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -191,15 +119,64 @@
             this.删除ToolStripMenuItem.Text = "删除";
             this.删除ToolStripMenuItem.Click += new System.EventHandler(this.删除ToolStripMenuItem_Click);
             // 
-            // btnAdd
+            // panel1
             // 
-            this.btnAdd.Location = new System.Drawing.Point(389, 2);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(75, 23);
-            this.btnAdd.TabIndex = 4;
-            this.btnAdd.Text = "添加";
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.tsbtnAdd_Click);
+            this.panel1.Controls.Add(this.lableTime);
+            this.panel1.Controls.Add(this.labelName);
+            this.panel1.Controls.Add(this.txtName);
+            this.panel1.Controls.Add(this.Addbtn);
+            this.panel1.Controls.Add(this.txtTime);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(509, 53);
+            this.panel1.TabIndex = 5;
+            // 
+            // lableTime
+            // 
+            this.lableTime.AutoSize = true;
+            this.lableTime.Location = new System.Drawing.Point(200, 22);
+            this.lableTime.Name = "lableTime";
+            this.lableTime.Size = new System.Drawing.Size(53, 12);
+            this.lableTime.TabIndex = 1;
+            this.lableTime.Text = "放映时长";
+            // 
+            // labelName
+            // 
+            this.labelName.AutoSize = true;
+            this.labelName.Location = new System.Drawing.Point(13, 22);
+            this.labelName.Name = "labelName";
+            this.labelName.Size = new System.Drawing.Size(53, 12);
+            this.labelName.TabIndex = 1;
+            this.labelName.Text = "电影名称";
+            // 
+            // txtName
+            // 
+            this.txtName.Location = new System.Drawing.Point(83, 18);
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(100, 21);
+            this.txtName.TabIndex = 0;
+            this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
+            this.txtName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtName_KeyDown);
+            this.txtName.Leave += new System.EventHandler(this.txtName_Leave);
+            // 
+            // Addbtn
+            // 
+            this.Addbtn.Location = new System.Drawing.Point(387, 17);
+            this.Addbtn.Name = "Addbtn";
+            this.Addbtn.Size = new System.Drawing.Size(75, 23);
+            this.Addbtn.TabIndex = 2;
+            this.Addbtn.Text = "添加";
+            this.Addbtn.UseVisualStyleBackColor = true;
+            this.Addbtn.Click += new System.EventHandler(this.Addbtn_Click);
+            // 
+            // txtTime
+            // 
+            this.txtTime.Location = new System.Drawing.Point(270, 18);
+            this.txtTime.Name = "txtTime";
+            this.txtTime.Size = new System.Drawing.Size(100, 21);
+            this.txtTime.TabIndex = 1;
+            this.txtTime.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtTime_KeyDown);
             // 
             // SetMovieEndTime
             // 
@@ -207,8 +184,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(509, 719);
             this.Controls.Add(this.listBox1);
-            this.Controls.Add(this.btnAdd);
-            this.Controls.Add(this.toolStrip1);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.dataGridView2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -220,29 +196,24 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SetMovieEndTime_FormClosed);
             this.Load += new System.EventHandler(this.SetMovieEndTime_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripTextBox tstxtName;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel2;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripTextBox tstxtTime;
-        private System.Windows.Forms.ToolStripButton tsbtnAdd;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem 编辑ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 删除ToolStripMenuItem;
-        private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label lableTime;
+        private System.Windows.Forms.Label labelName;
+        private System.Windows.Forms.TextBox txtName;
+        private System.Windows.Forms.Button Addbtn;
+        private System.Windows.Forms.TextBox txtTime;
     }
 }

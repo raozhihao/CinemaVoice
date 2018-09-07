@@ -67,8 +67,9 @@ namespace 语音播报.Model
                     {
                         isOk = false;
 
-                        Msg = "Excel文件中的时间有错误,在第" + rowIndex + "行";
-                        continue;
+                        Msg = "Excel文件中的时间有错误,在第" + rowIndex+1 + "行";
+                        rowIndex++;
+                        break;
 
                     }
                     rowIndex++;

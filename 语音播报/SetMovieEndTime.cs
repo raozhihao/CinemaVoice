@@ -24,17 +24,7 @@ namespace 影院语音播报
         /// 创建存储放映时间的json数据的文件存放地址
         /// </summary>
         private string infoName = SetPath.TimeJosnPath;
-
-        /// <summary>
-        /// 修改之前的电影名称
-        /// </summary>
-        private string oldName;
-
-        /// <summary>
-        /// 修改之前的放映时间
-        /// </summary>
-        private string oldTime;
-
+        
         /// <summary>
         /// 窗体启动时
         /// </summary>
@@ -79,9 +69,8 @@ namespace 影院语音播报
             
 
             initTable();
-            
-            tstxtName.Focus();
-            
+            txtName.Select();
+           
         }
 
         private void initTable()
@@ -148,7 +137,7 @@ namespace 影院语音播报
                 {
                     listBox1.Visible = false;
                     //listBox1.ClearSelected();
-                    tstxtName.Focus();
+                    txtName.Focus();
                     return true;
                 }
                 else
@@ -176,103 +165,22 @@ namespace 影院语音播报
         private void HideListBox()
         {
             
-            tstxtName.Text = listBox1.SelectedItem.ToString();
+            txtName.Text = listBox1.SelectedItem.ToString();
             listBox1.Visible = false;
-            tstxtTime.Focus();
+            txtTime.Focus();
         }
 
       
 
         private void listBox1_Leave(object sender, EventArgs e)
         {
-            if (!tstxtName.Focused)
+            if (!txtName.Focused)
             {
                 listBox1.Visible = false;
             }
         }
 
-        private void tstxtName_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyData == Keys.Down)
-            {
-                listBox1.SelectedIndex = 0;
-                listBox1.Focus();
-            }
-            if (e.KeyCode == Keys.Escape || e.KeyCode == Keys.Enter)
-            {
-                listBox1.Visible = false;
-                //listBox1.ClearSelected();
-            }
-        }
-
-        private void tstxtName_TextChanged(object sender, EventArgs e)
-        {
-            ////获取要搜索的字符串
-            string word = tstxtName.Text.Trim();
-
-
-            try
-            {
-                var list = MovieObjFactory.GetSearchObj().GetMovieNameList(word);
-
-                listBox1.Items.Clear();
-                listBox1.Visible = true;
-                listBox1.Location = new System.Drawing.Point(toolStripLabel1.Width+toolStripSeparator1.Width,toolStrip1.Height);
-                list.ForEach(a =>
-                {
-                    listBox1.Items.Add(a.titlecn);
-                });
-            }
-            catch
-            {
-
-            }
-        }
-
-        private void tstxtName_Leave(object sender, EventArgs e)
-        {
-            if (!listBox1.Focused)
-            {
-                listBox1.Visible = false;
-            }
-        }
-
-        private void tsbtnAdd_Click(object sender, EventArgs e)
-        {
-
-            string name = tstxtName.Text.Trim();
-            string time = tstxtTime.Text.Trim();
-
-            time = time.Contains("：") ? time.Replace("：", ":") : time;
-            List<SetTime> list = new List<SetTime>((BindingList<SetTime>)this.dataGridView2.DataSource);
-            //判断当前加入的电影是否已在列表中
-            SetTime s = list?.Find(x => x.MovieName == name);
-            
-            if (s != null)
-            {
-                //如果在,则提示用户是否覆盖
-                DialogResult re = MessageBox.Show("您即将添加的电话" + name + ",已在列表中,请问要覆盖吗?", "已存在", MessageBoxButtons.OKCancel);
-                if (re == DialogResult.OK)
-                {
-                   
-                    //用户要覆盖,则将其本身存在去除掉
-                     int index= blist.IndexOf(s);
-                    s.MovieTime = time;
-                    blist.Remove(s);
-                    blist.Insert(index, s);
-                }
-                else
-                {
-                    return;
-                }
-            }
-            else
-            {
-                //不存在,则添加
-                blist.Add(new SetTime() { MovieName=name, MovieTime=time });
-            }
-            
-        }
+       
 
         private void dataGridView2_CellMouseMove(object sender, DataGridViewCellMouseEventArgs e)
         {
@@ -342,7 +250,7 @@ namespace 影院语音播报
             if (movie != null)
             {
                 //如果在,则提示用户是否覆盖
-                DialogResult re = MessageBox.Show($"你确定要删除{movie.MovieName}吗,数据删除后不可恢复","警告", MessageBoxButtons.OKCancel);
+                DialogResult re = MessageBox.Show($"你确定要删除{Environment.NewLine+ movie.MovieName+Environment.NewLine}吗,数据删除后不可恢复","警告", MessageBoxButtons.OKCancel);
                 if (re == DialogResult.OK)
                 {
 
@@ -373,6 +281,99 @@ namespace 影院语音播报
             SaveJson(list);
         }
 
-        
+        private void Addbtn_Click(object sender, EventArgs e)
+        {
+            string name = txtName.Text.Trim();
+            string time = txtTime.Text.Trim();
+
+            if (string.IsNullOrEmpty(name)||string.IsNullOrEmpty(time))
+            {
+                MessageBox.Show("请填写完整影片名称与放映时长", "提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            time = time.Contains("：") ? time.Replace("：", ":") : time;
+            List<SetTime> list = new List<SetTime>((BindingList<SetTime>)this.dataGridView2.DataSource);
+            //判断当前加入的电影是否已在列表中
+            SetTime s = list?.Find(x => x.MovieName == name);
+
+            if (s != null)
+            {
+                //如果在,则提示用户是否覆盖
+                DialogResult re = MessageBox.Show("您即将添加的电影"+Environment.NewLine+"《" + name + "》\r\n已在列表中,请问要覆盖吗?", "已存在", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (re == DialogResult.OK)
+                {
+
+                    //用户要覆盖,则将其本身存在去除掉
+                    int index = blist.IndexOf(s);
+                    s.MovieTime = time;
+                    blist.Remove(s);
+                    blist.Insert(index, s);
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else
+            {
+                //不存在,则添加
+                blist.Add(new SetTime() { MovieName = name, MovieTime = time });
+            }
+
+            txtName.Focus();
+        }
+
+        private void txtName_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Down)
+            {
+                listBox1.SelectedIndex = 0;
+                listBox1.Focus();
+            }
+            if (e.KeyCode == Keys.Escape || e.KeyCode == Keys.Enter)
+            {
+                listBox1.Visible = false;
+                //listBox1.ClearSelected();
+            }
+        }
+
+        private void txtName_Leave(object sender, EventArgs e)
+        {
+            if (!listBox1.Focused)
+            {
+                listBox1.Visible = false;
+            }
+        }
+
+        private void txtName_TextChanged(object sender, EventArgs e)
+        {
+            ////获取要搜索的字符串
+            string word = txtName.Text.Trim();
+            try
+            {
+                var list = MovieObjFactory.GetSearchObj().GetMovieNameList(word);
+
+                listBox1.Items.Clear();
+                listBox1.Visible = true;
+                //listBox1.Location = new System.Drawing.Point(toolStripLabel1.Width + toolStripSeparator1.Width, toolStrip1.Height);
+                list.ForEach(a =>
+                {
+                    listBox1.Items.Add(a.titlecn);
+                });
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void txtTime_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode== Keys.Enter)
+            {
+                Addbtn_Click(null, null);
+            }
+        }
     }
 }

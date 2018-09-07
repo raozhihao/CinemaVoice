@@ -79,7 +79,13 @@ namespace 语音播报
                 string setPath = File.ReadAllText(SetPath.LastSet);
                 //得到Excel源
                 string excelPath = setPath.Split('|')[1];
-                List<IMovieShowList.MovieShow> list = new ExcelSource().GetList4Excel(excelPath);
+                ExcelSource excel = new ExcelSource();
+                List<IMovieShowList.MovieShow> list = excel.GetList4Excel(excelPath);
+                if (!excel.isOk)
+                {
+                    MessageBox.Show(excel.Msg);
+                    this.Close();
+                }
                 MovieEndTime end = new MovieEndTime();
                 movieList = end.GetMovieEndTimeList(list);
             }
@@ -146,6 +152,11 @@ namespace 语音播报
                 {
                     ExcelSource ex = new ExcelSource();
                     list = ex.GetList4Excel(newFileName);
+                    if (!ex.isOk)
+                    {
+                        MessageBox.Show(ex.Msg);
+                        return;
+                    }
                     MovieEndTime end = new MovieEndTime();
                     list = end.GetMovieEndTimeList(list);
 
@@ -413,17 +424,53 @@ namespace 语音播报
 
             //创建排片信息集合对象,用以保存信息
             List<IMovieShowList.MovieShow> listMovie = new List<IMovieShowList.MovieShow>();
+
             try
             {
-                //获取到缓存的信息
-                listMovie = movieList;
+                if (newExcel)
+                {
+                    ExcelSource ex = new ExcelSource();
+                    listMovie = ex.GetList4Excel(newFileName);
+                    if (!ex.isOk)
+                    {
+                        MessageBox.Show(ex.Msg);
+                        return;
+                    }
+                    MovieEndTime end = new MovieEndTime();
+                    listMovie = end.GetMovieEndTimeList(listMovie);
+
+                }
+                else
+                {
+                    //排片信息读取
+                    listMovie = movieList;
+                }
+
+
+                if (listMovie.Count == 0)
+                {
+                    MessageBox.Show("没有排片信息");
+                    return;
+                }
             }
             catch
             {
 
-                MessageBox.Show("未知错误,请稍候重试");
+                MessageBox.Show("未知错误,请重试");
                 return;
             }
+
+            //try
+            //{
+            //    //获取到缓存的信息
+            //    listMovie = movieList;
+            //}
+            //catch
+            //{
+
+            //    MessageBox.Show("未知错误,请稍候重试");
+            //    return;
+            //}
             string headeValue = string.Empty;
 
             //是否Excel源或Api源
