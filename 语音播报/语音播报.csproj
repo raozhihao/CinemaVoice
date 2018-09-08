@@ -103,6 +103,7 @@
     <Compile Include="Model\SetPath.cs" />
     <Compile Include="Model\SetT.cs" />
     <Compile Include="Model\SetTime.cs" />
+    <Compile Include="MyGridViewButton.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Set.cs">

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Web.Script.Serialization;
 using System.Windows.Forms;
+using 语音播报;
 using 语音播报.Model;
 
 namespace 影院语音播报
@@ -34,45 +35,39 @@ namespace 影院语音播报
         {
             dataGridView2.AutoGenerateColumns = false;
 
-            DataGridViewTextBoxColumn colName = new DataGridViewTextBoxColumn();
-            colName.HeaderText = "电影名称";
-            colName.DataPropertyName = "MovieName";
-            colName.ReadOnly = true;
-            
-
-            DataGridViewTextBoxColumn colTime = new DataGridViewTextBoxColumn();
-            colTime.HeaderText = "放映时长";
-            colTime.DataPropertyName = "MovieTime";
-            
-
-            DataGridViewTextBoxColumn txtUpdate = new DataGridViewTextBoxColumn();
+            //添加按钮
+            MyDataGridViewTextBox txtUpdate = new MyDataGridViewTextBox();
+           
+            txtUpdate.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            txtUpdate.SortMode = DataGridViewColumnSortMode.NotSortable;
+            txtUpdate.ReadOnly = true;
             txtUpdate.Name = "btnStart";
             txtUpdate.HeaderText = "操作";
             txtUpdate.DefaultCellStyle.NullValue = "更新";
-            txtUpdate.ReadOnly = true;
             txtUpdate.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-          
-           
 
-            DataGridViewTextBoxColumn txtDel = new DataGridViewTextBoxColumn();
+            //添加按钮
+            MyDataGridViewTextBox txtDel = new MyDataGridViewTextBox();
+
+            txtDel.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            txtDel.SortMode = DataGridViewColumnSortMode.NotSortable;
+            txtDel.ReadOnly = true;
             txtDel.Name = "btnStart";
             txtDel.HeaderText = "操作";
             txtDel.DefaultCellStyle.NullValue = "删除";
-            txtDel.ReadOnly = true;
             txtDel.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             
-            dataGridView2.Columns.Add(colName);
-            dataGridView2.Columns.Add(colTime);
             dataGridView2.Columns.Add(txtUpdate);
             dataGridView2.Columns.Add(txtDel);
-
-            
-
             initTable();
             txtName.Select();
            
         }
-
+//        需要修改两个属性
+//1修改ColumnHeadersHeader 设置为你想要的高度，比如20；但这时候自动变回来。
+//2修改ColumnHeadersHeaderSize属性为 EnableResizing，不要为AutoSize。
+//行高的设置:
+//RowTemplate属性下的Height 属性。
         private void initTable()
         {
             List<SetTime> list = new List<SetTime>();
@@ -210,20 +205,7 @@ namespace 影院语音播报
             EditCell(selectRowIndex,0);
         }
 
-        private void dataGridView2_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-            {
-                if (e.RowIndex >= 0)
-                {
-                    dataGridView2.ClearSelection();
-                    dataGridView2.Rows[e.RowIndex].Selected = true;
-                    dataGridView2.CurrentCell = dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex];
-                    contextMenuStrip1.Show(MousePosition.X, MousePosition.Y);
-                    selectRowIndex = e.RowIndex;
-                }
-            }
-        }
+       
 
         private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
         {

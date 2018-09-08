@@ -8,8 +8,11 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using 语音播报.Model;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Page;
 
 namespace 语音播报
 {
@@ -109,19 +112,47 @@ namespace 语音播报
         }
 
 
-
+        CancellationTokenSource cts = new CancellationTokenSource();
         /// <summary>
         /// 窗体初次启动时发生
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void MainFrm_Load(object sender, EventArgs e)
+        private  void MainFrm_Load(object sender, EventArgs e)
         {
 
             //取消自动设置列功能
             dataGridView1.AutoGenerateColumns = false;
 
 
+            //添加播放按钮
+            MyDataGridViewTextBox btnStart = new MyDataGridViewTextBox();
+            btnStart.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            btnStart.SortMode = DataGridViewColumnSortMode.NotSortable;
+           
+            btnStart.Name = "btnStart";
+            btnStart.HeaderText = "操作";
+            btnStart.DefaultCellStyle.NullValue = playName;
+            btnStart.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridView1.Columns.Add(btnStart);
+
+            //添加停止按钮
+            MyDataGridViewTextBox btnStop = new MyDataGridViewTextBox();
+            btnStop.Name = "btnStop";
+            btnStop.HeaderText = "操作";
+            btnStop.DefaultCellStyle.NullValue = stopName;
+            btnStop.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridView1.Columns.Add(btnStop);
+
+            //启动时获取配置信息
+            setJson = GetSet();
+            //启动时获取模板信息
+            fmTxt = FomartTxt();
+
+            ////绑定排片表
+            dataGridView1.DataSource = blList;
+            //创建存储变量
+            List<IMovieShowList.MovieShow> list = new List<MovieShow>();
             //判断登陆设置窗体传过来的是Excel源还是Api源
             if (Chose)
             {
@@ -131,15 +162,13 @@ namespace 语音播报
                 }
                 //是Excel源,读取Excel的信息
                 ExcelSource ex = new ExcelSource();
-                List<IMovieShowList.MovieShow> list = ex.GetList4Excel(File.ReadAllText("Setting/lastSet.txt").Split('|')[1]);
-                blList = new BindingList<MovieShow>(list);
+                 list = ex.GetList4Excel(File.ReadAllText(SetPath.LastSet).Split('|')[1]).OrderBy(m => m.BeginTime).ToList();
             }
             else
             {
-                //获取影片排片表
-                // My my = new My();
+                //是api源,获取影片排片表
                 List<IMovieShowList.MovieShow> listMovies = MovieObjFactory.GetMovieObj().GetMovieList(DateTime.Now.ToString("yyyyMMdd"));
-
+                //处理一些厅的信息
                 foreach (IMovieShowList.MovieShow movie in listMovies)
                 {
                     if (Regex.Match(movie.Room, @"^\d\D$").Success)
@@ -150,45 +179,199 @@ namespace 语音播报
                     }
                 }
                 //排序排片表
-                var oderyList = listMovies.OrderBy(m => m.BeginTime).ToList();
-                //数据赋值
-                blList = new BindingList<MovieShow>(oderyList);
+                list = listMovies.OrderBy(m => m.BeginTime).ToList();
             }
-
-
-
-
-            //绑定排片表
-            dataGridView1.DataSource = blList; //listMovies.OrderBy(m => m.BeginTime).Where(m => m.Data == "20180602").ToList();
-
-            //添加播放按钮
-            DataGridViewButtonColumn btnStart = new DataGridViewButtonColumn();
-            btnStart.Name = "btnStart";
-            btnStart.HeaderText = "操作";
-            btnStart.DefaultCellStyle.NullValue = playName;
-            dataGridView1.Columns.Add(btnStart);
-
-            //添加停止按钮
-            DataGridViewButtonColumn btnStop = new DataGridViewButtonColumn();
-            btnStop.Name = "btnStop";
-            btnStop.HeaderText = "操作";
-            btnStop.DefaultCellStyle.NullValue = stopName;
-            dataGridView1.Columns.Add(btnStop);
-
-
-            //启动时获取配置信息
-            setJson = GetSet();
-            //启动时获取模板信息
-            fmTxt = FomartTxt();
+            //下载之前,清除已有
+            ClearVoice();
+            //开始异步下载
+            Task.Factory.StartNew(ListLoad, list, cts.Token);
+            //启动定时器3
             timer3.Enabled = true;
-
-            //下载声音文件
-            //DownLoad load = new DownLoad(blList);
-            //load.ShowFrom += Load_ShowFrom;
-            //load.ShowDialog();
-            //this.Hide();
         }
 
+        /// <summary>
+        /// 下载语音包
+        /// </summary>
+        /// <param name="obj"></param>
+       private void ListLoad(object obj)
+        {
+            List<IMovieShowList.MovieShow> list = obj as List<IMovieShowList.MovieShow>;
+            UpdateLoad(list);
+        }
+
+       
+        /// <summary>
+        /// 下载语音信息包
+        /// </summary>
+        /// <param name="list"></param>
+        private void UpdateLoad(List<MovieShow> list)
+        {
+            //存储下载失败的项
+            List<IMovieShowList.MovieShow> erroList = new List<IMovieShowList.MovieShow>();
+
+
+            //得到配置文件信息
+            var spd = GetSet().Rate;//npSpd.Value;
+            var vol = GetSet().Vol;//npVol.Value;
+            var per = GetSet().Per; //npPer.Value;
+            var pit = GetSet().Pit;//npPit.Value;
+
+            var option = new Dictionary<string, object>()
+            {
+                {"spd",spd },// 语速
+                {"vol",vol },// 音量
+                {"per",per },// 发音人，4：情感度丫丫童声
+                {"pit",pit }
+            };
+
+            // 设置APPID/AK/SK
+            // var APP_ID = "11339468"; //"你的 App ID";
+            var API_KEY = System.Configuration.ConfigurationManager.AppSettings["API_KEY"]; //"你的 Api Key";
+            var SECRET_KEY = System.Configuration.ConfigurationManager.AppSettings["SECRET_KEY"];  //"你的 Secret Key";
+
+            var client = new Baidu.Aip.Speech.Tts(API_KEY, SECRET_KEY);
+            client.Timeout = 3000;
+
+            string fomartStr = File.ReadAllText(SetPath.FomartPath);
+            foreach (IMovieShowList.MovieShow movie in list)
+            {
+                if (!Directory.Exists(SetPath.voicePath))
+                {
+                    Directory.CreateDirectory(SetPath.voicePath);
+                }
+
+                if (cts.IsCancellationRequested)
+                {
+
+                    return;
+                }
+                string fileName = SetPath.voicePath + movie.BeginTime.Replace(":", "") + ".mp3";
+                //下载每一个文件对应的语音包
+                //得到配置文件下的格式信息
+                string text = ParseText(fomartStr, movie);
+
+                try
+                {
+
+                    var result = client.Synthesis(text, option);
+                    Invoke(new Action(() =>
+                    {
+                        Text = $"正在下载:{movie.Name}";
+                    }));
+                    if (result.Success)  // 或 result.code==0
+                    {
+                        File.WriteAllBytes(fileName, result.Data);
+                        Invoke(new Action(() =>
+                        {
+                            blList.Add(movie);
+                        }));
+
+                        Invoke(new Action(() =>
+                        {
+                            Text = $"下载:{movie.Name}成功";
+                        }));
+                    }
+                    else
+                    {
+                        //没有下载成功
+                        Invoke(new Action(() =>
+                        {
+                            erroList.Add(movie);
+                        }));
+                    }
+
+                }
+                catch
+                {
+                    //出现异常没有下载成功
+                    try
+                    {
+                        Invoke(new Action(() =>
+                        {
+                            this.Text = $"下载:{movie.Name}失败";
+                            erroList.Add(movie);
+                        }));
+                    }
+                    catch
+                    {
+                    }
+
+                }
+            }
+
+            //下载完成了,查看有没有下载失败的项
+            if (erroList.Count > 0)
+            {
+                UpdateLoad(erroList);
+            }
+            else
+            {
+                Invoke(new Action(() =>
+                {
+                    Text = "影院语音播报";
+                }));
+                //排下序
+                Invoke(new Action(() =>
+                {
+                    blList.OrderByDescending(m => m.BeginTime);
+                }));
+            }
+        }
+
+        /// <summary>
+        /// 将占位符替换
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        private string ParseText(string text, IMovieShowList.MovieShow movie)
+        {
+            //欢迎光临，$hallName,$movieName,$beginTime的电影已经开始了
+            if (text.Contains("$HallName"))
+            {
+                text = text.Replace("$HallName", movie.Room);
+            }
+            if (text.Contains("$MovieName"))
+            {
+                text = text.Replace("$MovieName", movie.Name);
+            }
+            if (text.Contains("$BeginTime"))
+            {
+                text = text.Replace("$BeginTime", movie.BeginTime);
+            }
+            return text;
+        }
+
+        /// <summary>
+        /// 清除所有已存在的信息
+        /// </summary>
+        private void ClearVoice()
+        {
+            if (!Directory.Exists(SetPath.vPath))
+            {
+                return;
+            }
+            try
+            {
+                DirectoryInfo dir = new DirectoryInfo(SetPath.vPath);
+                FileSystemInfo[] fileinfo = dir.GetFileSystemInfos();  //返回目录中所有文件和子目录
+                foreach (FileSystemInfo i in fileinfo)
+                {
+                    if (i is DirectoryInfo)            //判断是否文件夹
+                    {
+                        DirectoryInfo subdir = new DirectoryInfo(i.FullName);
+                        subdir.Delete(true);          //删除子目录和文件
+                    }
+                    else
+                    {
+                        File.Delete(i.FullName);      //删除指定文件
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
 
 
 
@@ -627,6 +810,11 @@ namespace 语音播报
         {
             UpdateTxt u = new 语音播报.UpdateTxt();
             u.ShowDialog();
+        }
+
+        private void 重新登陆ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Restart();
         }
     }
 }

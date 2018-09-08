@@ -172,9 +172,12 @@ namespace 语音播报
             //MainFrm mf = new MainFrm(rdExcel.Checked);
             //mf.Show();
             this.Hide();
-            DownLoad d = new DownLoad(blList,Chose);
-            d.ShowFrom += () => { this.Show(); };
-            d.ShowDialog();
+            //DownLoad d = new DownLoad(blList,Chose);
+            //d.ShowFrom += () => { this.Show(); };
+            //d.ShowDialog();
+
+            MainFrm main = new MainFrm(Chose);
+            main.Show();
             
         }
         private void Login_FormClosing(object sender, FormClosingEventArgs e)
@@ -213,34 +216,6 @@ namespace 语音播报
 
 
 
-           //var re= MessageBox.Show("使用Excel源吗\r\n否则使用API源", "提示", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-           // bool chose=true;
-           // if (re== DialogResult.Yes)
-           // {
-           //     chose = true;
-           //     if (!File.Exists(txtExcel.Text))
-           //     {
-           //         MessageBox.Show("未选中Excel源或Excel源未导入");
-           //         return;
-           //     }
-           //     else
-           //     {
-           //         //写入
-           //         File.WriteAllText(SetPath.LastSet, string.Format("0|{0}", txtExcel.Text));
-           //     }
-           // }
-           // else if (re== DialogResult.No)
-           // {
-           //     chose = false;
-           //    if(MovieObjFactory.GetMovieObj() == null)
-           //     {
-           //         return;
-           //     }
-           // }
-           // else
-           // {
-           //     return;
-           // }
             Frm_MovieListGet mg = new 语音播报.Frm_MovieListGet(chose);
             mg.Show();
         }
