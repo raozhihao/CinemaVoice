@@ -38,12 +38,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnEn = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.btnShowExcelStyle = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnExcel
             // 
-            this.btnExcel.Location = new System.Drawing.Point(472, 30);
+            this.btnExcel.Location = new System.Drawing.Point(472, 22);
             this.btnExcel.Name = "btnExcel";
             this.btnExcel.Size = new System.Drawing.Size(75, 23);
             this.btnExcel.TabIndex = 0;
@@ -54,7 +55,7 @@
             // txtExcel
             // 
             this.txtExcel.Enabled = false;
-            this.txtExcel.Location = new System.Drawing.Point(144, 32);
+            this.txtExcel.Location = new System.Drawing.Point(144, 24);
             this.txtExcel.Name = "txtExcel";
             this.txtExcel.Size = new System.Drawing.Size(297, 21);
             this.txtExcel.TabIndex = 2;
@@ -63,7 +64,7 @@
             // 
             this.rdExcel.AutoSize = true;
             this.rdExcel.Checked = true;
-            this.rdExcel.Location = new System.Drawing.Point(23, 35);
+            this.rdExcel.Location = new System.Drawing.Point(23, 27);
             this.rdExcel.Name = "rdExcel";
             this.rdExcel.Size = new System.Drawing.Size(89, 16);
             this.rdExcel.TabIndex = 3;
@@ -75,7 +76,7 @@
             // rdAPI
             // 
             this.rdAPI.AutoSize = true;
-            this.rdAPI.Location = new System.Drawing.Point(23, 91);
+            this.rdAPI.Location = new System.Drawing.Point(23, 98);
             this.rdAPI.Name = "rdAPI";
             this.rdAPI.Size = new System.Drawing.Size(77, 16);
             this.rdAPI.TabIndex = 3;
@@ -84,6 +85,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnShowExcelStyle);
             this.groupBox1.Controls.Add(this.btnSearch);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.btnEn);
@@ -100,7 +102,7 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(472, 86);
+            this.btnSearch.Location = new System.Drawing.Point(472, 93);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(77, 27);
             this.btnSearch.TabIndex = 6;
@@ -112,7 +114,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label1.Location = new System.Drawing.Point(144, 94);
+            this.label1.Location = new System.Drawing.Point(144, 101);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(143, 12);
             this.label1.TabIndex = 5;
@@ -120,7 +122,7 @@
             // 
             // btnEn
             // 
-            this.btnEn.Location = new System.Drawing.Point(341, 86);
+            this.btnEn.Location = new System.Drawing.Point(341, 93);
             this.btnEn.Name = "btnEn";
             this.btnEn.Size = new System.Drawing.Size(114, 27);
             this.btnEn.TabIndex = 1;
@@ -135,17 +137,27 @@
             this.richTextBox1.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.richTextBox1.Location = new System.Drawing.Point(13, 151);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(574, 96);
+            this.richTextBox1.Size = new System.Drawing.Size(574, 73);
             this.richTextBox1.TabIndex = 5;
-            this.richTextBox1.Text = "默认使用Excel源,该源需要自己手动建档,请参考程序目录下的使用说明\n使用API源,则需要你有一定的编程能力,请参考程序目录下的接口文档,\n或请联系本软件作者," +
-    "给您定制(389598161@qq.com)";
+            this.richTextBox1.Text = "默认使用Excel源,该源需要自己手动建档,请参考\"Excel源模板格式查看\"\n,Excel模板必须为此种格式,或者参考程序目录下的使用说明\n使用API源,则需要" +
+    "你有一定的编程能力,请参考程序目录下的接口文档,\n或请联系本软件作者,给您定制(389598161@qq.com)";
+            // 
+            // btnShowExcelStyle
+            // 
+            this.btnShowExcelStyle.Location = new System.Drawing.Point(23, 52);
+            this.btnShowExcelStyle.Name = "btnShowExcelStyle";
+            this.btnShowExcelStyle.Size = new System.Drawing.Size(524, 23);
+            this.btnShowExcelStyle.TabIndex = 7;
+            this.btnShowExcelStyle.Text = "Excel源模板格式查看";
+            this.btnShowExcelStyle.UseVisualStyleBackColor = true;
+            this.btnShowExcelStyle.Click += new System.EventHandler(this.btnShowExcelStyle_Click);
             // 
             // Login
             // 
             this.AcceptButton = this.btnEn;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(601, 261);
+            this.ClientSize = new System.Drawing.Size(601, 233);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -172,5 +184,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.Button btnShowExcelStyle;
     }
 }

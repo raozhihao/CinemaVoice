@@ -219,5 +219,11 @@ namespace 语音播报
             Frm_MovieListGet mg = new 语音播报.Frm_MovieListGet(chose);
             mg.Show();
         }
+
+        private void btnShowExcelStyle_Click(object sender, EventArgs e)
+        {
+            ShowExcelStyle show = new ShowExcelStyle();
+            show.ShowDialog();
+        }
     }
 }

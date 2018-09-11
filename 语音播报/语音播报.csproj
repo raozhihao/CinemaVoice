@@ -112,6 +112,12 @@
     <Compile Include="SetMovieEndTime.Designer.cs">
       <DependentUpon>SetMovieEndTime.cs</DependentUpon>
     </Compile>
+    <Compile Include="ShowExcelStyle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShowExcelStyle.Designer.cs">
+      <DependentUpon>ShowExcelStyle.cs</DependentUpon>
+    </Compile>
     <Compile Include="UpdateTxt.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -145,6 +151,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SetMovieEndTime.resx">
       <DependentUpon>SetMovieEndTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShowExcelStyle.resx">
+      <DependentUpon>ShowExcelStyle.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UpdateTxt.resx">
       <DependentUpon>UpdateTxt.cs</DependentUpon>
