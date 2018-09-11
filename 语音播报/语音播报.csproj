@@ -70,12 +70,6 @@
     <Compile Include="About.Designer.cs">
       <DependentUpon>About.cs</DependentUpon>
     </Compile>
-    <Compile Include="DownLoad.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DownLoad.Designer.cs">
-      <DependentUpon>DownLoad.cs</DependentUpon>
-    </Compile>
     <Compile Include="Frm_MovieListGet.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -126,9 +120,6 @@
     </Compile>
     <EmbeddedResource Include="About.resx">
       <DependentUpon>About.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DownLoad.resx">
-      <DependentUpon>DownLoad.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Frm_MovieListGet.resx">
       <DependentUpon>Frm_MovieListGet.cs</DependentUpon>

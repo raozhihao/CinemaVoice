@@ -36,7 +36,7 @@ namespace 影院语音播报
             dataGridView2.AutoGenerateColumns = false;
 
             //添加按钮
-            MyDataGridViewTextBox txtUpdate = new MyDataGridViewTextBox();
+            MyDataGridViewTextBoxColumn txtUpdate = new MyDataGridViewTextBoxColumn();
            
             txtUpdate.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             txtUpdate.SortMode = DataGridViewColumnSortMode.NotSortable;
@@ -47,7 +47,7 @@ namespace 影院语音播报
             txtUpdate.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             //添加按钮
-            MyDataGridViewTextBox txtDel = new MyDataGridViewTextBox();
+            MyDataGridViewTextBoxColumn txtDel = new MyDataGridViewTextBoxColumn();
 
             txtDel.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             txtDel.SortMode = DataGridViewColumnSortMode.NotSortable;
@@ -200,8 +200,6 @@ namespace 影院语音播报
 
         private void 编辑ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //dataGridView2.CurrentCell = dataGridView2.Rows[selectRowIndex].Cells[0];
-            //dataGridView2.BeginEdit(true);
             EditCell(selectRowIndex,0);
         }
 

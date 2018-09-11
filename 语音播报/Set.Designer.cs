@@ -402,7 +402,6 @@
             this.Name = "Set";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "设置";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Set_FormClosing);
             this.Load += new System.EventHandler(this.Set_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();

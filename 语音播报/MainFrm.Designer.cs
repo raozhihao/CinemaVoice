@@ -39,6 +39,7 @@
             this.时间转换ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.更新说明ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.重新登陆ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.MovieName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.beginTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -53,8 +54,8 @@
             this.tmSet = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tmExit = new System.Windows.Forms.ToolStripMenuItem();
-            this.重新登陆ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.player = new AxWMPLib.AxWindowsMediaPlayer();
+            this.hScrollBar1 = new System.Windows.Forms.HScrollBar();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -73,7 +74,7 @@
             this.重新登陆ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1038, 25);
+            this.menuStrip1.Size = new System.Drawing.Size(874, 25);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
@@ -126,6 +127,13 @@
             this.关于ToolStripMenuItem.Text = "关于(&O)";
             this.关于ToolStripMenuItem.Click += new System.EventHandler(this.关于ToolStripMenuItem_Click);
             // 
+            // 重新登陆ToolStripMenuItem
+            // 
+            this.重新登陆ToolStripMenuItem.Name = "重新登陆ToolStripMenuItem";
+            this.重新登陆ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
+            this.重新登陆ToolStripMenuItem.Text = "重新登陆";
+            this.重新登陆ToolStripMenuItem.Click += new System.EventHandler(this.重新登陆ToolStripMenuItem_Click);
+            // 
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToAddRows = false;
@@ -162,7 +170,7 @@
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowTemplate.Height = 30;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(1038, 770);
+            this.dataGridView1.Size = new System.Drawing.Size(874, 406);
             this.dataGridView1.StandardTab = true;
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentDoubleClick);
@@ -255,13 +263,6 @@
             this.tmExit.Text = "退出";
             this.tmExit.Click += new System.EventHandler(this.tmExit_Click);
             // 
-            // 重新登陆ToolStripMenuItem
-            // 
-            this.重新登陆ToolStripMenuItem.Name = "重新登陆ToolStripMenuItem";
-            this.重新登陆ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
-            this.重新登陆ToolStripMenuItem.Text = "重新登陆";
-            this.重新登陆ToolStripMenuItem.Click += new System.EventHandler(this.重新登陆ToolStripMenuItem_Click);
-            // 
             // player
             // 
             this.player.Enabled = true;
@@ -272,18 +273,29 @@
             this.player.TabIndex = 2;
             this.player.Visible = false;
             // 
+            // hScrollBar1
+            // 
+            this.hScrollBar1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.hScrollBar1.Location = new System.Drawing.Point(629, 6);
+            this.hScrollBar1.Name = "hScrollBar1";
+            this.hScrollBar1.Size = new System.Drawing.Size(236, 12);
+            this.hScrollBar1.TabIndex = 3;
+            this.hScrollBar1.ValueChanged += new System.EventHandler(this.hScrollBar1_ValueChanged);
+            // 
             // MainFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1038, 795);
+            this.ClientSize = new System.Drawing.Size(874, 431);
+            this.Controls.Add(this.hScrollBar1);
             this.Controls.Add(this.player);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.menuStrip1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
+            this.MinimumSize = new System.Drawing.Size(890, 470);
             this.Name = "MainFrm";
+            this.Opacity = 0.95D;
             this.Text = "影院语音播报";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainFrm_FormClosing);
             this.Load += new System.EventHandler(this.MainFrm_Load);
@@ -323,5 +335,6 @@
         private System.Windows.Forms.ToolStripMenuItem 时间转换ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 更新说明ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 重新登陆ToolStripMenuItem;
+        private System.Windows.Forms.HScrollBar hScrollBar1;
     }
 }

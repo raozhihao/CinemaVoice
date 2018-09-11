@@ -33,6 +33,7 @@ namespace 语音播报
             string txt = textBox1.Text;
             File.WriteAllText(SetPath.FomartPath, txt);
             FomartChanged?.Invoke();
+            MessageBox.Show("保存成功", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -59,6 +60,7 @@ namespace 语音播报
 
             //修改过后应向主窗体通知
             SetChanged?.Invoke();
+            MessageBox.Show("保存成功", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         }
 
