@@ -2,11 +2,13 @@
 using NPOI.SS.UserModel;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
+using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Web.Script.Serialization;
 using System.Windows.Forms;
-using 影院语音播报;
 using 语音播报.Model;
 
 namespace 语音播报
@@ -17,6 +19,8 @@ namespace 语音播报
         /// 源选择
         /// </summary>
         private bool Chose;
+
+        public event Action ShowSome;
         public Frm_MovieListGet(bool chose)
         {
             InitializeComponent();
@@ -45,7 +49,7 @@ namespace 语音播报
             {
                 //根据日期拉取对应的信息
                 LoadList(date);
-                lbInfo.Text = MessageInfo(date);
+                //lbInfo.Text = MessageInfo(date);
                 MessageBox.Show("拉取成功");
             }
             catch
@@ -66,13 +70,17 @@ namespace 语音播报
         /// <param name="e"></param>
         private void Main_Load(object sender, EventArgs e)
         {
+            ShowSome?.Invoke();
+            Frm_MovieListGet_Paint(sender, null);
+
             if (Chose)
             {
                 //隐藏一些按钮
                 tsmToday.Enabled = false;
                 tsmNex.Enabled = false;
                 dateTimePicker1.Enabled = false;
-               
+                lbApiInfo.Visible = false;
+                lbApiDate.Visible = false;
 
                 //选择Excel源
                 //从Excel中读取数据
@@ -95,10 +103,90 @@ namespace 语音播报
                 // 获取第二天日期
                 string date = GetAddDay();
                 LoadList(date);
-                lbInfo.Text = MessageInfo(date);
+                lbApiDate.Text = date;
+                //lbInfo.Text = MessageInfo(date);
             }
 
+            InitDataGridView();
+           
+
         }
+
+        private void InitDataGridView()
+        {
+            dataGridView2.AutoGenerateColumns = false;
+
+            //添加按钮
+            MyDataGridViewTextBoxColumn txtUpdate = new MyDataGridViewTextBoxColumn();
+
+            txtUpdate.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            txtUpdate.SortMode = DataGridViewColumnSortMode.NotSortable;
+            txtUpdate.ReadOnly = true;
+            txtUpdate.Name = "btnStart";
+            txtUpdate.HeaderText = "操作";
+            txtUpdate.DefaultCellStyle.NullValue = "更新";
+            txtUpdate.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            //添加按钮
+            MyDataGridViewTextBoxColumn txtDel = new MyDataGridViewTextBoxColumn();
+
+            txtDel.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            txtDel.SortMode = DataGridViewColumnSortMode.NotSortable;
+            txtDel.ReadOnly = true;
+            txtDel.Name = "btnStart";
+            txtDel.HeaderText = "操作";
+            txtDel.DefaultCellStyle.NullValue = "删除";
+            txtDel.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            dataGridView2.Columns.Add(txtUpdate);
+            dataGridView2.Columns.Add(txtDel);
+            initTable();
+            txtName.Select();
+        }
+
+        /// <summary>
+        /// 创建序列化对象
+        /// </summary>
+        JavaScriptSerializer jss = new JavaScriptSerializer();
+        private void initTable()
+        {
+            List<SetTime> list = new List<SetTime>();
+            if (!File.Exists(SetPath.TimeJosnPath))
+            {
+                //如果不存在,则创建
+                //  File.Create("time.txt");
+                using (FileStream file = new FileStream(SetPath.TimeJosnPath, FileMode.Create))
+                {
+
+                }
+            }
+            else
+            {
+                //存在,则读取
+                
+                string info = File.ReadAllText(SetPath.TimeJosnPath);
+                list = jss.Deserialize<List<SetTime>>(info);
+                blist = new BindingList<SetTime>(list);
+                dataGridView2.DataSource = blist;
+            }
+            cellValueChange = true;
+        }
+        /// <summary>
+        /// 保存数据
+        /// </summary>
+        /// <param name="list"></param>
+        private void SaveJson(List<SetTime> list)
+        {
+            //保存
+            string info = jss.Serialize(list);
+            File.WriteAllText(SetPath.TimeJosnPath, info);
+        }
+
+
+        /// <summary>
+        /// 记录右键点击的行坐标
+        /// </summary>
+        int selectRowIndex;
 
         /// <summary>
         /// 获得第二天的日期
@@ -116,24 +204,7 @@ namespace 语音播报
             return date;
         }
 
-        /// <summary>
-        /// 时间设置窗口
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void toolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            ///打开时间设置
-            SetMovieEndTime set = new SetMovieEndTime();
-            set.Changed += (() =>
-            {
-                //刷新时间
-                LoadList(GetAddDay());
-            });
-            set.ShowDialog();
-
-        }
-
+       
 
 
         /// <summary>
@@ -157,8 +228,8 @@ namespace 语音播报
                         MessageBox.Show(ex.Msg);
                         return;
                     }
-                    MovieEndTime end = new MovieEndTime();
-                    list = end.GetMovieEndTimeList(list);
+                    //MovieEndTime end = new MovieEndTime();
+                    //list = end.GetMovieEndTimeList(list);
 
                 }
                 else
@@ -182,7 +253,8 @@ namespace 语音播报
             }
 
 
-
+            MovieEndTime end = new MovieEndTime();
+            list = end.GetMovieEndTimeList(list);
             //将信息按时间排序
             List<IMovieShowList.MovieShow> iList = list.OrderBy(i => i.BeginTime).ToList<IMovieShowList.MovieShow>();
             string headeValue = string.Empty;
@@ -436,8 +508,7 @@ namespace 语音播报
                         MessageBox.Show(ex.Msg);
                         return;
                     }
-                    MovieEndTime end = new MovieEndTime();
-                    listMovie = end.GetMovieEndTimeList(listMovie);
+                   
 
                 }
                 else
@@ -460,17 +531,8 @@ namespace 语音播报
                 return;
             }
 
-            //try
-            //{
-            //    //获取到缓存的信息
-            //    listMovie = movieList;
-            //}
-            //catch
-            //{
-
-            //    MessageBox.Show("未知错误,请稍候重试");
-            //    return;
-            //}
+            MovieEndTime end = new MovieEndTime();
+            listMovie = end.GetMovieEndTimeList(listMovie);
             string headeValue = string.Empty;
 
             //是否Excel源或Api源
@@ -661,7 +723,7 @@ namespace 语音播报
                     }
 
                 }
-                lbInfo.Text = MessageInfo(date);
+                //lbInfo.Text = MessageInfo(date);
                 headeValue = string.Format("{0}月{1}日排片表", headDate.Substring(0, 2), headDate.Substring(2, 2));
                 return true;
             }
@@ -692,7 +754,7 @@ namespace 语音播报
             try
             {
                 LoadList(date);
-                lbInfo.Text = MessageInfo(date);
+                //lbInfo.Text = MessageInfo(date);
 
 
 
@@ -724,8 +786,8 @@ namespace 语音播报
                 list = ex.GetList4Excel(File.ReadAllText(SetPath.LastSet).Split('|')[1]);
             }
 
-            MovieEndTime end = new MovieEndTime();
-            list = end.GetMovieEndTimeList(list);
+            //MovieEndTime end = new MovieEndTime();
+            //list = end.GetMovieEndTimeList(list);
             movieList = list;
 
             #endregion
@@ -737,7 +799,7 @@ namespace 语音播报
         {
             string date = dateTimePicker1.Value.ToString("yyyyMMdd");
             LoadList(date);
-            lbInfo.Text = MessageInfo(date);
+            //lbInfo.Text = MessageInfo(date);
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -763,8 +825,291 @@ namespace 语音播报
             {
                 newExcel = true;
                 newFileName = of.FileName;
+                lbExcelInfo.Visible = true;
+                
+                lbExcelSource.Text = newFileName;
+                lbExcelSource.Visible = true;
+
+                lbApiDate.Visible = lbApiInfo.Visible = false;
             }
             
+        }
+
+        private void Frm_MovieListGet_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics g = e?.Graphics;
+            g?.DrawLine(System.Drawing.Pens.WhiteSmoke, 0, menuStrip1.Height, menuStrip1.Width, menuStrip1.Height);
+        }
+
+        private void txtName_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Down)
+            {
+                listBox1.SelectedIndex = 0;
+                listBox1.Focus();
+            }
+            if (e.KeyCode == Keys.Escape || e.KeyCode == Keys.Enter)
+            {
+                listBox1.Visible = false;
+                //listBox1.ClearSelected();
+            }
+        }
+
+        private void txtName_Leave(object sender, EventArgs e)
+        {
+            if (!listBox1.Focused)
+            {
+                listBox1.Visible = false;
+            }
+        }
+
+        private void txtName_TextChanged(object sender, EventArgs e)
+        {
+            ////获取要搜索的字符串
+            string word = txtName.Text.Trim();
+            try
+            {
+                var list = MovieObjFactory.GetSearchObj().GetMovieNameList(word);
+
+                listBox1.Items.Clear();
+                listBox1.Visible = true;
+                //listBox1.Location = new System.Drawing.Point(toolStripLabel1.Width + toolStripSeparator1.Width, toolStrip1.Height);
+                list.ForEach(a =>
+                {
+                    listBox1.Items.Add(a.titlecn);
+                });
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void txtTime_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Addbtn_Click(null, null);
+            }
+        }
+        BindingList<SetTime> blist = new BindingList<SetTime>();
+        private void Addbtn_Click(object sender, EventArgs e)
+        {
+            string name = txtName.Text.Trim();
+            string time = txtTime.Text.Trim();
+
+            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(time))
+            {
+                MessageBox.Show("请填写完整影片名称与放映时长", "提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            time = time.Contains("：") ? time.Replace("：", ":") : time;
+            List<SetTime> list = new List<SetTime>((BindingList<SetTime>)this.dataGridView2.DataSource);
+            //判断当前加入的电影是否已在列表中
+            SetTime s = list?.Find(x => x.MovieName == name);
+
+            if (s != null)
+            {
+                //如果在,则提示用户是否覆盖
+                DialogResult re = MessageBox.Show("您即将添加的电影" + Environment.NewLine + "《" + name + "》\r\n已在列表中,请问要覆盖吗?", "已存在", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (re == DialogResult.OK)
+                {
+
+                    //用户要覆盖,则将其本身存在去除掉
+                    int index = blist.IndexOf(s);
+                    s.MovieTime = time;
+                    blist.Remove(s);
+                    blist.Insert(index, s);
+                   
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else
+            {
+                //不存在,则添加
+                blist.Add(new SetTime() { MovieName = name, MovieTime = time });
+            }
+            SaveJson(new List<SetTime>(blist));
+            txtName.Focus();
+        }
+
+        private void listBox1_Click(object sender, EventArgs e)
+        {
+            HideListBox();
+        }
+        private void HideListBox()
+        {
+
+            txtName.Text = listBox1.SelectedItem.ToString();
+            listBox1.Visible = false;
+            txtTime.Focus();
+        }
+
+        private void listBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                HideListBox();
+
+            }
+            if (e.KeyData == Keys.Escape)
+            {
+                txtName.Focus();
+                listBox1.Visible = false;
+            }
+        }
+
+        private void listBox1_Leave(object sender, EventArgs e)
+        {
+            if (!txtName.Focused)
+            {
+                listBox1.Visible = false;
+            }
+        }
+
+        private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string cellTxt = dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].FormattedValue.ToString();
+            switch (cellTxt)
+            {
+                case "更新":
+                    EditCell(e.RowIndex, 1);
+                    break;
+                case "删除":
+                    DelRow(e.RowIndex);
+                    break;
+                default:
+                    break;
+            }
+        }
+        private void DelRow(int rowIndex)
+        {
+            List<SetTime> list = new List<SetTime>((BindingList<SetTime>)this.dataGridView2.DataSource);
+            //找到当前的影片
+            SetTime movie = dataGridView2.Rows[rowIndex].DataBoundItem as SetTime;
+
+            if (movie != null)
+            {
+                //如果在,则提示用户是否覆盖
+                DialogResult re = MessageBox.Show($"你确定要删除{Environment.NewLine + movie.MovieName + Environment.NewLine}吗,数据删除后不可恢复", "警告", MessageBoxButtons.OKCancel);
+                if (re == DialogResult.OK)
+                {
+
+                    blist.Remove(movie);
+                }
+                else
+                {
+                    return;
+                }
+            }
+        }
+        private void EditCell(int rowIndex, int colIndex)
+        {
+            dataGridView2.CurrentCell = dataGridView2.Rows[rowIndex].Cells[colIndex];
+            dataGridView2.BeginEdit(true);
+        }
+
+        /// <summary>
+        /// 重写键盘按下事件
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="keyData"></param>
+        /// <returns></returns>
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            //如果按下的是tab键
+            if (keyData == Keys.Tab)
+            {
+                //如果当前下拉框没有显示
+                if (listBox1.Visible)
+                {
+                    listBox1.Visible = false;
+                    //listBox1.ClearSelected();
+                    txtName.Focus();
+                    return true;
+                }
+                else
+                {
+                    return base.ProcessCmdKey(ref msg, keyData);
+                }
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void Frm_MovieListGet_Resize(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void 编辑ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EditCell(selectRowIndex, 1);
+        }
+
+        private void 删除ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DelRow(selectRowIndex);
+        }
+
+        private void dataGridView2_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                //如果是鼠标右键
+                //记录当前行坐标
+                selectRowIndex = e.RowIndex;
+            }
+        }
+
+        bool cellValueChange=false;
+        private void dataGridView2_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (cellValueChange)
+            {
+                SaveJson(new List<SetTime>(blist));
+            }
+           
+        }
+
+        private void dataGridView2_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
+        {
+            SaveJson(new List<SetTime>(blist));
+        }
+
+        private void splitContainer1_Resize(object sender, EventArgs e)
+        {
+            //判断当前窗体状态
+            if (splitContainer1.Width >= 700)
+            {
+                //这是排片查询窗口的宽度
+                splitContainer1.Orientation = Orientation.Vertical;
+                splitContainer1.Panel1MinSize = 640;
+                
+            }
+            else
+            {
+                splitContainer1.Orientation = Orientation.Horizontal;
+                splitContainer1.Panel1MinSize = 209;
+                splitContainer1.SplitterDistance = 210;
+            }
+        }
+
+        private void tsmNex_Click(object sender, EventArgs e)
+        {
+            
+            LoadList(GetAddDay());
+            MessageBox.Show("获取成功", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void tsmToday_Click(object sender, EventArgs e)
+        {
+            LoadList(DateTime.Now.ToString("yyyyMMdd"));
+            lbApiDate.Text = DateTime.Now.ToString("yyyyMMdd");
+            MessageBox.Show("获取成功", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

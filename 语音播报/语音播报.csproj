@@ -35,7 +35,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>voice_search_96px_1125151_easyicon.net.ico</ApplicationIcon>
+    <ApplicationIcon>vol.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AipSdk">
@@ -64,29 +64,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="About.cs">
+    <Compile Include="Frm_Excel.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="About.Designer.cs">
-      <DependentUpon>About.cs</DependentUpon>
+    <Compile Include="Frm_Excel.Designer.cs">
+      <DependentUpon>Frm_Excel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_Main.Designer.cs">
+      <DependentUpon>Frm_Main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_Main_Field.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_Main_Method.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Frm_MovieListGet.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Frm_MovieListGet.Designer.cs">
       <DependentUpon>Frm_MovieListGet.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Login.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Login.Designer.cs">
-      <DependentUpon>Login.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MainFrm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MainFrm.Designer.cs">
-      <DependentUpon>MainFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\BaiduApiUser.cs" />
     <Compile Include="Model\ExcelSource.cs" />
@@ -97,44 +97,44 @@
     <Compile Include="Model\SetPath.cs" />
     <Compile Include="Model\SetT.cs" />
     <Compile Include="Model\SetTime.cs" />
+    <Compile Include="Model\SundayRXScrollBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="MyGridViewButton.cs" />
+    <Compile Include="NewLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewLogin.Designer.cs">
+      <DependentUpon>NewLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewSet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewSet.Designer.cs">
+      <DependentUpon>NewSet.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Set.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Set.Designer.cs">
-      <DependentUpon>Set.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SetMovieEndTime.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SetMovieEndTime.Designer.cs">
-      <DependentUpon>SetMovieEndTime.cs</DependentUpon>
-    </Compile>
     <Compile Include="ShowExcelStyle.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ShowExcelStyle.Designer.cs">
       <DependentUpon>ShowExcelStyle.cs</DependentUpon>
     </Compile>
-    <Compile Include="UpdateTxt.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UpdateTxt.Designer.cs">
-      <DependentUpon>UpdateTxt.cs</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="About.resx">
-      <DependentUpon>About.cs</DependentUpon>
+    <EmbeddedResource Include="Frm_Excel.resx">
+      <DependentUpon>Frm_Excel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_Main.resx">
+      <DependentUpon>Frm_Main.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Frm_MovieListGet.resx">
       <DependentUpon>Frm_MovieListGet.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Login.resx">
-      <DependentUpon>Login.cs</DependentUpon>
+    <EmbeddedResource Include="NewLogin.resx">
+      <DependentUpon>NewLogin.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainFrm.resx">
-      <DependentUpon>MainFrm.cs</DependentUpon>
+    <EmbeddedResource Include="NewSet.resx">
+      <DependentUpon>NewSet.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -146,17 +146,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Set.resx">
-      <DependentUpon>Set.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SetMovieEndTime.resx">
-      <DependentUpon>SetMovieEndTime.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ShowExcelStyle.resx">
       <DependentUpon>ShowExcelStyle.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UpdateTxt.resx">
-      <DependentUpon>UpdateTxt.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="packages.config" />
@@ -208,6 +199,15 @@
     <Content Include="ReadME.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\添加.png" />
+    <None Include="Resources\添加 %281%29.png" />
+    <None Include="Resources\voice.png" />
+    <None Include="Resources\movie.png" />
+    <None Include="Resources\电影 .png" />
+    <None Include="Resources\cinema.jpg" />
+    <Content Include="vol.ico" />
+    <None Include="Resources\设置.png" />
+    <None Include="Resources\信息.png" />
     <Content Include="update.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

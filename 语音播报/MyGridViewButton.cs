@@ -58,5 +58,13 @@ namespace 语音播报
         }
     }
 
-   
+   class MyButton : Button
+    {
+        protected override void OnPaint(PaintEventArgs pevent)
+        {
+            base.OnPaint(pevent);
+
+            pevent.Graphics.DrawRectangle(Pens.Black, 0, 0, this.Width, this.Height);
+        }
+    }
 }
