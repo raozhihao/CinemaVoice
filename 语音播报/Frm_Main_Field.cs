@@ -16,6 +16,11 @@ namespace 语音播报
     partial class Frm_Main
     {
         /// <summary>
+        /// 用来显示登陆窗体
+        /// </summary>
+        public event Action ShowLogin;
+
+        /// <summary>
         /// 用于定义单元格上的播放按钮文本
         /// </summary>
         private const string playName = "播放";
@@ -25,20 +30,7 @@ namespace 语音播报
         /// </summary>
         private const string stopName = "停止";
 
-
-        /// <summary>
-        /// 用户格式化电影名称
-        /// </summary>
-        private string movieName;
-        /// <summary>
-        /// 用户格式化电影放映厅
-        /// </summary>
-        private string room;
-        /// <summary>
-        /// 用户格式化电影开场时间
-        /// </summary>
-        private string time;
-
+        
         /// <summary>
         /// 序列化对象
         /// </summary>
@@ -72,7 +64,7 @@ namespace 语音播报
         /// <summary>
         /// 保存声音文件临时路径
         /// </summary>
-        private string VoiceFileName;
+        private string CellTime;
 
         /// <summary>
         /// 用以标志下载的时候的取消信息

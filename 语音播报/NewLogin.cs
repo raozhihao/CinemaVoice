@@ -173,6 +173,10 @@ namespace 语音播报
                 this.Hide();
                 
                 Frm_Main main = new Frm_Main(Chose);
+                main.ShowLogin += () =>
+                {
+                    this.Show();
+                };
                 main.Show();
             }
         }

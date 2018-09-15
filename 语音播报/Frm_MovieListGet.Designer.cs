@@ -42,6 +42,10 @@
             this.btnFY = new System.Windows.Forms.Button();
             this.btnNew = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.lbApiDate = new System.Windows.Forms.Label();
+            this.lbApiInfo = new System.Windows.Forms.Label();
+            this.lbExcelSource = new System.Windows.Forms.Label();
+            this.lbExcelInfo = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.tsmToday = new System.Windows.Forms.ToolStripMenuItem();
             this.导出ExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -61,14 +65,10 @@
             this.txtTime = new System.Windows.Forms.TextBox();
             this.labelName = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
-            this.lbExcelInfo = new System.Windows.Forms.Label();
-            this.lbExcelSource = new System.Windows.Forms.Label();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MovieName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MovieTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lbApiInfo = new System.Windows.Forms.Label();
-            this.lbApiDate = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -90,6 +90,8 @@
             // 
             // btnCW
             // 
+            this.btnCW.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCW.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(141)))), ((int)(((byte)(203)))));
             this.btnCW.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCW.FlatAppearance.BorderColor = System.Drawing.Color.Black;
@@ -100,7 +102,7 @@
             this.btnCW.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCW.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnCW.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnCW.Location = new System.Drawing.Point(16, 61);
+            this.btnCW.Location = new System.Drawing.Point(40, 61);
             this.btnCW.Name = "btnCW";
             this.btnCW.Size = new System.Drawing.Size(248, 50);
             this.btnCW.TabIndex = 0;
@@ -110,6 +112,8 @@
             // 
             // btnFY
             // 
+            this.btnFY.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnFY.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(141)))), ((int)(((byte)(203)))));
             this.btnFY.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnFY.FlatAppearance.BorderColor = System.Drawing.Color.Black;
@@ -120,7 +124,7 @@
             this.btnFY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFY.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnFY.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnFY.Location = new System.Drawing.Point(334, 61);
+            this.btnFY.Location = new System.Drawing.Point(358, 61);
             this.btnFY.Name = "btnFY";
             this.btnFY.Size = new System.Drawing.Size(248, 50);
             this.btnFY.TabIndex = 1;
@@ -130,6 +134,8 @@
             // 
             // btnNew
             // 
+            this.btnNew.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnNew.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(141)))), ((int)(((byte)(203)))));
             this.btnNew.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnNew.FlatAppearance.BorderColor = System.Drawing.Color.Black;
@@ -140,7 +146,7 @@
             this.btnNew.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNew.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnNew.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnNew.Location = new System.Drawing.Point(16, 147);
+            this.btnNew.Location = new System.Drawing.Point(40, 147);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(566, 50);
             this.btnNew.TabIndex = 6;
@@ -186,6 +192,52 @@
             this.splitContainer1.SplitterWidth = 1;
             this.splitContainer1.TabIndex = 7;
             this.splitContainer1.Resize += new System.EventHandler(this.splitContainer1_Resize);
+            // 
+            // lbApiDate
+            // 
+            this.lbApiDate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbApiDate.AutoSize = true;
+            this.lbApiDate.Location = new System.Drawing.Point(141, 40);
+            this.lbApiDate.Name = "lbApiDate";
+            this.lbApiDate.Size = new System.Drawing.Size(65, 12);
+            this.lbApiDate.TabIndex = 10;
+            this.lbApiDate.Text = "2018/08/25";
+            // 
+            // lbApiInfo
+            // 
+            this.lbApiInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbApiInfo.AutoSize = true;
+            this.lbApiInfo.Location = new System.Drawing.Point(40, 40);
+            this.lbApiInfo.Name = "lbApiInfo";
+            this.lbApiInfo.Size = new System.Drawing.Size(95, 12);
+            this.lbApiInfo.TabIndex = 9;
+            this.lbApiInfo.Text = "将被导出的日期:";
+            // 
+            // lbExcelSource
+            // 
+            this.lbExcelSource.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbExcelSource.AutoSize = true;
+            this.lbExcelSource.Location = new System.Drawing.Point(162, 123);
+            this.lbExcelSource.Name = "lbExcelSource";
+            this.lbExcelSource.Size = new System.Drawing.Size(41, 12);
+            this.lbExcelSource.TabIndex = 8;
+            this.lbExcelSource.Text = "label2";
+            this.lbExcelSource.Visible = false;
+            // 
+            // lbExcelInfo
+            // 
+            this.lbExcelInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbExcelInfo.AutoSize = true;
+            this.lbExcelInfo.Location = new System.Drawing.Point(38, 123);
+            this.lbExcelInfo.Name = "lbExcelInfo";
+            this.lbExcelInfo.Size = new System.Drawing.Size(113, 12);
+            this.lbExcelInfo.TabIndex = 7;
+            this.lbExcelInfo.Text = "现在是新的Excel表:";
+            this.lbExcelInfo.Visible = false;
             // 
             // menuStrip1
             // 
@@ -277,6 +329,9 @@
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(5);
             this.dataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridView2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView2.BackgroundColor = System.Drawing.Color.White;
             this.dataGridView2.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -305,7 +360,6 @@
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle4;
-            this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.dataGridView2.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dataGridView2.GridColor = System.Drawing.Color.White;
             this.dataGridView2.Location = new System.Drawing.Point(0, 54);
@@ -326,7 +380,7 @@
             this.dataGridView2.RowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridView2.RowTemplate.Height = 30;
             this.dataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView2.Size = new System.Drawing.Size(645, 350);
+            this.dataGridView2.Size = new System.Drawing.Size(645, 353);
             this.dataGridView2.TabIndex = 10;
             this.dataGridView2.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellClick);
             this.dataGridView2.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView2_CellMouseDown);
@@ -359,7 +413,7 @@
             // 
             this.pictureBox1.BackgroundImage = global::语音播报.Properties.Resources.电影_;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox1.Location = new System.Drawing.Point(39, 15);
+            this.pictureBox1.Location = new System.Drawing.Point(20, 15);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(34, 24);
             this.pictureBox1.TabIndex = 9;
@@ -371,7 +425,7 @@
             this.Addbtn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Addbtn.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Addbtn.ForeColor = System.Drawing.Color.White;
-            this.Addbtn.Location = new System.Drawing.Point(472, 10);
+            this.Addbtn.Location = new System.Drawing.Point(453, 10);
             this.Addbtn.Name = "Addbtn";
             this.Addbtn.Size = new System.Drawing.Size(110, 31);
             this.Addbtn.TabIndex = 8;
@@ -383,7 +437,7 @@
             // 
             this.lableTime.AutoSize = true;
             this.lableTime.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lableTime.Location = new System.Drawing.Point(266, 15);
+            this.lableTime.Location = new System.Drawing.Point(247, 15);
             this.lableTime.Name = "lableTime";
             this.lableTime.Size = new System.Drawing.Size(65, 20);
             this.lableTime.TabIndex = 5;
@@ -391,7 +445,7 @@
             // 
             // txtTime
             // 
-            this.txtTime.Location = new System.Drawing.Point(337, 16);
+            this.txtTime.Location = new System.Drawing.Point(318, 16);
             this.txtTime.Name = "txtTime";
             this.txtTime.Size = new System.Drawing.Size(100, 21);
             this.txtTime.TabIndex = 6;
@@ -401,7 +455,7 @@
             // 
             this.labelName.AutoSize = true;
             this.labelName.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelName.Location = new System.Drawing.Point(79, 15);
+            this.labelName.Location = new System.Drawing.Point(60, 15);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(65, 20);
             this.labelName.TabIndex = 7;
@@ -409,33 +463,13 @@
             // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(150, 16);
+            this.txtName.Location = new System.Drawing.Point(131, 16);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(100, 21);
             this.txtName.TabIndex = 4;
             this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             this.txtName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtName_KeyDown);
             this.txtName.Leave += new System.EventHandler(this.txtName_Leave);
-            // 
-            // lbExcelInfo
-            // 
-            this.lbExcelInfo.AutoSize = true;
-            this.lbExcelInfo.Location = new System.Drawing.Point(14, 123);
-            this.lbExcelInfo.Name = "lbExcelInfo";
-            this.lbExcelInfo.Size = new System.Drawing.Size(113, 12);
-            this.lbExcelInfo.TabIndex = 7;
-            this.lbExcelInfo.Text = "现在是新的Excel表:";
-            this.lbExcelInfo.Visible = false;
-            // 
-            // lbExcelSource
-            // 
-            this.lbExcelSource.AutoSize = true;
-            this.lbExcelSource.Location = new System.Drawing.Point(138, 123);
-            this.lbExcelSource.Name = "lbExcelSource";
-            this.lbExcelSource.Size = new System.Drawing.Size(41, 12);
-            this.lbExcelSource.TabIndex = 8;
-            this.lbExcelSource.Text = "label2";
-            this.lbExcelSource.Visible = false;
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -468,24 +502,6 @@
             this.MovieTime.DefaultCellStyle = dataGridViewCellStyle3;
             this.MovieTime.HeaderText = "放映时长";
             this.MovieTime.Name = "MovieTime";
-            // 
-            // lbApiInfo
-            // 
-            this.lbApiInfo.AutoSize = true;
-            this.lbApiInfo.Location = new System.Drawing.Point(16, 40);
-            this.lbApiInfo.Name = "lbApiInfo";
-            this.lbApiInfo.Size = new System.Drawing.Size(95, 12);
-            this.lbApiInfo.TabIndex = 9;
-            this.lbApiInfo.Text = "将被导出的日期:";
-            // 
-            // lbApiDate
-            // 
-            this.lbApiDate.AutoSize = true;
-            this.lbApiDate.Location = new System.Drawing.Point(117, 40);
-            this.lbApiDate.Name = "lbApiDate";
-            this.lbApiDate.Size = new System.Drawing.Size(65, 12);
-            this.lbApiDate.TabIndex = 10;
-            this.lbApiDate.Text = "2018/08/25";
             // 
             // Frm_MovieListGet
             // 

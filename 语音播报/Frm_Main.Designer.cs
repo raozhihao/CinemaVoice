@@ -30,16 +30,15 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_Main));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panelLeft = new System.Windows.Forms.Panel();
             this.lbTime = new System.Windows.Forms.Label();
-            this.scroll = new 语音播报.Model.SundayRXScrollBar();
             this.player = new AxWMPLib.AxWindowsMediaPlayer();
             this.lbVol = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lbVolInfo = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnOut = new System.Windows.Forms.Button();
@@ -51,10 +50,6 @@
             this.panelMain_frm = new System.Windows.Forms.Panel();
             this.panelMain = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.VideoName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BeginTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MovieData = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Room = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelTitle = new System.Windows.Forms.Panel();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.picInfo = new System.Windows.Forms.PictureBox();
@@ -76,6 +71,11 @@
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.VideoName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BeginTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MovieData = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Room = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.scroll = new 语音播报.Model.SundayRXScrollBar();
             this.panelLeft.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.player)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -98,7 +98,7 @@
             this.panelLeft.Controls.Add(this.scroll);
             this.panelLeft.Controls.Add(this.player);
             this.panelLeft.Controls.Add(this.lbVol);
-            this.panelLeft.Controls.Add(this.label2);
+            this.panelLeft.Controls.Add(this.lbVolInfo);
             this.panelLeft.Controls.Add(this.label1);
             this.panelLeft.Controls.Add(this.pictureBox1);
             this.panelLeft.Controls.Add(this.btnOut);
@@ -113,6 +113,7 @@
             this.panelLeft.Size = new System.Drawing.Size(195, 615);
             this.panelLeft.TabIndex = 0;
             this.panelLeft.Paint += new System.Windows.Forms.PaintEventHandler(this.panelLeft_Paint);
+            this.panelLeft.Resize += new System.EventHandler(this.panelLeft_Resize);
             // 
             // lbTime
             // 
@@ -124,24 +125,6 @@
             this.lbTime.Name = "lbTime";
             this.lbTime.Size = new System.Drawing.Size(0, 12);
             this.lbTime.TabIndex = 8;
-            // 
-            // scroll
-            // 
-            this.scroll.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.scroll.BottomColor = System.Drawing.Color.Black;
-            this.scroll.Location = new System.Drawing.Point(3, 215);
-            this.scroll.MouseDownSliderColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(235)))), ((int)(((byte)(239)))));
-            this.scroll.MouseOverSliderColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(158)))), ((int)(((byte)(158)))));
-            this.scroll.Name = "scroll";
-            this.scroll.Size = new System.Drawing.Size(21, 327);
-            this.scroll.SliderColor = System.Drawing.Color.Gray;
-            this.scroll.SliderHeight = 100;
-            this.scroll.SliderWidthPercent = 0.4D;
-            this.scroll.SmallChange = 1;
-            this.scroll.TabIndex = 6;
-            this.scroll.Value = 0;
             // 
             // player
             // 
@@ -163,16 +146,16 @@
             this.lbVol.Size = new System.Drawing.Size(0, 12);
             this.lbVol.TabIndex = 4;
             // 
-            // label2
+            // lbVolInfo
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label2.Location = new System.Drawing.Point(38, 530);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(59, 12);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "当前音量:";
+            this.lbVolInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lbVolInfo.AutoSize = true;
+            this.lbVolInfo.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.lbVolInfo.Location = new System.Drawing.Point(38, 530);
+            this.lbVolInfo.Name = "lbVolInfo";
+            this.lbVolInfo.Size = new System.Drawing.Size(59, 12);
+            this.lbVolInfo.TabIndex = 3;
+            this.lbVolInfo.Text = "当前音量:";
             // 
             // label1
             // 
@@ -354,24 +337,24 @@
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(244)))), ((int)(((byte)(248)))));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(5);
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(244)))), ((int)(((byte)(248)))));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle5.Padding = new System.Windows.Forms.Padding(5);
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridView1.ColumnHeadersHeight = 30;
             this.dataGridView1.ColumnHeadersVisible = false;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -379,15 +362,15 @@
             this.BeginTime,
             this.MovieData,
             this.Room});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(5);
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Desktop;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle7.Padding = new System.Windows.Forms.Padding(5);
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Desktop;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle7;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.GridColor = System.Drawing.Color.White;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
@@ -396,14 +379,14 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowTemplate.Height = 23;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -412,34 +395,6 @@
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentDoubleClick);
             this.dataGridView1.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentDoubleClick);
             this.dataGridView1.Paint += new System.Windows.Forms.PaintEventHandler(this.dataGridView1_Paint);
-            // 
-            // VideoName
-            // 
-            this.VideoName.DataPropertyName = "Name";
-            this.VideoName.HeaderText = "电影名称";
-            this.VideoName.Name = "VideoName";
-            this.VideoName.ReadOnly = true;
-            // 
-            // BeginTime
-            // 
-            this.BeginTime.DataPropertyName = "beginTime";
-            this.BeginTime.HeaderText = "开场时间";
-            this.BeginTime.Name = "BeginTime";
-            this.BeginTime.ReadOnly = true;
-            // 
-            // MovieData
-            // 
-            this.MovieData.DataPropertyName = "Date";
-            this.MovieData.HeaderText = "日期";
-            this.MovieData.Name = "MovieData";
-            this.MovieData.ReadOnly = true;
-            // 
-            // Room
-            // 
-            this.Room.DataPropertyName = "Room";
-            this.Room.HeaderText = "放映厅";
-            this.Room.Name = "Room";
-            this.Room.ReadOnly = true;
             // 
             // panelTitle
             // 
@@ -632,6 +587,51 @@
             this.dataGridViewTextBoxColumn4.ReadOnly = true;
             this.dataGridViewTextBoxColumn4.Width = 156;
             // 
+            // VideoName
+            // 
+            this.VideoName.DataPropertyName = "Name";
+            this.VideoName.HeaderText = "电影名称";
+            this.VideoName.Name = "VideoName";
+            this.VideoName.ReadOnly = true;
+            // 
+            // BeginTime
+            // 
+            this.BeginTime.DataPropertyName = "beginTime";
+            this.BeginTime.HeaderText = "开场时间";
+            this.BeginTime.Name = "BeginTime";
+            this.BeginTime.ReadOnly = true;
+            // 
+            // MovieData
+            // 
+            this.MovieData.DataPropertyName = "Date";
+            this.MovieData.HeaderText = "日期";
+            this.MovieData.Name = "MovieData";
+            this.MovieData.ReadOnly = true;
+            // 
+            // Room
+            // 
+            this.Room.DataPropertyName = "Room";
+            this.Room.HeaderText = "放映厅";
+            this.Room.Name = "Room";
+            this.Room.ReadOnly = true;
+            // 
+            // scroll
+            // 
+            this.scroll.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.scroll.BottomColor = System.Drawing.Color.Black;
+            this.scroll.Location = new System.Drawing.Point(3, 215);
+            this.scroll.MouseDownSliderColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(235)))), ((int)(((byte)(239)))));
+            this.scroll.MouseOverSliderColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(158)))), ((int)(((byte)(158)))));
+            this.scroll.Name = "scroll";
+            this.scroll.Size = new System.Drawing.Size(21, 327);
+            this.scroll.SliderColor = System.Drawing.Color.Gray;
+            this.scroll.SliderHeight = 100;
+            this.scroll.SliderWidthPercent = 0.4D;
+            this.scroll.SmallChange = 1;
+            this.scroll.TabIndex = 6;
+            this.scroll.Value = 0;
+            this.scroll.ValueChanged += new System.EventHandler(this.scroll_ValueChanged);
+            // 
             // Frm_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -689,7 +689,7 @@
         private System.Windows.Forms.PictureBox picMax;
         private System.Windows.Forms.PictureBox picMin;
         private System.Windows.Forms.Label lbVol;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lbVolInfo;
         private AxWMPLib.AxWindowsMediaPlayer player;
         private System.Windows.Forms.DataGridViewTextBoxColumn VideoName;
         private System.Windows.Forms.DataGridViewTextBoxColumn BeginTime;

@@ -1087,7 +1087,7 @@ namespace 语音播报
             {
                 //这是排片查询窗口的宽度
                 splitContainer1.Orientation = Orientation.Vertical;
-                splitContainer1.Panel1MinSize = 640;
+                splitContainer1.Panel1MinSize = 600;
                 
             }
             else

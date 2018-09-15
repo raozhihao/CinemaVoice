@@ -19,10 +19,6 @@ namespace 语音播报
         /// 当更改配置信息时通知主窗体
         /// </summary>
         public event Action SetChanged;
-        /// <summary>
-        /// 更改格式化信息时
-        /// </summary>
-        public event Action FomartChanged;
         public NewSet()
         {
             InitializeComponent();

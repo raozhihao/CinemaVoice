@@ -48,7 +48,7 @@ namespace 语音播报
             
             timer3.Enabled = true;
 
-
+            setJson = GetSet();
         }
 
         /// <summary>
@@ -104,12 +104,12 @@ namespace 语音播报
             {
                 //如果当前是最大化,点击的时候应该回复
                 this.WindowState = FormWindowState.Normal;
-                picMax.BackgroundImage = Image.FromFile("pic\\最大化.png");
+               // picMax.BackgroundImage = Image.FromFile("pic\\最大化.png");
             }
             else
             {
                 this.WindowState = FormWindowState.Maximized;
-                picMax.BackgroundImage = Image.FromFile("pic\\回复.png");
+               // picMax.BackgroundImage = Image.FromFile("pic\\回复.png");
 
             }
             
@@ -200,13 +200,11 @@ namespace 语音播报
                 //获取模板信息
                 string text = fmTxt;
 
-                movieName = movie.Name;
-                room = movie.Room;
-                time = movie.BeginTime;
+                CellTime = movie.BeginTime;
 
-                StartPlay(time);
+               // StartPlay(time);
                 //读取文件夹里的文件读取
-                //PalyVoiceOffline(movie);
+               // PalyVoiceOffline(movie);
 
 
                 //将计时器2启动起来
@@ -218,17 +216,19 @@ namespace 语音播报
         private void timer2_Tick(object sender, EventArgs e)
         {
 
-            if (player.playState == WMPLib.WMPPlayState.wmppsStopped)
+            if (player.playState == WMPLib.WMPPlayState.wmppsStopped||player.playState== WMPLib.WMPPlayState.wmppsUndefined||player.playState== WMPLib.WMPPlayState.wmppsReady)
             {
                 if (count <= setJson.Count)
                 {
-                    player.URL = VoiceFileName; 
-                    player.Ctlcontrols.play();
+                    //player.URL = VoiceFileName; 
+                    //player.Ctlcontrols.play();
+                    StartPlay(CellTime);
                     count++;
                 }
                 else
                 {
                     player.Ctlcontrols.stop();
+                    
                     //检查现在时间是否已经过了播报时间了
                     //得到当前的播放列表
                     List<IMovieShowList.MovieShow> list = new List<MovieShow>(blList);
@@ -245,6 +245,7 @@ namespace 语音播报
                     //所以当前的不用播报了
                     if (movie == null)
                     {
+                        
                         //让计时器1启动
                         timer1.Enabled = true;
                         //回复计数
@@ -299,10 +300,11 @@ namespace 语音播报
        
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            //显示主界面
-            this.WindowState = FormWindowState.Maximized;
+            
             this.Visible = true;
             SwitchToThisWindow(this.Handle, true);
+            //显示主界面
+            this.WindowState = FormWindowState.Normal;
             //this.Select();
             //this.Focus();
         }
@@ -464,7 +466,8 @@ namespace 语音播报
             var res = MessageBox.Show("你确定要重新登陆吗?", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (res== DialogResult.Yes)
             {
-                Application.Restart();
+                ShowLogin?.Invoke();
+                this.Close();
             }
            
         }
@@ -489,7 +492,7 @@ namespace 语音播报
             string json = js.Serialize(setInfo);
 
             File.WriteAllText(SetPath.SetTPath, json);
-            Application.Exit();
+            //Application.Exit();
         }
 
        
@@ -532,11 +535,19 @@ namespace 语音播报
             {
                 this.Visible = false;
 
+
+            }
+            else if(this.WindowState == FormWindowState.Maximized)
+            {
+                //如果当前是最大化,点击的时候应该回复
+                picMax.BackgroundImage = Image.FromFile("pic\\回复.png");
             }
             else
             {
-                this.Visible = true;
+                picMax.BackgroundImage = Image.FromFile("pic\\最大化.png");
             }
+
+          
         }
 
 
@@ -546,6 +557,19 @@ namespace 语音播报
             {
                 notifyIcon1_MouseDoubleClick(sender, null);
             }
+        }
+
+        private void panelLeft_Resize(object sender, EventArgs e)
+        {
+            //让滚动条的长度更改
+            scroll.Location = new Point(3, btnPlayList.Location.Y);
+            scroll.Height = lbVolInfo.Bottom - btnPlayList.Top;
+           
+        }
+
+        private void scroll_ValueChanged(object sender, EventArgs e)
+        {
+            player.settings.volume = scroll.Value;
         }
     }
 }
