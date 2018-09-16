@@ -11,7 +11,7 @@
         </member>
         <member name="M:IMovieShowList.Http.#ctor(System.String)">
             <summary>
-            构造函数
+            构造函数,以/分隔base和parameters
             </summary>
             <param name="baseUri">Host地址</param>
         </member>

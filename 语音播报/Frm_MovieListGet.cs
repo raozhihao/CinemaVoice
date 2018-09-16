@@ -1083,18 +1083,26 @@ namespace 语音播报
         private void splitContainer1_Resize(object sender, EventArgs e)
         {
             //判断当前窗体状态
-            if (splitContainer1.Width >= 700)
+            if (splitContainer1.Width > 645)
             {
                 //这是排片查询窗口的宽度
                 splitContainer1.Orientation = Orientation.Vertical;
-                splitContainer1.Panel1MinSize = 600;
-                
+                splitContainer1.Panel1MinSize = 645;
+                splitContainer1.SplitterDistance = 646;
             }
-            else
+            else if(splitContainer1.Width>0)
             {
+                //解决SplitterDistance 必须在 Panel1MinSize 和 Width - Panel2MinSize 之间。
+                //这个问题
+                //这个问题的引起,主要是因为窗体在最小化之后,再最大化,其width仍然为0的情况下,所引起来的
                 splitContainer1.Orientation = Orientation.Horizontal;
                 splitContainer1.Panel1MinSize = 209;
                 splitContainer1.SplitterDistance = 210;
+            }
+            else
+            {
+                //
+                return;
             }
         }
 
@@ -1109,6 +1117,7 @@ namespace 语音播报
         {
             LoadList(DateTime.Now.ToString("yyyyMMdd"));
             lbApiDate.Text = DateTime.Now.ToString("yyyyMMdd");
+            this.dateTimePicker1.Value = DateTime.Now;
             MessageBox.Show("获取成功", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }

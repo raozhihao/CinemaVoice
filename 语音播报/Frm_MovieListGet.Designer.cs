@@ -158,6 +158,7 @@
             // 
             this.splitContainer1.BackColor = System.Drawing.Color.Black;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -174,7 +175,7 @@
             this.splitContainer1.Panel1.Controls.Add(this.btnNew);
             this.splitContainer1.Panel1.Controls.Add(this.btnFY);
             this.splitContainer1.Panel1.Controls.Add(this.btnCW);
-            this.splitContainer1.Panel1MinSize = 209;
+            this.splitContainer1.Panel1MinSize = 210;
             // 
             // splitContainer1.Panel2
             // 
@@ -380,7 +381,7 @@
             this.dataGridView2.RowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridView2.RowTemplate.Height = 30;
             this.dataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView2.Size = new System.Drawing.Size(645, 353);
+            this.dataGridView2.Size = new System.Drawing.Size(645, 356);
             this.dataGridView2.TabIndex = 10;
             this.dataGridView2.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellClick);
             this.dataGridView2.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView2_CellMouseDown);
