@@ -98,5 +98,23 @@ namespace 语音播报
         /// 记录座标点
         /// </summary>
         private Point pt;
+
+        /// <summary>
+        /// 记录当前播放器的状态
+        /// true为正在播放中
+        /// </summary>
+        public bool PlayState { get; set; }
+
+        /// <summary>
+        /// 文件是否下载完成
+        /// true为下载完成
+        /// </summary>
+        private bool UpdateEnd = false;
+
+        /// <summary>
+        /// 文件是否重新下载完成
+        /// true为下载完成
+        /// </summary>
+        private bool ResertUpdateEnd = true;
     }
 }

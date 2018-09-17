@@ -177,11 +177,15 @@ namespace 语音播报
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            if (player.playState == WMPLib.WMPPlayState.wmppsStopped || player.playState == WMPLib.WMPPlayState.wmppsUndefined || player.playState == WMPLib.WMPPlayState.wmppsReady)
+            {
+                PlayState = false;
+            }
 
-            //获得当前时间往后推10分钟
+                //获得当前时间往后推10分钟
 
-            //使用  HH:mm 进行格式化
-            string now = DateTime.Now.AddMinutes(setJson.Time).ToString("HH:mm");
+                //使用  HH:mm 进行格式化
+                string now = DateTime.Now.AddMinutes(setJson.Time).ToString("HH:mm");
 
 
             //获取数据
@@ -212,23 +216,25 @@ namespace 语音播报
 
             }
         }
+       
 
         private void timer2_Tick(object sender, EventArgs e)
         {
 
             if (player.playState == WMPLib.WMPPlayState.wmppsStopped||player.playState== WMPLib.WMPPlayState.wmppsUndefined||player.playState== WMPLib.WMPPlayState.wmppsReady)
             {
+               
                 if (count <= setJson.Count)
                 {
-                    //player.URL = VoiceFileName; 
-                    //player.Ctlcontrols.play();
+                   //开始播放
                     StartPlay(CellTime);
                     count++;
+                   
                 }
                 else
                 {
                     player.Ctlcontrols.stop();
-                    
+                    PlayState = false;
                     //检查现在时间是否已经过了播报时间了
                     //得到当前的播放列表
                     List<IMovieShowList.MovieShow> list = new List<MovieShow>(blList);
@@ -409,10 +415,37 @@ namespace 语音播报
                 ResetDownLoadVoice();
 
             };
+            set.ResertLoad += Set_ResertLoad;
+            set.LoadUpdateEnd += Set_LoadUpdateEnd;
+            set.GetPlayState += Set_GetPlayState;
             ShowBtn(btnSet);
         }
 
-       
+        /// <summary>
+        /// 是否重新下载完成的通知
+        /// </summary>
+        /// <returns></returns>
+        private bool Set_ResertLoad()
+        {
+            return ResertUpdateEnd;
+        }
+        /// <summary>
+        /// 是否下载完成的通知
+        /// </summary>
+        /// <returns></returns>
+        private bool Set_LoadUpdateEnd()
+        {
+            return UpdateEnd;
+        }
+        /// <summary>
+        /// 获取当前播放器是否正在播放中
+        /// </summary>
+        /// <returns></returns>
+        private bool Set_GetPlayState()
+        {
+            return this.PlayState;
+        }
+
         private Form ShowForm(Form frm,Control parent)
         {
             HiddenControls();

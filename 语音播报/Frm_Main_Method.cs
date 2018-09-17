@@ -17,7 +17,7 @@ namespace 语音播报
 {
     partial class Frm_Main
     {
-        
+
 
         /// <summary>
         /// 加载配置信息
@@ -83,7 +83,7 @@ namespace 语音播报
         }
 
 
-        
+
 
         /// <summary>
         /// 初始化数据信息
@@ -135,13 +135,14 @@ namespace 语音播报
         /// <param name="obj"></param>
         private void ListLoad(object obj)
         {
+           
             //下载之前,清除已有
             ClearVoice();
             List<IMovieShowList.MovieShow> list = obj as List<IMovieShowList.MovieShow>;
             UpdateLoad(list);
         }
 
-
+       
         /// <summary>
         /// 下载语音信息包
         /// </summary>
@@ -256,6 +257,7 @@ namespace 语音播报
                 Invoke(new Action(() =>
                 {
                     blList.OrderByDescending(m => m.BeginTime);
+                    UpdateEnd = true;
                 }));
             }
         }
@@ -286,48 +288,67 @@ namespace 语音播报
         /// <summary>
         /// 清除所有已存在的信息
         /// </summary>
-        private void ClearVoice()
+        private bool ClearVoice()
         {
+            
+
+            if (PlayState)
+            {
+                MessageBox.Show("请稍候,正在播报中...", "提示", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return false;
+            }
             if (!Directory.Exists(SetPath.vPath))
             {
-                return;
+                return false;
             }
-            try
+            DirectoryInfo dir = new DirectoryInfo(SetPath.vPath);
+            FileInfo[] fis = dir.GetFiles("*.mp3", SearchOption.TopDirectoryOnly);
+            if (DeleteFiles(fis)) {
+                return true;
+            }
+            else
             {
-                DirectoryInfo dir = new DirectoryInfo(SetPath.vPath);
-                FileSystemInfo[] fileinfo = dir.GetFileSystemInfos();  //返回目录中所有文件和子目录
-                foreach (FileSystemInfo i in fileinfo)
-                {
-                    if (i is DirectoryInfo)            //判断是否文件夹
-                    {
-                        DirectoryInfo subdir = new DirectoryInfo(i.FullName);
-                        subdir.Delete(true);          //删除子目录和文件
-                    }
-                    else
-                    {
-                        File.Delete(i.FullName);      //删除指定文件
-                    }
-                }
+                return false;
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+           
+            
         }
 
-       
+        private bool DeleteFiles(FileInfo[] fis)
+        {
+            bool ok = true;
+            foreach (var item in fis)
+            {
+                try
+                {
+                    item.Delete();
+                }
+                catch
+                {
+                    ok = false;
+                    break;
+                }
+               
+            }
+            return ok; 
+        }
+
+
         /// <summary>
         /// 开始播放
         /// </summary>
         private void StartPlay(string cellTime)
         {
-
+           
             //直接读取本地文件
             string fileName = cellTime.Replace(":", "") + ".mp3";
             if (File.Exists(SetPath.voicePath + fileName))
             {
                 player.URL = SetPath.voicePath + fileName;
                 player.Ctlcontrols.play();
+                //播放状态
+                PlayState = true;
+               
             }
 
         }
@@ -340,6 +361,7 @@ namespace 语音播报
             if (player.playState == WMPLib.WMPPlayState.wmppsPlaying)
             {
                 player.Ctlcontrols.stop();
+                PlayState = false;
             }
 
         }
@@ -349,8 +371,17 @@ namespace 语音播报
         /// </summary>
         private void ResetDownLoadVoice()
         {
-            ClearVoice();
-            Task.Factory.StartNew(DownLoadVoice, blList.ToList());
+
+            if (ClearVoice())
+            {
+                Task.Factory.StartNew(DownLoadVoice, blList.ToList());
+                ResertUpdateEnd = true;
+            }
+            else
+            {
+                ResertUpdateEnd = false;
+            }
+                
         }
         /// <summary>
         /// 下载语音文件
@@ -409,7 +440,9 @@ namespace 语音播报
 
                     if (result.Success)  // 或 result.code==0
                     {
+
                         File.WriteAllBytes(fileName, result.Data);
+
                     }
                     else
                     {
@@ -417,6 +450,7 @@ namespace 语音播报
                         Invoke(new Action(() =>
                         {
                             erroList.Add(movie);
+                            ResertUpdateEnd = false;
                         }));
                     }
 
@@ -429,6 +463,7 @@ namespace 语音播报
                         Invoke(new Action(() =>
                         {
                             erroList.Add(movie);
+                            ResertUpdateEnd = false;
                         }));
                     }
                     catch
@@ -441,6 +476,12 @@ namespace 语音播报
             if (erroList.Count > 0)
             {
                 DownLoadVoice(erroList);
+               
+            }
+            else
+            {
+                //下载全部完成
+                ResertUpdateEnd = true;
             }
 
         }

@@ -1,1 +1,1 @@
-尊敬的顾客你好,$HallName,$BeginTime,$MovieName,可以检票进场了,请拿好您手中的影票依次排队检票,祝您观影愉快!
+5尊敬的顾客你好,$HallName,$BeginTime,$MovieName,可以检票进场了,请拿好您手中的影票依次排队检票,祝您观影愉快!

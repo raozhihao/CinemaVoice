@@ -31,14 +31,15 @@ namespace 语音播报
 
         private void NewSet_Resize(object sender, EventArgs e)
         {
-            
+
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
+
         }
 
+        private bool play = false;
         /// <summary>
         /// 测试按钮
         /// </summary>
@@ -46,8 +47,47 @@ namespace 语音播报
         /// <param name="e"></param>
         private void button2_Click(object sender, EventArgs e)
         {
+            if (GetPlayState!=null)
+            {
+                bool playState = GetPlayState();
+                if (playState)
+                {
+                    MessageBox.Show("正在播报中,不能测试", "提示", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    return;
+                }
+            }
+
+            if (play)
+            {
+                //点击了停止
+                //当前正在播报
+                play = false;
+
+                button2.Text = "测试";
+                //当前是需要停止
+                axWindowsMediaPlayer1.Ctlcontrols.stop();
+                axWindowsMediaPlayer1.close();
+                if (File.Exists("测试.mp3"))
+                {
+                    //删除测试
+                    File.Delete("测试.mp3");
+
+                }
+
+                return;
+            }
+            else
+            {
+                button2.Text = "停止";
+
+                play = true;
+
+
+            }
+
+
             string text = textBox1.Text;
-            
+
             //测试
             //欢迎光临，$hallName,$movieName,$beginTime的电影已经开始了
             if (text.Contains("$HallName"))
@@ -75,7 +115,7 @@ namespace 语音播报
                 Per = comboBox1.SelectedIndex, //(int)npPer.Value,
                 Pit = (int)npPit.Value,
             };
-           
+
             var spd = set.Rate;//npSpd.Value;
             var vol = set.Vol;//npVol.Value;
             var per = set.Per; //npPer.Value;
@@ -89,22 +129,74 @@ namespace 语音播报
                 {"pit",pit }
             };
             string path = "测试.mp3";
+
             bool reslut = b.Send(text, option, path);
             if (reslut)
             {
                 axWindowsMediaPlayer1.URL = path;
                 axWindowsMediaPlayer1.Ctlcontrols.play();
             }
+
         }
 
+        /// <summary>
+        /// 获取主窗体的播放状态
+        /// </summary>
+        public event Func<bool> GetPlayState;
+        /// <summary>
+        /// 获取主窗体的下载状态
+        /// </summary>
+        public event Func<bool> LoadUpdateEnd;
+        /// <summary>
+        /// 获取主窗体下重新下载的状态
+        /// </summary>
+        public event Func<bool> ResertLoad;
         private void button3_Click(object sender, EventArgs e)
         {
+
+            if (ResertLoad != null)
+            {
+
+                bool resert = ResertLoad();
+                if (!resert)
+                {
+                    MessageBox.Show("正在更新文件中,请稍候重试", "提示", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    return;
+                }
+            }
+            if (LoadUpdateEnd!=null)
+            {
+
+                bool update = LoadUpdateEnd();
+                if (!update)
+                {
+                    MessageBox.Show("正在下载文件中,请稍候重试", "提示", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    return;
+                }
+            }
+
+            if (GetPlayState != null)
+            {
+                bool playState = GetPlayState();
+                if (playState || axWindowsMediaPlayer1.playState == WMPLib.WMPPlayState.wmppsPlaying)
+                {
+                    //如果主窗口正在播放中,则应该先中止此按钮的功能,并向用户提示
+                    MessageBox.Show("正在播放中,请等待播放停止", "提示", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
+
+                    return;
+                }
+            }
             try
             {
+                //如果主窗口正在播放中,则应该先中止此按钮的功能,并向用户提示
+                //怎么得到主窗口的状态呢
+
+
                 //将模板信息写入本地文件中
                 string txt = textBox1.Text;
                 File.WriteAllText(SetPath.FomartPath, txt);
-               // FomartChanged?.Invoke();
+                // FomartChanged?.Invoke();
                 //MessageBox.Show("保存成功", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 //获得各项数据
@@ -126,6 +218,7 @@ namespace 语音播报
 
                 File.WriteAllText(SetPath.SetTPath, json);
 
+             
                 //修改过后应向主窗体通知
                 SetChanged?.Invoke();
                 MessageBox.Show("保存成功", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -133,6 +226,7 @@ namespace 语音播报
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+
             }
         }
 
