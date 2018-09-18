@@ -50,6 +50,8 @@ namespace 语音播报.Model
         /// </summary>
         private const string updateTxt = "update.txt";
 
+
+        private const string elseSet = "elseSet.json";
         /// <summary>
         /// 更新说明文件路径
         /// </summary>
@@ -83,5 +85,10 @@ namespace 语音播报.Model
         /// 时间设置路径
         /// </summary>
         internal static string TimeJosnPath { get { return basePath + timePath; } }
+
+        /// <summary>
+        /// 其它设置的存放路径
+        /// </summary>
+        internal static string ElseSetPath { get { return basePath + elseSet; } }
     }
 }

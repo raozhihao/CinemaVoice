@@ -47,7 +47,7 @@ namespace 语音播报
         /// <param name="e"></param>
         private void button2_Click(object sender, EventArgs e)
         {
-            if (GetPlayState!=null)
+            if (GetPlayState != null)
             {
                 bool playState = GetPlayState();
                 if (playState)
@@ -149,22 +149,16 @@ namespace 语音播报
         public event Func<bool> LoadUpdateEnd;
         /// <summary>
         /// 获取主窗体下重新下载的状态
+        /// 1=>未下载完成
+        /// 2=>无操作
+        /// 3=>已下载完成
         /// </summary>
-        public event Func<bool> ResertLoad;
+        public event Func<int> ResertLoad;
         private void button3_Click(object sender, EventArgs e)
         {
-
-            if (ResertLoad != null)
-            {
-
-                bool resert = ResertLoad();
-                if (!resert)
-                {
-                    MessageBox.Show("正在更新文件中,请稍候重试", "提示", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                    return;
-                }
-            }
-            if (LoadUpdateEnd!=null)
+            //timer1.Enabled = true;
+            
+            if (LoadUpdateEnd != null)
             {
 
                 bool update = LoadUpdateEnd();
@@ -174,7 +168,7 @@ namespace 语音播报
                     return;
                 }
             }
-
+           
             if (GetPlayState != null)
             {
                 bool playState = GetPlayState();
@@ -187,38 +181,25 @@ namespace 语音播报
                     return;
                 }
             }
+            if (ResertLoad != null)
+            {
+
+                if (ResertLoad() == 2||ResertLoad()==3)
+                {
+                    //未下载完成
+                    //改变按钮状态
+                    button3.Text = "更新中...";
+                    button3.Enabled = false;
+                    button3.Cursor = Cursors.No;
+                }
+
+            }
+            timer1.Enabled = true;
             try
             {
-                //如果主窗口正在播放中,则应该先中止此按钮的功能,并向用户提示
-                //怎么得到主窗口的状态呢
+                SaveJson();
 
 
-                //将模板信息写入本地文件中
-                string txt = textBox1.Text;
-                File.WriteAllText(SetPath.FomartPath, txt);
-                // FomartChanged?.Invoke();
-                //MessageBox.Show("保存成功", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                //获得各项数据
-                SetT setInfo = new SetT()
-                {
-                    Count = (int)npCount.Value,
-                    Rate = (int)npSpd.Value,
-                    Time = (int)npTime.Value,
-                    Vol = (int)npVol.Value,
-                    Per = comboBox1.SelectedIndex, //(int)npPer.Value,
-                    Pit = (int)npPit.Value,
-                };
-
-
-                //序列化
-                JavaScriptSerializer js = new JavaScriptSerializer();
-
-                string json = js.Serialize(setInfo);
-
-                File.WriteAllText(SetPath.SetTPath, json);
-
-             
                 //修改过后应向主窗体通知
                 SetChanged?.Invoke();
                 MessageBox.Show("保存成功", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -283,6 +264,82 @@ namespace 语音播报
                 npVol.Value = sets.Vol;
                 comboBox1.SelectedIndex = sets.Per;
             }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            //在这里处理是否重新下载完成的项
+            if (ResertLoad != null)
+            {
+                if (ResertLoad()== 1)
+                {
+                    //未下载完成
+                    //改变按钮状态
+                    button3.Text = "更新中...";
+                    button3.Enabled = false;
+                    button3.Cursor = Cursors.No;
+                }
+                else if (ResertLoad() == 3)
+                {
+                    //已经下载完成
+                    button3.Text = "保存";
+                    button3.Enabled = true;
+                    button3.Cursor = Cursors.Hand;
+                    timer1.Enabled = false;
+                }
+            }
+        }
+
+        private void btnSave_Click_1(object sender, EventArgs e)
+        {
+            AllField.AdvanceTime = (int)npTime.Value;
+            AllField.PlayCount = (int)npCount.Value;
+            //这里只保存播放音量,播放次数以及提前时间,其它的设置保存应该在"保存"按钮中保存
+            string jsonStr = File.ReadAllText(SetPath.SetTPath);
+            SetT set = js.Deserialize<SetT>(jsonStr);
+            set.Count = AllField.PlayCount;
+            set.Time = AllField.AdvanceTime;
+            set.PlayVol = AllField.PlayVol;
+            string json = js.Serialize(set);
+            File.WriteAllText(SetPath.SetTPath, json);
+        }
+
+        private void NewSet_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            
+            
+
+        }
+        //序列化
+        JavaScriptSerializer js = new JavaScriptSerializer();
+        /// <summary>
+        /// 将设置的信息写到本地文件中
+        /// </summary>
+        private void SaveJson()
+        {
+            //将模板信息写入本地文件中
+            string txt = textBox1.Text;
+            File.WriteAllText(SetPath.FomartPath, txt);
+
+           
+            //获得各项数据
+            SetT setInfo = new SetT()
+            {
+                Count = AllField.PlayCount,
+                Rate = (int)npSpd.Value,
+                Time = AllField.AdvanceTime,
+                Vol = (int)npVol.Value,
+                Per = comboBox1.SelectedIndex, //(int)npPer.Value,
+                Pit = (int)npPit.Value,
+                PlayVol=AllField.PlayVol
+            };
+
+
+            
+
+            string json = js.Serialize(setInfo);
+
+            File.WriteAllText(SetPath.SetTPath, json);
         }
     }
 }

@@ -113,8 +113,10 @@ namespace 语音播报
 
         /// <summary>
         /// 文件是否重新下载完成
-        /// true为下载完成
+        /// 1=>未下载完成
+        /// 2=>无操作
+        /// 3=>已下载完成
         /// </summary>
-        private bool ResertUpdateEnd = true;
+        private int ResertUpdateEnd = 2;
     }
 }

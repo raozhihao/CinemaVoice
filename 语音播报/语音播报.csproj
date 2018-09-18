@@ -88,6 +88,7 @@
     <Compile Include="Frm_MovieListGet.Designer.cs">
       <DependentUpon>Frm_MovieListGet.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\AllField.cs" />
     <Compile Include="Model\BaiduApiUser.cs" />
     <Compile Include="Model\ExcelSource.cs" />
     <Compile Include="Model\FormFactory.cs" />

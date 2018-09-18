@@ -135,14 +135,14 @@ namespace 语音播报
         /// <param name="obj"></param>
         private void ListLoad(object obj)
         {
-           
+
             //下载之前,清除已有
             ClearVoice();
             List<IMovieShowList.MovieShow> list = obj as List<IMovieShowList.MovieShow>;
             UpdateLoad(list);
         }
 
-       
+
         /// <summary>
         /// 下载语音信息包
         /// </summary>
@@ -290,7 +290,7 @@ namespace 语音播报
         /// </summary>
         private bool ClearVoice()
         {
-            
+
 
             if (PlayState)
             {
@@ -303,15 +303,16 @@ namespace 语音播报
             }
             DirectoryInfo dir = new DirectoryInfo(SetPath.vPath);
             FileInfo[] fis = dir.GetFiles("*.mp3", SearchOption.TopDirectoryOnly);
-            if (DeleteFiles(fis)) {
+            if (DeleteFiles(fis))
+            {
                 return true;
             }
             else
             {
                 return false;
             }
-           
-            
+
+
         }
 
         private bool DeleteFiles(FileInfo[] fis)
@@ -328,9 +329,9 @@ namespace 语音播报
                     ok = false;
                     break;
                 }
-               
+
             }
-            return ok; 
+            return ok;
         }
 
 
@@ -339,7 +340,7 @@ namespace 语音播报
         /// </summary>
         private void StartPlay(string cellTime)
         {
-           
+
             //直接读取本地文件
             string fileName = cellTime.Replace(":", "") + ".mp3";
             if (File.Exists(SetPath.voicePath + fileName))
@@ -348,10 +349,11 @@ namespace 语音播报
                 player.Ctlcontrols.play();
                 //播放状态
                 PlayState = true;
-               
             }
 
         }
+
+
 
         /// <summary>
         /// 停止播报
@@ -375,31 +377,42 @@ namespace 语音播报
             if (ClearVoice())
             {
                 Task.Factory.StartNew(DownLoadVoice, blList.ToList());
-                ResertUpdateEnd = true;
             }
-            else
-            {
-                ResertUpdateEnd = false;
-            }
-                
+
         }
+
+        /// <summary>
+        /// 写入log
+        /// </summary>
+        /// <param name="msg"></param>
+        private void WriteLog(string msg)
+        {
+            using (FileStream fs = new FileStream("log.log", FileMode.Append, FileAccess.Write))
+            {
+                byte[] bus = Encoding.UTF8.GetBytes(msg);
+                fs.Write(bus, 0, bus.Length);
+            }
+        }
+
+        private static object objLock = new object();
         /// <summary>
         /// 下载语音文件
         /// </summary>
         /// <param name="obj"></param>
         private void DownLoadVoice(object obj)
         {
+            lock (objLock)
+            {
+                List<IMovieShowList.MovieShow> list = obj as List<IMovieShowList.MovieShow>;
+                //存储下载失败的项
+                List<IMovieShowList.MovieShow> erroList = new List<IMovieShowList.MovieShow>();
+                //得到配置文件信息
+                var spd = setJson.Rate;//npSpd.Value;
+                var vol = setJson.Vol;//npVol.Value;
+                var per = setJson.Per; //npPer.Value;
+                var pit = setJson.Pit;//npPit.Value;
 
-            List<IMovieShowList.MovieShow> list = obj as List<IMovieShowList.MovieShow>;
-            //存储下载失败的项
-            List<IMovieShowList.MovieShow> erroList = new List<IMovieShowList.MovieShow>();
-            //得到配置文件信息
-            var spd = setJson.Rate;//npSpd.Value;
-            var vol = setJson.Vol;//npVol.Value;
-            var per = setJson.Per; //npPer.Value;
-            var pit = setJson.Pit;//npPit.Value;
-
-            var option = new Dictionary<string, object>()
+                var option = new Dictionary<string, object>()
             {
                 {"spd",spd },// 语速
                 {"vol",vol },// 音量
@@ -407,81 +420,81 @@ namespace 语音播报
                 {"pit",pit }
             };
 
-            // 设置APPID/AK/SK
-            // var APP_ID = "11339468"; //"你的 App ID";
-            var API_KEY = System.Configuration.ConfigurationManager.AppSettings["API_KEY"]; //"你的 Api Key";
-            var SECRET_KEY = System.Configuration.ConfigurationManager.AppSettings["SECRET_KEY"];  //"你的 Secret Key";
+                // 设置APPID/AK/SK
+                // var APP_ID = "11339468"; //"你的 App ID";
+                var API_KEY = System.Configuration.ConfigurationManager.AppSettings["API_KEY"]; //"你的 Api Key";
+                var SECRET_KEY = System.Configuration.ConfigurationManager.AppSettings["SECRET_KEY"];  //"你的 Secret Key";
 
-            var client = new Baidu.Aip.Speech.Tts(API_KEY, SECRET_KEY);
-            client.Timeout = 3000;
+                var client = new Baidu.Aip.Speech.Tts(API_KEY, SECRET_KEY);
+                client.Timeout = 3000;
 
-            string fomartStr = File.ReadAllText(SetPath.FomartPath);
-            foreach (IMovieShowList.MovieShow movie in list)
-            {
-                if (!Directory.Exists(SetPath.voicePath))
-                {
-                    Directory.CreateDirectory(SetPath.voicePath);
-                }
+                string fomartStr = File.ReadAllText(SetPath.FomartPath);
+                // WriteLog($"{DateTime.Now.ToShortTimeString()}==> 准备开始下载" + Environment.NewLine);
 
-                if (cts.IsCancellationRequested)
+
+                foreach (IMovieShowList.MovieShow movie in list)
                 {
 
-                    return;
-                }
-                string fileName = SetPath.voicePath + movie.BeginTime.Replace(":", "") + ".mp3";
-                //下载每一个文件对应的语音包
-                //得到配置文件下的格式信息
-                string text = ParseText(fomartStr, movie);
-
-                try
-                {
-
-                    var result = client.Synthesis(text, option);
-
-                    if (result.Success)  // 或 result.code==0
+                    if (!Directory.Exists(SetPath.voicePath))
                     {
-
-                        File.WriteAllBytes(fileName, result.Data);
-
-                    }
-                    else
-                    {
-                        //没有下载成功
-                        Invoke(new Action(() =>
-                        {
-                            erroList.Add(movie);
-                            ResertUpdateEnd = false;
-                        }));
+                        Directory.CreateDirectory(SetPath.voicePath);
                     }
 
-                }
-                catch
-                {
-                    //出现异常没有下载成功
+                    if (cts.IsCancellationRequested)
+                    {
+
+                        return;
+                    }
+                    string fileName = SetPath.voicePath + movie.BeginTime.Replace(":", "") + ".mp3";
+                    //下载每一个文件对应的语音包
+                    //得到配置文件下的格式信息
+                    string text = ParseText(fomartStr, movie);
+
                     try
                     {
-                        Invoke(new Action(() =>
+
+                        var result = client.Synthesis(text, option);
+
+                        if (result.Success)  // 或 result.code==0
                         {
-                            erroList.Add(movie);
-                            ResertUpdateEnd = false;
-                        }));
+
+                            File.WriteAllBytes(fileName, result.Data);
+                        }
+                        else
+                        {
+                            //没有下载成功
+                            Invoke(new Action(() =>
+                            {
+                                erroList.Add(movie);
+                                
+                            }));
+                        }
+
                     }
                     catch
                     {
+                        //出现异常没有下载成功
+                        Invoke(new Action(() =>
+                        {
+                            
+                        }));
+
                     }
 
+
                 }
-            }
-            //下载完成了,查看有没有下载失败的项
-            if (erroList.Count > 0)
-            {
-                DownLoadVoice(erroList);
-               
-            }
-            else
-            {
-                //下载全部完成
-                ResertUpdateEnd = true;
+
+                //下载完成了,查看有没有下载失败的项
+                if (erroList.Count > 0)
+                {
+                    ResertUpdateEnd = 1;
+                    DownLoadVoice(erroList);
+                }
+                else
+                {
+                    //下载全部完成
+                    ResertUpdateEnd = 3;
+                }
             }
 
         }

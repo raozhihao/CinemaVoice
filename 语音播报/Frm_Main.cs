@@ -22,25 +22,31 @@ namespace 语音播报
             InitializeComponent();
         }
        
-        private void Frm_Main_Load(object sender, EventArgs e)
+        private  void Frm_Main_Load(object sender, EventArgs e)
         {
             MoveForm mt = new Model.MoveForm(panelTitle, this);
             MoveForm ml = new Model.MoveForm(panelLeft, this);
 
-             set = (NewSet)ShowForm(new NewSet(), panelMain);
+            set = new NewSet(); //(NewSet)ShowForm(new NewSet(), panelMain);
+            set.SetChanged += Set_SetChanged;
+            set.ResertLoad += Set_ResertLoad;
+            set.LoadUpdateEnd += Set_LoadUpdateEnd;
+            set.GetPlayState += Set_GetPlayState;
+            //set.Show();
             frm_MovieList = new Frm_MovieListGet(Chose);
             //设置滚动条的属性
             //从配置文件中读取配置
-            player.settings.volume = GetSet().PlayVol;
-            scroll.Value = GetSet().PlayVol;
+            setJson = GetSet();
+            player.settings.volume = setJson.PlayVol;
+            scroll.Value = setJson.PlayVol;
            
             lbVol.Text = scroll.Value.ToString();
-            scroll.ValueChanged += S_ValueChanged;
-            panelLeft.Controls.Add(scroll);
+            //scroll.ValueChanged += S_ValueChanged;
+            //panelLeft.Controls.Add(scroll);
 
             //让第一个按钮反色
-            btnPlayList.BackColor = Color.White;
-            btnPlayList.ForeColor = Color.Black;
+            //btnPlayList.BackColor = Color.White;
+            //btnPlayList.ForeColor = Color.Black;
             //第一个按钮的事件启动
             btnPlayList_Click(null, null);
             Inits();
@@ -48,7 +54,9 @@ namespace 语音播报
             
             timer3.Enabled = true;
 
-            setJson = GetSet();
+            
+            AllField.PlayCount = GetSet().Count;
+            AllField.AdvanceTime = GetSet().Time;
         }
 
         /// <summary>
@@ -182,10 +190,11 @@ namespace 语音播报
                 PlayState = false;
             }
 
-                //获得当前时间往后推10分钟
+            //获得当前时间往后推10分钟
 
-                //使用  HH:mm 进行格式化
-                string now = DateTime.Now.AddMinutes(setJson.Time).ToString("HH:mm");
+            //使用  HH:mm 进行格式化
+            // string now = DateTime.Now.AddMinutes(setJson.Time).ToString("HH:mm");
+            string now = DateTime.Now.AddMinutes(AllField.AdvanceTime).ToString("HH:mm");
 
 
             //获取数据
@@ -224,7 +233,7 @@ namespace 语音播报
             if (player.playState == WMPLib.WMPPlayState.wmppsStopped||player.playState== WMPLib.WMPPlayState.wmppsUndefined||player.playState== WMPLib.WMPPlayState.wmppsReady)
             {
                
-                if (count <= setJson.Count)
+                if (count <= AllField.PlayCount)
                 {
                    //开始播放
                     StartPlay(CellTime);
@@ -239,7 +248,8 @@ namespace 语音播报
                     //得到当前的播放列表
                     List<IMovieShowList.MovieShow> list = new List<MovieShow>(blList);
                     //获取当前时间加10分钟
-                    string nowTime = DateTime.Now.AddMinutes(setJson.Time).ToString("HH:mm");
+                    //string nowTime = DateTime.Now.AddMinutes(setJson.Time).ToString("HH:mm");
+                    string nowTime = DateTime.Now.AddMinutes(AllField.AdvanceTime).ToString("HH:mm");
 
 
                     //查看是否有当前需要播报的
@@ -266,7 +276,11 @@ namespace 语音播报
 
         private void timer3_Tick(object sender, EventArgs e)
         {
-           
+            if (player.playState == WMPLib.WMPPlayState.wmppsStopped)
+            {
+                player.close();
+
+            }
             //清除掉数据
             // 获取数据
             List<IMovieShowList.MovieShow> list = new List<MovieShow>(blList);
@@ -406,26 +420,25 @@ namespace 语音播报
             //NewSet set = (NewSet)ShowForm(new NewSet(), panelMain);
            
             ShowForm(set,panelMain);
-            set.SetChanged += () =>
-            {
-                //重新读取配置文件
-                setJson = GetSet();
-                //获取模板信息
-                fmTxt = File.ReadAllText(SetPath.FomartPath);
-                ResetDownLoadVoice();
-
-            };
-            set.ResertLoad += Set_ResertLoad;
-            set.LoadUpdateEnd += Set_LoadUpdateEnd;
-            set.GetPlayState += Set_GetPlayState;
+            
             ShowBtn(btnSet);
+        }
+
+       
+        private void Set_SetChanged()
+        {
+           // 重新读取配置文件
+                setJson = GetSet();
+            //获取模板信息
+            fmTxt = File.ReadAllText(SetPath.FomartPath);
+            ResetDownLoadVoice();
         }
 
         /// <summary>
         /// 是否重新下载完成的通知
         /// </summary>
         /// <returns></returns>
-        private bool Set_ResertLoad()
+        private int Set_ResertLoad()
         {
             return ResertUpdateEnd;
         }
@@ -453,8 +466,8 @@ namespace 语音播报
             frm.MdiParent = this;
             frm.Dock = DockStyle.Fill;
             parent.Controls.Add(frm);
-          
-            frm.Show();
+            frm.Visible = true;
+           // frm.Show();
             return frm;
         }
 
@@ -516,16 +529,7 @@ namespace 语音播报
 
         private void Frm_Main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //保存滚动条的值
-            //将配置信息写入文件中
-            //获得各项数据
-            SetT setInfo = GetSet();
-            setInfo.PlayVol = scroll.Value;
-
-            string json = js.Serialize(setInfo);
-
-            File.WriteAllText(SetPath.SetTPath, json);
-            //Application.Exit();
+            
         }
 
        
@@ -603,6 +607,8 @@ namespace 语音播报
         private void scroll_ValueChanged(object sender, EventArgs e)
         {
             player.settings.volume = scroll.Value;
+            lbVol.Text = player.settings.volume.ToString();
+            AllField.PlayVol = player.settings.volume;
         }
     }
 }

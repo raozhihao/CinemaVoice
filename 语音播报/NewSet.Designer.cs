@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NewSet));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -46,6 +47,9 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.axWindowsMediaPlayer1 = new AxWMPLib.AxWindowsMediaPlayer();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.btnSave = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -56,6 +60,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.npVol)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.npTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -74,20 +79,16 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.BackColor = System.Drawing.Color.White;
-            this.splitContainer1.Panel2.Controls.Add(this.npCount);
             this.splitContainer1.Panel2.Controls.Add(this.label9);
             this.splitContainer1.Panel2.Controls.Add(this.comboBox1);
-            this.splitContainer1.Panel2.Controls.Add(this.label1);
             this.splitContainer1.Panel2.Controls.Add(this.label10);
             this.splitContainer1.Panel2.Controls.Add(this.label3);
             this.splitContainer1.Panel2.Controls.Add(this.npPit);
             this.splitContainer1.Panel2.Controls.Add(this.label4);
             this.splitContainer1.Panel2.Controls.Add(this.npSpd);
             this.splitContainer1.Panel2.Controls.Add(this.npVol);
-            this.splitContainer1.Panel2.Controls.Add(this.label2);
-            this.splitContainer1.Panel2.Controls.Add(this.npTime);
-            this.splitContainer1.Size = new System.Drawing.Size(575, 357);
-            this.splitContainer1.SplitterDistance = 301;
+            this.splitContainer1.Size = new System.Drawing.Size(628, 276);
+            this.splitContainer1.SplitterDistance = 328;
             this.splitContainer1.SplitterWidth = 1;
             this.splitContainer1.TabIndex = 0;
             // 
@@ -102,15 +103,14 @@
             this.textBox1.MaxLength = 512;
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(301, 357);
+            this.textBox1.Size = new System.Drawing.Size(328, 276);
             this.textBox1.TabIndex = 2;
             this.textBox1.Text = "尊敬的顾客,$HallName,$BeginTime,$MovieName,的电影现在可以检票进场了,请拿好您手中的影票依次排队检票,湘核影城崇阳店祝您观影愉快";
             // 
             // npCount
             // 
-            this.npCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.npCount.Font = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.npCount.Location = new System.Drawing.Point(132, 52);
+            this.npCount.Location = new System.Drawing.Point(164, 59);
             this.npCount.Maximum = new decimal(new int[] {
             30,
             0,
@@ -129,7 +129,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label9.Location = new System.Drawing.Point(11, 181);
+            this.label9.Location = new System.Drawing.Point(7, 89);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(61, 19);
             this.label9.TabIndex = 13;
@@ -145,7 +145,7 @@
             "男声",
             "为情感合成-度逍遥",
             "为情感合成-度丫丫"});
-            this.comboBox1.Location = new System.Drawing.Point(133, 224);
+            this.comboBox1.Location = new System.Drawing.Point(158, 132);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(133, 27);
             this.comboBox1.TabIndex = 5;
@@ -154,7 +154,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(11, 9);
+            this.label1.Location = new System.Drawing.Point(30, 26);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(123, 19);
             this.label1.TabIndex = 0;
@@ -164,7 +164,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label10.Location = new System.Drawing.Point(11, 227);
+            this.label10.Location = new System.Drawing.Point(7, 135);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(48, 19);
             this.label10.TabIndex = 12;
@@ -174,7 +174,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label3.Location = new System.Drawing.Point(11, 95);
+            this.label3.Location = new System.Drawing.Point(7, 3);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(61, 19);
             this.label3.TabIndex = 2;
@@ -184,7 +184,7 @@
             // 
             this.npPit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.npPit.Font = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.npPit.Location = new System.Drawing.Point(132, 181);
+            this.npPit.Location = new System.Drawing.Point(157, 89);
             this.npPit.Maximum = new decimal(new int[] {
             9,
             0,
@@ -203,7 +203,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label4.Location = new System.Drawing.Point(11, 138);
+            this.label4.Location = new System.Drawing.Point(7, 46);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(61, 19);
             this.label4.TabIndex = 11;
@@ -213,7 +213,7 @@
             // 
             this.npSpd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.npSpd.Font = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.npSpd.Location = new System.Drawing.Point(132, 95);
+            this.npSpd.Location = new System.Drawing.Point(157, 3);
             this.npSpd.Maximum = new decimal(new int[] {
             9,
             0,
@@ -232,7 +232,7 @@
             // 
             this.npVol.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.npVol.Font = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.npVol.Location = new System.Drawing.Point(132, 138);
+            this.npVol.Location = new System.Drawing.Point(157, 46);
             this.npVol.Maximum = new decimal(new int[] {
             15,
             0,
@@ -251,7 +251,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.Location = new System.Drawing.Point(11, 52);
+            this.label2.Location = new System.Drawing.Point(40, 61);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(113, 19);
             this.label2.TabIndex = 1;
@@ -259,9 +259,8 @@
             // 
             // npTime
             // 
-            this.npTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.npTime.Font = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.npTime.Location = new System.Drawing.Point(132, 9);
+            this.npTime.Location = new System.Drawing.Point(164, 24);
             this.npTime.Maximum = new decimal(new int[] {
             30,
             0,
@@ -287,9 +286,9 @@
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Bold);
             this.button2.ForeColor = System.Drawing.SystemColors.Control;
-            this.button2.Location = new System.Drawing.Point(115, 396);
+            this.button2.Location = new System.Drawing.Point(34, 348);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(384, 40);
+            this.button2.Size = new System.Drawing.Size(600, 40);
             this.button2.TabIndex = 1;
             this.button2.Text = "测试";
             this.button2.UseVisualStyleBackColor = false;
@@ -306,9 +305,9 @@
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.button3.ForeColor = System.Drawing.SystemColors.Control;
-            this.button3.Location = new System.Drawing.Point(115, 454);
+            this.button3.Location = new System.Drawing.Point(34, 406);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(384, 40);
+            this.button3.Size = new System.Drawing.Size(600, 40);
             this.button3.TabIndex = 22;
             this.button3.Text = "保存";
             this.button3.UseVisualStyleBackColor = false;
@@ -324,12 +323,50 @@
             this.axWindowsMediaPlayer1.TabIndex = 3;
             this.axWindowsMediaPlayer1.Visible = false;
             // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // btnSave
+            // 
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(141)))), ((int)(((byte)(203)))));
+            this.btnSave.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSave.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnSave.ForeColor = System.Drawing.Color.White;
+            this.btnSave.Location = new System.Drawing.Point(385, 34);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(185, 40);
+            this.btnSave.TabIndex = 2;
+            this.btnSave.Text = "确定";
+            this.btnSave.UseVisualStyleBackColor = false;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click_1);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.btnSave);
+            this.groupBox1.Controls.Add(this.npCount);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.npTime);
+            this.groupBox1.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox1.Location = new System.Drawing.Point(34, 474);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(600, 100);
+            this.groupBox1.TabIndex = 23;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "其它设置";
+            // 
             // NewSet
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(615, 596);
+            this.ClientSize = new System.Drawing.Size(668, 596);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.axWindowsMediaPlayer1);
             this.Controls.Add(this.button3);
@@ -338,6 +375,7 @@
             this.Name = "NewSet";
             this.Padding = new System.Windows.Forms.Padding(20);
             this.Text = "NewSet";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.NewSet_FormClosing);
             this.Load += new System.EventHandler(this.NewSet_Load);
             this.Resize += new System.EventHandler(this.NewSet_Resize);
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -352,6 +390,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.npVol)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.npTime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -375,5 +415,8 @@
         private System.Windows.Forms.NumericUpDown npPit;
         private System.Windows.Forms.Label label3;
         private AxWMPLib.AxWindowsMediaPlayer axWindowsMediaPlayer1;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
