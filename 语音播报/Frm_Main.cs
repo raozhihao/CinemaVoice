@@ -512,6 +512,16 @@ namespace 语音播报
             var res = MessageBox.Show("你确定要重新登陆吗?", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (res== DialogResult.Yes)
             {
+                
+                //这里只保存播放音量,播放次数以及提前时间,其它的设置保存应该在"保存"按钮中保存
+                string jsonStr = File.ReadAllText(SetPath.SetTPath);
+                SetT sets = js.Deserialize<SetT>(jsonStr);
+                sets.Count = AllField.PlayCount;
+                sets.Time = AllField.AdvanceTime;
+                sets.PlayVol = AllField.PlayVol;
+                string json = js.Serialize(sets);
+                File.WriteAllText(SetPath.SetTPath, json);
+
                 ShowLogin?.Invoke();
                 this.Close();
             }

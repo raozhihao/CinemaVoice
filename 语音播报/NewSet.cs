@@ -47,6 +47,7 @@ namespace 语音播报
         /// <param name="e"></param>
         private void button2_Click(object sender, EventArgs e)
         {
+            timer1.Enabled = true;
             if (GetPlayState != null)
             {
                 bool playState = GetPlayState();
@@ -287,6 +288,12 @@ namespace 语音播报
                     button3.Cursor = Cursors.Hand;
                     timer1.Enabled = false;
                 }
+            }
+
+            if (axWindowsMediaPlayer1.playState == WMPLib.WMPPlayState.wmppsStopped)
+            {
+                button2.Text = "测试";
+                timer1.Enabled = false;
             }
         }
 

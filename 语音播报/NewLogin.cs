@@ -132,14 +132,8 @@ namespace 语音播报
 
         private void btnEn_Click(object sender, EventArgs e)
         {
-            /// <summary>
-            /// 用于向表格绑定数据
-            /// </summary>
-            BindingList<IMovieShowList.MovieShow> blList = new BindingList<MovieShow>();
             string check = "0";
             string checkFileName = string.Empty;
-            //如果没有,则让用户设置将设置保存
-            //找出当前被选中的选择
             if (Chose)
             {
                 check = "0";
@@ -153,31 +147,20 @@ namespace 语音播报
                 checkFileName = txtExcel.Text;
 
                 //是Excel源,读取Excel的信息
+                //在这里做个检测
                 ExcelSource ex = new ExcelSource();
                 string msg = string.Empty;
                 List<IMovieShowList.MovieShow> list = new List<MovieShow>();
-
-                // list = ex.GetList4Excel(File.ReadAllText("Setting/lastSet.txt").Split('|')[1]);
+                //获取一下信息
                 list = ex.GetList4Excel(txtExcel.Text);
                 if (!ex.isOk)
                 {
+                    //判断里面有无错误
                     MessageBox.Show(ex.Msg);
                     return;
                 }
-
-                blList = new BindingList<MovieShow>(list);
-
-                //写入
-                File.WriteAllText(SetPath.LastSet, string.Format("{0}|{1}", check, checkFileName));
-
-                this.Hide();
-                
-                Frm_Main main = new Frm_Main(Chose);
-                main.ShowLogin += () =>
-                {
-                    this.Show();
-                };
-                main.Show();
+                ShowFrmMain(check, checkFileName);
+               
             }
         }
 
@@ -187,38 +170,38 @@ namespace 语音播报
             string apiName = System.Configuration.ConfigurationManager.AppSettings["apiPath"];
             if (File.Exists(apiName))
             {
-                BindingList<IMovieShowList.MovieShow> blList = new BindingList<MovieShow>();
+               
                 string check = "1";
                string checkFileName = apiName;
-                List<IMovieShowList.MovieShow> listMovies = MovieObjFactory.GetMovieObj().GetMovieList(DateTime.Now.ToString("yyyyMMdd"));
+              
 
-                foreach (IMovieShowList.MovieShow movie in listMovies)
-                {
-                    if (Regex.Match(movie.Room, @"^\d\D$").Success)
-                    {
-
-                        movie.Room = movie.Room[0] + "号" + movie.Room[1];
-
-                    }
-                }
-                //排序排片表
-                var oderyList = listMovies.OrderBy(m => m.BeginTime).ToList();
-                //数据赋值
-                blList = new BindingList<MovieShow>(oderyList);
-
-                //写入
-                File.WriteAllText(SetPath.LastSet, string.Format("{0}|{1}", check, checkFileName));
-
-                this.Hide();
-
-                Frm_Main main = new Frm_Main(Chose);
-                main.Show();
+                ShowFrmMain(check,checkFileName);
             }
             else
             {
                 MessageBox.Show("API不存在或配置错误");
                 return;
             }
+        }
+
+        /// <summary>
+        /// 显示主窗体,并向配置中写入一些信息
+        /// </summary>
+        /// <param name="check"></param>
+        /// <param name="checkFileName"></param>
+        private void ShowFrmMain(string check,string checkFileName)
+        {
+            //写入
+            File.WriteAllText(SetPath.LastSet, string.Format("{0}|{1}", check, checkFileName));
+
+            this.Hide();
+
+            Frm_Main main = new Frm_Main(Chose);
+            main.ShowLogin += () =>
+            {
+                this.Show();
+            };
+            main.Show();
         }
 
         private void button2_Click(object sender, EventArgs e)
