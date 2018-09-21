@@ -228,8 +228,6 @@ namespace 语音播报
                         MessageBox.Show(ex.Msg);
                         return;
                     }
-                    //MovieEndTime end = new MovieEndTime();
-                    //list = end.GetMovieEndTimeList(list);
 
                 }
                 else
@@ -256,10 +254,9 @@ namespace 语音播报
             MovieEndTime end = new MovieEndTime();
             list = end.GetMovieEndTimeList(list);
             //将信息按时间排序
-            List<IMovieShowList.MovieShow> iList = list.OrderBy(i => i.BeginTime).ToList<IMovieShowList.MovieShow>();
             string headeValue = string.Empty;
 
-            bool ok = IsExcelOrApi(out headeValue, iList);
+            bool ok = IsExcelOrApi(out headeValue, list);
             if (!ok)
             {
                 return;
@@ -291,7 +288,7 @@ namespace 语音播报
             //创建行标识(第二行开始)
             int count = 1;
             //循环读取排片信息集合
-            foreach (IMovieShowList.MovieShow item in iList)
+            foreach (IMovieShowList.MovieShow item in list )
             {
                 //创建行
                 Row rowCell = sheet.CreateRow(count);
@@ -778,6 +775,9 @@ namespace 语音播报
             if (!Chose)
             {
                 list = MovieObjFactory.GetMovieObj().GetMovieList(date); //getList.GetMovieList(date);
+
+                //运用公共方法将获取 到的表做下处理
+                list = Common.ParseList (list);
             }
             else
             {
@@ -786,8 +786,7 @@ namespace 语音播报
                 list = ex.GetList4Excel(File.ReadAllText(SetPath.LastSet).Split('|')[1]);
             }
 
-            //MovieEndTime end = new MovieEndTime();
-            //list = end.GetMovieEndTimeList(list);
+           
             movieList = list;
 
             #endregion
@@ -799,7 +798,6 @@ namespace 语音播报
         {
             string date = dateTimePicker1.Value.ToString("yyyyMMdd");
             LoadList(date);
-            //lbInfo.Text = MessageInfo(date);
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)

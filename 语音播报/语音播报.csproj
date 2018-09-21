@@ -90,6 +90,7 @@
     </Compile>
     <Compile Include="Model\AllField.cs" />
     <Compile Include="Model\BaiduApiUser.cs" />
+    <Compile Include="Model\Common.cs" />
     <Compile Include="Model\ExcelSource.cs" />
     <Compile Include="Model\FormFactory.cs" />
     <Compile Include="Model\MoveForm.cs" />

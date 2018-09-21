@@ -110,18 +110,9 @@ namespace 语音播报
             {
                 //是api源,获取影片排片表
                 List<IMovieShowList.MovieShow> listMovies = MovieObjFactory.GetMovieObj().GetMovieList(DateTime.Now.ToString("yyyyMMdd"));
-                //处理一些厅的信息
-                foreach (IMovieShowList.MovieShow movie in listMovies)
-                {
-                    if (Regex.Match(movie.Room, @"^\d\D$").Success)
-                    {
 
-                        movie.Room = movie.Room[0] + "号" + movie.Room[1];
-
-                    }
-                }
-                //排序排片表
-                list = listMovies.OrderBy(m => m.BeginTime).ToList();
+                //转换排片表
+                list = Common.ParseList (listMovies);
             }
 
             //开始异步下载
