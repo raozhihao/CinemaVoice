@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace 语音播报.Model
+﻿namespace 语音播报.Model
 {
     /// <summary>
     /// 设定影片的放映时间类信息
     /// </summary>
-    class SetTime
+    internal class SetTime
     {
         /// <summary>
         /// 影片名称

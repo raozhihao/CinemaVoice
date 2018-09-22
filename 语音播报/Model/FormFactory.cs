@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace 语音播报.Model
 {
+    /// <summary>
+    /// 单例模式(暂无使用)
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     class FormFactory<T> where T : Form, new()
     {
         private static T TForm = null;

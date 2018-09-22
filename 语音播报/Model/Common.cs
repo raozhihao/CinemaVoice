@@ -1,16 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace 语音播报.Model
 {
+    /// <summary>
+    /// 一些公共的使用方法
+    /// </summary>
     internal class Common
     {
+        /// <summary>
+        /// 格式化处理列表
+        /// </summary>
+        /// <param name="list">需要进行处理的列表</param>
+        /// <returns></returns>
         internal static List<IMovieShowList.MovieShow> ParseList (IList<IMovieShowList.MovieShow> list)
         {
             List<IMovieShowList.MovieShow> resert = new List<IMovieShowList.MovieShow> ();
@@ -30,6 +33,11 @@ namespace 语音播报.Model
             return resert.OrderBy(m=>m.BeginTime).ToList();
         }
 
+        /// <summary>
+        /// 格式化处理版本信息
+        /// </summary>
+        /// <param name="version"></param>
+        /// <returns></returns>
         private static string ParseVersion (string version)
         {
             if ( string.IsNullOrEmpty (version) )
@@ -46,6 +54,11 @@ namespace 语音播报.Model
             }
         }
 
+        /// <summary>
+        /// 格式化处理语言信息
+        /// </summary>
+        /// <param name="language"></param>
+        /// <returns></returns>
         private static string ParseLanguage (string language)
         {
             if ( string.IsNullOrEmpty (language) )
@@ -62,6 +75,11 @@ namespace 语音播报.Model
             }
         }
 
+        /// <summary>
+        /// 格式化处理厅号信息
+        /// </summary>
+        /// <param name="room"></param>
+        /// <returns></returns>
         private static string ParseRoom (string room)
         {
             if ( string.IsNullOrEmpty(room) )
@@ -88,5 +106,6 @@ namespace 语音播报.Model
             return newRoom;
            
         }
+
     }
 }

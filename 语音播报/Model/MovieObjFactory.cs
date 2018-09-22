@@ -1,9 +1,6 @@
 ﻿using IMovieShowList;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Windows.Forms;
 
 namespace 语音播报.Model
@@ -11,15 +8,22 @@ namespace 语音播报.Model
     /// <summary>
     /// 对象工厂
     /// </summary>
-    public class MovieObjFactory
+    internal class MovieObjFactory
     {
-
-        public static IMovieShowList.IMovieShowList GetMovieObj()
+        /// <summary>
+        /// 获取api对象
+        /// </summary>
+        /// <returns></returns>
+        internal static IMovieShowList.IMovieShowList GetMovieObj()
         {
             return GetObj<IMovieShowList.IMovieShowList>("MovieList");
         }
 
-        public static IGetMovieName GetSearchObj()
+        /// <summary>
+        /// 获取名称搜索的对象
+        /// </summary>
+        /// <returns></returns>
+        internal static IGetMovieName GetSearchObj()
         {
             return GetObj<IMovieShowList.IGetMovieName>("Search");
         }
@@ -29,7 +33,7 @@ namespace 语音播报.Model
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
         /// <returns></returns>
-        public static T GetObj<T>(string key)
+        internal static T GetObj<T>(string key)
         {
             //得到程序集路径
             string objSource = System.Configuration.ConfigurationManager.AppSettings[key];

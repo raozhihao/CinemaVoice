@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace 语音播报.Model
+﻿namespace 语音播报.Model
 {
-    public class AllField
+    /// <summary>
+    /// 储存所有需要动态使用的公共字段
+    /// </summary>
+    internal class AllField
     {
         /// <summary>
         /// 播报次数

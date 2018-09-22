@@ -1,13 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace 语音播报.Model
 {
+    /// <summary>
+    /// 百度语音API
+    /// </summary>
     internal class BaiduApiUser
     {
-
+        /// <summary>
+        /// 发送语音信息并将合成后的语音文件存储到指定位置
+        /// </summary>
+        /// <param name="text">文本信息</param>
+        /// <param name="option">配置信息</param>
+        /// <param name="fileName">存储路径</param>
+        /// <returns></returns>
         internal bool Send(string text, Dictionary<string, object> option, string fileName)
         {
             // 设置APPID/AK/SK

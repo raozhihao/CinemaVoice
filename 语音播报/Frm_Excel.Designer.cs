@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.panelMain = new System.Windows.Forms.Panel();
-            this.panelPIc = new System.Windows.Forms.Panel();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnEn = new System.Windows.Forms.Button();
             this.btnExcel = new System.Windows.Forms.Button();
             this.btnShowExcelStyle = new System.Windows.Forms.Button();
-            this.btnEn = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.panelPIc = new System.Windows.Forms.Panel();
             this.panelMain.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -52,24 +52,28 @@
             this.panelMain.Size = new System.Drawing.Size(285, 350);
             this.panelMain.TabIndex = 12;
             // 
-            // panelPIc
+            // panel1
             // 
-            this.panelPIc.BackgroundImage = global::语音播报.Properties.Resources.cinema;
-            this.panelPIc.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.panelPIc.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelPIc.Location = new System.Drawing.Point(0, 0);
-            this.panelPIc.Name = "panelPIc";
-            this.panelPIc.Size = new System.Drawing.Size(285, 194);
-            this.panelPIc.TabIndex = 9;
+            this.panel1.Controls.Add(this.btnEn);
+            this.panel1.Controls.Add(this.btnExcel);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 256);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(285, 58);
+            this.panel1.TabIndex = 13;
             // 
-            // richTextBox1
+            // btnEn
             // 
-            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.richTextBox1.Location = new System.Drawing.Point(0, 194);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(285, 62);
-            this.richTextBox1.TabIndex = 10;
-            this.richTextBox1.Text = "";
+            this.btnEn.BackColor = System.Drawing.Color.Black;
+            this.btnEn.FlatAppearance.BorderSize = 0;
+            this.btnEn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEn.ForeColor = System.Drawing.Color.White;
+            this.btnEn.Location = new System.Drawing.Point(173, 14);
+            this.btnEn.Name = "btnEn";
+            this.btnEn.Size = new System.Drawing.Size(100, 30);
+            this.btnEn.TabIndex = 13;
+            this.btnEn.Text = "确定";
+            this.btnEn.UseVisualStyleBackColor = false;
             // 
             // btnExcel
             // 
@@ -94,28 +98,24 @@
             this.btnShowExcelStyle.Text = "Excel源模板格式查看";
             this.btnShowExcelStyle.UseVisualStyleBackColor = true;
             // 
-            // btnEn
+            // richTextBox1
             // 
-            this.btnEn.BackColor = System.Drawing.Color.Black;
-            this.btnEn.FlatAppearance.BorderSize = 0;
-            this.btnEn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEn.ForeColor = System.Drawing.Color.White;
-            this.btnEn.Location = new System.Drawing.Point(173, 14);
-            this.btnEn.Name = "btnEn";
-            this.btnEn.Size = new System.Drawing.Size(100, 30);
-            this.btnEn.TabIndex = 13;
-            this.btnEn.Text = "确定";
-            this.btnEn.UseVisualStyleBackColor = false;
+            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.richTextBox1.Location = new System.Drawing.Point(0, 194);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(285, 62);
+            this.richTextBox1.TabIndex = 10;
+            this.richTextBox1.Text = "";
             // 
-            // panel1
+            // panelPIc
             // 
-            this.panel1.Controls.Add(this.btnEn);
-            this.panel1.Controls.Add(this.btnExcel);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 256);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(285, 58);
-            this.panel1.TabIndex = 13;
+            this.panelPIc.BackgroundImage = global::语音播报.Properties.Resources.cinema;
+            this.panelPIc.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.panelPIc.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelPIc.Location = new System.Drawing.Point(0, 0);
+            this.panelPIc.Name = "panelPIc";
+            this.panelPIc.Size = new System.Drawing.Size(285, 194);
+            this.panelPIc.TabIndex = 9;
             // 
             // Frm_Excel
             // 

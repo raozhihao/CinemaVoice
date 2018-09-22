@@ -1,17 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Web.Script.Serialization;
 
 namespace 语音播报.Model
 {
+    /// <summary>
+    /// 获取放映时间的列表
+    /// </summary>
     public class MovieEndTime
     {
         /// <summary>
         /// 创建序列化对象
         /// </summary>
         JavaScriptSerializer jss = new JavaScriptSerializer();
-        public List<IMovieShowList.MovieShow> GetMovieEndTimeList(List<IMovieShowList.MovieShow> list)
+
+        /// <summary>
+        /// 获取已经格式化放映结束时间的列表
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        internal List<IMovieShowList.MovieShow> GetMovieEndTimeList(List<IMovieShowList.MovieShow> list)
         {
             foreach (IMovieShowList.MovieShow item in list)
             {

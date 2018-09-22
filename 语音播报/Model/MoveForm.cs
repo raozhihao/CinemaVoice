@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 using System.Windows.Forms;
 
 namespace 语音播报.Model
 {
+    /// <summary>
+    /// 对窗体进行移动
+    /// </summary>
     class MoveForm
     {
         /// <summary>

@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace 语音播报.Model
+﻿namespace 语音播报.Model
 {
     /// <summary>
     /// 配置信息存放路径
     /// </summary>
-    class SetPath
+    internal class SetPath
     {
         /// <summary>
         /// 配置主文件夹

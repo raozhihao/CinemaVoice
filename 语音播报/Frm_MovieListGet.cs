@@ -20,7 +20,25 @@ namespace 语音播报
         /// </summary>
         private bool Chose;
 
+        /// <summary>
+        /// 当本窗体显示的时候应该显示的样式
+        /// </summary>
         public event Action ShowSome;
+
+        /// <summary>
+        /// 判断是否是新导入的Excel
+        /// </summary>
+        bool newExcel;
+
+        /// <summary>
+        /// 新的Excel路径
+        /// </summary>
+        string newFileName;
+
+        /// <summary>
+        /// 记录右键点击的行坐标
+        /// </summary>
+        int selectRowIndex;
         public Frm_MovieListGet(bool chose)
         {
             InitializeComponent();
@@ -49,7 +67,6 @@ namespace 语音播报
             {
                 //根据日期拉取对应的信息
                 LoadList(date);
-                //lbInfo.Text = MessageInfo(date);
                 MessageBox.Show("拉取成功");
             }
             catch
@@ -58,10 +75,7 @@ namespace 语音播报
             }
         }
 
-        private string MessageInfo(string date)
-        {
-            return $"现在拉取的是: {date}";
-        }
+      
 
         /// <summary>
         /// 程序启动
@@ -73,41 +87,9 @@ namespace 语音播报
             ShowSome?.Invoke();
             Frm_MovieListGet_Paint(sender, null);
 
-            if (Chose)
-            {
-                //隐藏一些按钮
-                tsmToday.Enabled = false;
-                tsmNex.Enabled = false;
-                dateTimePicker1.Enabled = false;
-                lbApiInfo.Visible = false;
-                lbApiDate.Visible = false;
-
-                //选择Excel源
-                //从Excel中读取数据
-                string setPath = File.ReadAllText(SetPath.LastSet);
-                //得到Excel源
-                string excelPath = setPath.Split('|')[1];
-                ExcelSource excel = new ExcelSource();
-                List<IMovieShowList.MovieShow> list = excel.GetList4Excel(excelPath);
-                if (!excel.isOk)
-                {
-                    MessageBox.Show(excel.Msg);
-                    this.Close();
-                }
-                MovieEndTime end = new MovieEndTime();
-                movieList = end.GetMovieEndTimeList(list);
-            }
-            else
-            {
-                //程序第一次启动时,拉取第二日的信息
-                // 获取第二天日期
-                string date = GetAddDay();
-                LoadList(date);
-                lbApiDate.Text = date;
-                //lbInfo.Text = MessageInfo(date);
-            }
-
-            InitDataGridView();
+           
+            LoadList (GetAddDay ());
+            InitDataGridView ();
            
 
         }
@@ -171,6 +153,7 @@ namespace 语音播报
             }
             cellValueChange = true;
         }
+
         /// <summary>
         /// 保存数据
         /// </summary>
@@ -182,11 +165,7 @@ namespace 语音播报
             File.WriteAllText(SetPath.TimeJosnPath, info);
         }
 
-
-        /// <summary>
-        /// 记录右键点击的行坐标
-        /// </summary>
-        int selectRowIndex;
+        
 
         /// <summary>
         /// 获得第二天的日期
@@ -720,7 +699,6 @@ namespace 语音播报
                     }
 
                 }
-                //lbInfo.Text = MessageInfo(date);
                 headeValue = string.Format("{0}月{1}日排片表", headDate.Substring(0, 2), headDate.Substring(2, 2));
                 return true;
             }
@@ -745,25 +723,8 @@ namespace 语音播报
             cell1.SetCellValue(value);
         }
 
-        private void 重新获取信息ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string date = GetAddDay();
-            try
-            {
-                LoadList(date);
-                //lbInfo.Text = MessageInfo(date);
-
-
-
-            }
-            catch
-            {
-
-                MessageBox.Show("获取失败");
-            }
-        }
-
-
+       
+        
         /// <summary>
         /// 加载信息
         /// </summary>
@@ -778,12 +739,23 @@ namespace 语音播报
 
                 //运用公共方法将获取 到的表做下处理
                 list = Common.ParseList (list);
+                lbApiDate.Visible = lbApiInfo.Visible = true;
+                lbApiDate.Text = date;
+                lbExcelInfo.Visible = lbExcelSource.Visible = false;
             }
             else
             {
+                tsmToday.Enabled = false;
+                tsmNex.Enabled = false;
+                dateTimePicker1.Enabled = false;
+                lbApiInfo.Visible = false;
+                lbApiDate.Visible = false;
                 //读取排片表的数据
                 ExcelSource ex = new ExcelSource();
-                list = ex.GetList4Excel(File.ReadAllText(SetPath.LastSet).Split('|')[1]);
+                string fileName = File.ReadAllText (SetPath.LastSet).Split ('|')[1];
+                list = ex.GetList4Excel(fileName);
+                lbExcelInfo.Visible = lbExcelSource.Visible = true;
+                lbExcelSource.Text = fileName;
             }
 
            
@@ -800,20 +772,7 @@ namespace 语音播报
             LoadList(date);
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                System.Diagnostics.Process.Start("readme.txt");
-            }
-            catch
-            {
-
-                return;
-            }
-        }
-        bool newExcel;
-        string newFileName;
+       
         private void btnNew_Click(object sender, EventArgs e)
         {
             OpenFileDialog of = new OpenFileDialog();
@@ -849,7 +808,6 @@ namespace 语音播报
             if (e.KeyCode == Keys.Escape || e.KeyCode == Keys.Enter)
             {
                 listBox1.Visible = false;
-                //listBox1.ClearSelected();
             }
         }
 
@@ -871,7 +829,6 @@ namespace 语音播报
 
                 listBox1.Items.Clear();
                 listBox1.Visible = true;
-                //listBox1.Location = new System.Drawing.Point(toolStripLabel1.Width + toolStripSeparator1.Width, toolStrip1.Height);
                 list.ForEach(a =>
                 {
                     listBox1.Items.Add(a.titlecn);
@@ -1026,7 +983,6 @@ namespace 语音播报
                 if (listBox1.Visible)
                 {
                     listBox1.Visible = false;
-                    //listBox1.ClearSelected();
                     txtName.Focus();
                     return true;
                 }
@@ -1114,7 +1070,7 @@ namespace 语音播报
         private void tsmToday_Click(object sender, EventArgs e)
         {
             LoadList(DateTime.Now.ToString("yyyyMMdd"));
-            lbApiDate.Text = DateTime.Now.ToString("yyyyMMdd");
+            
             this.dateTimePicker1.Value = DateTime.Now;
             MessageBox.Show("获取成功", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }

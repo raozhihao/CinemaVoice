@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace 语音播报.Model
+﻿namespace 语音播报.Model
 {
     /// <summary>
     /// 详细设置信息
