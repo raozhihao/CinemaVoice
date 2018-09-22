@@ -36,12 +36,7 @@ namespace 语音播报
             scroll.Value = setJson.PlayVol;
            
             lbVol.Text = scroll.Value.ToString();
-            //scroll.ValueChanged += S_ValueChanged;
-            //panelLeft.Controls.Add(scroll);
-
-            //让第一个按钮反色
-            //btnPlayList.BackColor = Color.White;
-            //btnPlayList.ForeColor = Color.Black;
+            
             //第一个按钮的事件启动
             btnPlayList_Click(null, null);
             Inits();
@@ -507,20 +502,26 @@ namespace 语音播报
             var res = MessageBox.Show("你确定要重新登陆吗?", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (res== DialogResult.Yes)
             {
-                
-                //这里只保存播放音量,播放次数以及提前时间,其它的设置保存应该在"保存"按钮中保存
-                string jsonStr = File.ReadAllText(SetPath.SetTPath);
-                SetT sets = js.Deserialize<SetT>(jsonStr);
-                sets.Count = AllField.PlayCount;
-                sets.Time = AllField.AdvanceTime;
-                sets.PlayVol = AllField.PlayVol;
-                string json = js.Serialize(sets);
-                File.WriteAllText(SetPath.SetTPath, json);
+
+                SaveSomeSet ();
 
                 ShowLogin?.Invoke();
                 this.Close();
             }
            
+        }
+
+
+        private void SaveSomeSet ()
+        {
+            //这里只保存播放音量,播放次数以及提前时间,其它的设置保存应该在"保存"按钮中保存
+            string jsonStr = File.ReadAllText (SetPath.SetTPath);
+            SetT sets = js.Deserialize<SetT> (jsonStr);
+            sets.Count = AllField.PlayCount;
+            sets.Time = AllField.AdvanceTime;
+            sets.PlayVol = AllField.PlayVol;
+            string json = js.Serialize (sets);
+            File.WriteAllText (SetPath.SetTPath , json);
         }
 
         private void btnResert_Click(object sender, EventArgs e)
@@ -534,7 +535,7 @@ namespace 语音播报
 
         private void Frm_Main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            
+            SaveSomeSet ();
         }
 
        
