@@ -41,7 +41,8 @@
     <Reference Include="AipSdk">
       <HintPath>..\..\影院语音播报系统\百度Tts语音\bin\Debug\AipSdk.dll</HintPath>
     </Reference>
-    <Reference Include="IMovieShowList">
+    <Reference Include="IMovieShowList, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Asp.Net学习_2018\Cinemas\IMovieShowList\bin\Debug\IMovieShowList.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -125,15 +126,23 @@
     </Compile>
     <EmbeddedResource Include="Frm_Excel.resx">
       <DependentUpon>Frm_Excel.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Frm_Main.resx">
       <DependentUpon>Frm_Main.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Frm_MovieListGet.resx">
       <DependentUpon>Frm_MovieListGet.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Model\SundayRXScrollBar.resx">
+      <DependentUpon>SundayRXScrollBar.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="NewLogin.resx">
       <DependentUpon>NewLogin.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="NewSet.resx">
       <DependentUpon>NewSet.cs</DependentUpon>

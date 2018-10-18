@@ -8,7 +8,7 @@
         /// <summary>
         /// 播报次数
         /// </summary>
-        public static int PlayCount { get; set; } = 1;
+        public static int PlayCount { get; set; } = 2;
         /// <summary>
         /// 提前时间
         /// </summary>

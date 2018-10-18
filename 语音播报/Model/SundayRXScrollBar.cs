@@ -586,6 +586,23 @@ namespace 语音播报.Model
             //处理当鼠标位于滑块上时的事件
             OnMouseOverSliderEvent();
         }
+
+        private void InitializeComponent ()
+        {
+            this.SuspendLayout();
+            // 
+            // SundayRXScrollBar
+            // 
+            this.Name = "SundayRXScrollBar";
+            this.Load += new System.EventHandler(this.SundayRXScrollBar_Load);
+            this.ResumeLayout(false);
+
+        }
+
+        private void SundayRXScrollBar_Load (object sender , EventArgs e)
+        {
+
+        }
     }
 
 

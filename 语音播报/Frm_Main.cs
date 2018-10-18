@@ -526,9 +526,19 @@ namespace 语音播报
 
         private void btnResert_Click(object sender, EventArgs e)
         {
-            dataGridView1.Columns.Remove("btnStart");
-            dataGridView1.Columns.Remove("btnStop");
-            Frm_Main_Load(null, null);
+            if (UpdateEnd)
+            {
+                dataGridView1.Columns.Remove("btnStart");
+                dataGridView1.Columns.Remove("btnStop");
+                //dataGridView1.Columns.Clear();
+                blList.Clear();
+                Inits();
+            }
+            else
+            {
+                MessageBox.Show("请等待当前文件下载完成,或者请重新登陆", "提示", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+             
         }
 
       

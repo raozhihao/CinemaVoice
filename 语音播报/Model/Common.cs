@@ -65,7 +65,7 @@ namespace 语音播报.Model
             {
                 return language;
             }
-            if ( language.Contains ("国") || language.Contains ("中") )
+            if ( language.Contains ("国") || language.Contains ("中")|| language.Contains ("普") )
             {
                 return string.Empty;
             }

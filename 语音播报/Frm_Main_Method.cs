@@ -42,6 +42,8 @@ namespace 语音播报
         {
             InitDataGridView();
             InitDataSource();
+            
+            
         }
 
         /// <summary>
@@ -129,7 +131,7 @@ namespace 语音播报
             UpdateLoad(list);
         }
 
-
+      
         /// <summary>
         /// 下载语音信息包
         /// </summary>
@@ -382,6 +384,7 @@ namespace 语音播报
         }
 
         private static object objLock = new object();
+
         /// <summary>
         /// 下载语音文件
         /// </summary>
