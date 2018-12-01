@@ -93,7 +93,6 @@
     <Compile Include="Model\BaiduApiUser.cs" />
     <Compile Include="Model\Common.cs" />
     <Compile Include="Model\ExcelSource.cs" />
-    <Compile Include="Model\FormFactory.cs" />
     <Compile Include="Model\MoveForm.cs" />
     <Compile Include="Model\MovieEndTime.cs" />
     <Compile Include="Model\MovieObjFactory.cs" />
@@ -171,9 +170,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="语音播报.exe.config.请从最后一个点删除我">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="AxWMPLib">

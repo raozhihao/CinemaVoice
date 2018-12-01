@@ -258,3 +258,6 @@ ModelManifest.xml
 *.mp3
 /语音播报/bin/Debug/PiaoWuTong.dll
 /语音播报/bin/Debug/DouP.dll
+/语音播报/bin/Debug/TMS.rar
+/语音播报/bin/Debug/XH_CMS.dll
+/语音播报/bin/Debug/XH_CMS.dll.config

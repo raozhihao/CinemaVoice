@@ -7,7 +7,7 @@
 
 3 此接口GetMovieList方法,其参数dateTime为日期,主程序应能根据此日期获取此日期下的所有排片信息
 
-4 生成的新的类库最好放在程序主目录下,并且在主程序的配置文件中(CinemasMoviePlan.exe.config),对 appSettings 节点下的 MovieList 属性进行设置
+4 生成的新的类库最好放在程序主目录下,并且在主程序的配置文件中(语音播报.exe.config),对 appSettings 节点下的 MovieList 属性进行设置
 
 5 MovieList 的属性设置解释:逗号(,)前为程序集相对名称,逗号(,)后为程序集中实现了IMovieShowList的对象完全限定名
 
