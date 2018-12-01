@@ -215,9 +215,6 @@
     <Content Include="vol.ico" />
     <None Include="Resources\设置.png" />
     <None Include="Resources\信息.png" />
-    <Content Include="update.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="voice_search_96px_1125151_easyicon.net.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
