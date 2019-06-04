@@ -59,15 +59,16 @@ namespace 语音播报.Model
 
                         Cell c3 = row.GetCell(2);
 
-
+                        string[] sp = c2.ToString ().Split (':');
+                        string time = sp[0] + ":" + sp[1];//只保留HH:mm
                         list.Add(new IMovieShowList.MovieShow()
                         {
                             Room = c1.ToString(),
-                            BeginTime = c2.ToString(),
+                            BeginTime = time ,
                             Name = c3.ToString()
                         });
 
-                        string[] sp = c2.ToString().Split(':');
+                        
                         
                     }
                     catch 
