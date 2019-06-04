@@ -360,12 +360,16 @@ namespace 语音播报
         /// <summary>
         /// 重新下载文件
         /// </summary>
-        private void ResetDownLoadVoice()
+        private async void ResetDownLoadVoice (Button btn)
         {
 
-            if (ClearVoice())
+            if ( ClearVoice () )
             {
-                Task.Factory.StartNew(DownLoadVoice, blList.ToList());
+                // Task.Factory.StartNew(UpdateLoad, blList.ToList(),cts.Token);
+                await Task.Factory.StartNew (ListLoad , blList.ToList () , cts.Token);
+                btn.Text = "确定";
+                btn.Enabled = true;
+                btn.Cursor = Cursors.Hand;
             }
 
         }

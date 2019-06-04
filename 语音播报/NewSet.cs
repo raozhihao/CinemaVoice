@@ -12,7 +12,7 @@ namespace 语音播报
         /// <summary>
         /// 当更改配置信息时通知主窗体
         /// </summary>
-        public event Action SetChanged;
+        public event Action<Button> SetChanged;
         public NewSet()
         {
             InitializeComponent();
@@ -149,6 +149,8 @@ namespace 语音播报
         /// 3=>已下载完成
         /// </summary>
         public event Func<int> ResertLoad;
+
+        public event Action<Button> Resert;
         private void button3_Click(object sender, EventArgs e)
         {
             //timer1.Enabled = true;
@@ -176,19 +178,9 @@ namespace 语音播报
                     return;
                 }
             }
-            if (ResertLoad != null)
-            {
+           
 
-                if (ResertLoad() == 2||ResertLoad()==3)
-                {
-                    //未下载完成
-                    //改变按钮状态
-                    button3.Text = "更新中...";
-                    button3.Enabled = false;
-                    button3.Cursor = Cursors.No;
-                }
-
-            }
+            Resert?.Invoke (this.button3);
             timer1.Enabled = true;
             try
             {
@@ -196,7 +188,7 @@ namespace 语音播报
 
 
                 //修改过后应向主窗体通知
-                SetChanged?.Invoke();
+                SetChanged?.Invoke(this.button3);
                 MessageBox.Show("保存成功", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
@@ -263,27 +255,6 @@ namespace 语音播报
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            //在这里处理是否重新下载完成的项
-            if (ResertLoad != null)
-            {
-                if (ResertLoad()== 1)
-                {
-                    //未下载完成
-                    //改变按钮状态
-                    button3.Text = "更新中...";
-                    button3.Enabled = false;
-                    button3.Cursor = Cursors.No;
-                }
-                else if (ResertLoad() == 3)
-                {
-                    //已经下载完成
-                    button3.Text = "保存";
-                    button3.Enabled = true;
-                    button3.Cursor = Cursors.Hand;
-                    timer1.Enabled = false;
-                }
-            }
-
             if (axWindowsMediaPlayer1.playState == WMPLib.WMPPlayState.wmppsStopped)
             {
                 button2.Text = "测试";

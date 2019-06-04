@@ -1,0 +1,15 @@
+10:41:18====> 开始停止共有sessions9
+id:14272 , name:影院语音播报 ,Indef:{0.0.0.00000000}.{0e322f1a-1597-4d1a-8b2b-2256ed422ebc}|#%b{C8A6DBCC-AA3F-40B6-8BE5-2729B2E083F7}|1%b# 
+id:13416 , name:影院语音播报 - Microsoft Visual Studio ,Indef:{0.0.0.00000000}.{0e322f1a-1597-4d1a-8b2b-2256ed422ebc}|#%b{099132EA-05D5-48B2-BF22-C56BC6DF0B5B}|1%b# 
+id:4012 , name:影院语音播报 - Microsoft Visual Studio ,Indef:{0.0.0.00000000}.{0e322f1a-1597-4d1a-8b2b-2256ed422ebc}|#%b{C763314F-2C8C-436E-8DA6-EE3A3DA63D40}|1%b# 
+id:14272 , name:影院语音播报 ,Indef:{0.0.0.00000000}.{0e322f1a-1597-4d1a-8b2b-2256ed422ebc}|\Device\HarddiskVolume1\git语音播报\语音播报\bin\语音播报\语音播报.exe%b{00000000-0000-0000-0000-000000000000}|1%b14272 
+id:10960 , name:记得 - 林俊杰 - 千千音乐盒 - 360极速浏览器 11.0 ,Indef:{0.0.0.00000000}.{0e322f1a-1597-4d1a-8b2b-2256ed422ebc}|\Device\HarddiskVolume1\软件\360chrome\360Chrome\Chrome\Application\360chrome.exe%b{00000000-0000-0000-0000-000000000000}|1%b10960 
+id:14272 , name:影院语音播报 ,Indef:{0.0.0.00000000}.{0e322f1a-1597-4d1a-8b2b-2256ed422ebc}|#%b{1F344044-A054-426F-8892-2F26AF63BA73}|1%b# 
+id:13416 , name:影院语音播报 - Microsoft Visual Studio ,Indef:{0.0.0.00000000}.{0e322f1a-1597-4d1a-8b2b-2256ed422ebc}|\Device\HarddiskVolume1\Visual Studio 2015\Common7\IDE\devenv.exe%b{00000000-0000-0000-0000-000000000000}|1%b13416 
+id:4012 , name:影院语音播报 - Microsoft Visual Studio ,Indef:{0.0.0.00000000}.{0e322f1a-1597-4d1a-8b2b-2256ed422ebc}|\Device\HarddiskVolume1\Visual Studio 2015\Common7\IDE\devenv.exe%b{00000000-0000-0000-0000-000000000000}|1%b4012 
+
+---------------------------------------------
+10:41:43===>恢复正常共有:1
+{0.0.0.00000000}.{0e322f1a-1597-4d1a-8b2b-2256ed422ebc}|\Device\HarddiskVolume1\软件\360chrome\360Chrome\Chrome\Application\360chrome.exe%b{00000000-0000-0000-0000-000000000000}|1%b10960|10960|1
+
+==================================================================

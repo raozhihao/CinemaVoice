@@ -24,7 +24,7 @@ namespace 语音播报
 
             set = new NewSet(); //(NewSet)ShowForm(new NewSet(), panelMain);
             set.SetChanged += Set_SetChanged;
-            set.ResertLoad += Set_ResertLoad;
+            set.Resert += Set_Resert;
             set.LoadUpdateEnd += Set_LoadUpdateEnd;
             set.GetPlayState += Set_GetPlayState;
             //set.Show();
@@ -48,17 +48,14 @@ namespace 语音播报
             AllField.PlayCount = GetSet().Count;
             AllField.AdvanceTime = GetSet().Time;
         }
-
-        /// <summary>
-        /// 滚动条的值发生改变时
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void S_ValueChanged(object sender, EventArgs e)
+        private void Set_Resert (Button obj)
         {
-            SundayRXScrollBar s = sender as SundayRXScrollBar;
-            lbVol.Text = s.Value.ToString();
+            obj.Text = "更新中...";
+            obj.Enabled = false;
+            obj.Cursor = Cursors.No;
         }
+
+        
 
         /// <summary>
         /// 窗体重绘事件
@@ -73,10 +70,6 @@ namespace 语音播报
             
         }
 
-        private void button2_Paint(object sender, PaintEventArgs e)
-        {
-            e.Graphics.DrawRectangle(Pens.Black, 0, 0, this.Width, this.Height);
-        }
 
         /// <summary>
         /// 关闭按钮事件
@@ -414,14 +407,15 @@ namespace 语音播报
             ShowBtn(btnSet);
         }
 
-       
-        private void Set_SetChanged()
+
+
+        private void Set_SetChanged (Button btn)
         {
-           // 重新读取配置文件
-                setJson = GetSet();
+            // 重新读取配置文件
+            setJson = GetSet ();
             //获取模板信息
-            fmTxt = File.ReadAllText(SetPath.FomartPath);
-            ResetDownLoadVoice();
+            fmTxt = File.ReadAllText (SetPath.FomartPath);
+            ResetDownLoadVoice (btn);
         }
 
         /// <summary>
