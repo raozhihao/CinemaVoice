@@ -159,7 +159,8 @@
     <EmbeddedResource Include="ShowExcelStyle.resx">
       <DependentUpon>ShowExcelStyle.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="app.config" />
+    <None Include="App.config" />
+    <None Include="bin\Debug\语音播报.exe.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
