@@ -263,7 +263,7 @@ namespace 语音播报
         }
 
         private void btnSave_Click_1(object sender, EventArgs e)
-        {
+        { 
             AllField.AdvanceTime = (int)npTime.Value;
             AllField.PlayCount = (int)npCount.Value;
             //这里只保存播放音量,播放次数以及提前时间,其它的设置保存应该在"保存"按钮中保存
