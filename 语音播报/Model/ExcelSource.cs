@@ -2,6 +2,7 @@
 using NPOI.SS.UserModel;
 using System.Collections.Generic;
 using System.IO;
+using System;
 
 namespace 语音播报.Model
 {
@@ -38,55 +39,69 @@ namespace 语音播报.Model
             }
             HSSFSheet sheet = (HSSFSheet)wk.GetSheetAt(0);
 
-            //Row r = sheet1.GetRow(0);
             if (sheet != null)
             {
-
-
                 int rowIndex = 0;
                 NPOI.SS.UserModel.Row row = null;
                 while ((row = sheet.GetRow(rowIndex)) != null)
                 {
                     try
                     {
-                        if (row.GetCell(0) == null)
+                        Cell c1 = row.GetCell (0);
+                        string room = c1.RichStringCellValue.String;
+
+                        Cell c2 = row.GetCell (1);
+                        string tim = c2.RichStringCellValue.String;
+
+                        Cell c3 = row.GetCell (2);
+                        string name = c3.RichStringCellValue.String;
+
+                        if ( string.IsNullOrWhiteSpace (room) || string.IsNullOrWhiteSpace (tim) || string.IsNullOrWhiteSpace (name) )
                         {
-                            break;
+                            rowIndex++;
+                            continue;
                         }
-                        Cell c1 = row.GetCell(0);
 
-                        Cell c2 = row.GetCell(1);
+                        string time = ParseBeginTime (tim);
 
-                        Cell c3 = row.GetCell(2);
-
-                        string[] sp = c2.ToString ().Split (':');
-                        string time = sp[0] + ":" + sp[1];//只保留HH:mm
-                        list.Add(new IMovieShowList.MovieShow()
+                        list.Add (new IMovieShowList.MovieShow ()
                         {
-                            Room = c1.ToString(),
+                            Room = room ,
                             BeginTime = time ,
-                            Name = c3.ToString()
+                            Name = name
                         });
-
-                        
-                        
+                        rowIndex++;
                     }
-                    catch 
+                    catch ( Exception ex )
                     {
                         isOk = false;
+                        Msg = "xcel文件中的时间有错误,在" + ( rowIndex + 1 ) + "行" + Environment.NewLine + ex.Message;
 
-                        Msg = "Excel文件中的时间有错误,在第" + rowIndex+1 + "行";
-                        rowIndex++;
                         break;
 
                     }
-                    rowIndex++;
                 }
+                sheet.Dispose ();
             }
             
             return list;
         }
 
-       
+
+        private string ParseBeginTime (string c2)
+        {
+            string[] sp = c2.ToString ().Split (new char[] { '：' , ':' } , System.StringSplitOptions.RemoveEmptyEntries);
+            string h1 = sp[0];
+            string h2 = sp[1];
+            if ( h1.Length == 1 )
+            {
+                h1 = "0" + h1;
+            }
+            if ( h2.Length == 1 )
+            {
+                h2 = "0" + h2;
+            }
+            return h1 + ":" + h2;
+        }
     }
 }
